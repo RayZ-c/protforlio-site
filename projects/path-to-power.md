@@ -42,59 +42,35 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
       <!-- slides -->
       <div class="media-slides">
         <figure>
-          <img src="/projects/placeholder.png" alt="Path to Power main gameplay">
+          <video src="/public/videos/path-to-power/ptp-showcase-1.mp4" autoplay muted loop playsinline></video>
         </figure>
         <figure>
-          <video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video>
+          <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-showcase-2.mp4" type="video/mp4" /></video> 
         </figure>
         <figure>
-          <video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video>
-        </figure>
-        <figure>
-          <img src="/projects/placeholder.png" alt="Kamehameha charge">
-        </figure>
-        <figure>
-          <img src="/projects/placeholder.png" alt="UI HUD showcase">
-        </figure>
-        <figure>
-          <img src="/projects/placeholder.png" alt="Environment and level design">
+          <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-2.mp4" type="video/mp4" /></video> 
         </figure>
       </div>
       <!-- arrows -->
       <div class="media-arrows">
         <!-- prev -->
-        <label for="ptp-hero-6" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
+        <label for="ptp-hero-3" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
         <label for="ptp-hero-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
         <label for="ptp-hero-2" class="media-arrow-btn media-arrow-prev arrow-prev-3">‹</label>
-        <label for="ptp-hero-3" class="media-arrow-btn media-arrow-prev arrow-prev-4">‹</label>
-        <label for="ptp-hero-4" class="media-arrow-btn media-arrow-prev arrow-prev-5">‹</label>
-        <label for="ptp-hero-5" class="media-arrow-btn media-arrow-prev arrow-prev-6">‹</label>
         <!-- next -->
+        <label for="ptp-hero-1" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
         <label for="ptp-hero-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
         <label for="ptp-hero-3" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
-        <label for="ptp-hero-4" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
-        <label for="ptp-hero-5" class="media-arrow-btn media-arrow-next arrow-next-4">›</label>
-        <label for="ptp-hero-6" class="media-arrow-btn media-arrow-next arrow-next-5">›</label>
-        <label for="ptp-hero-1" class="media-arrow-btn media-arrow-next arrow-next-6">›</label>
       </div>
       <div class="media-captions">
         <div class="media-caption">
-          Showcase of collecting the Final Gem.
+          Complete combat system overview.
         </div>
         <div class="media-caption">
-          Showcase of face paced Robot Boss fight.
+          Showcase of Dash + Energy Charging and "Kamehameha".
         </div>
         <div class="media-caption">
-          Showcase of tactical Necromancer Boss fight.
-        </div>
-        <div class="media-caption">
-          Showcase of Necromancer Boss Room.
-        </div>
-        <div class="media-caption">
-          Showcase of Robot Boss Room.
-        </div>
-        <div class="media-caption">
-          A picture of the Gem in the story.
+          Showcase of 5-hit basic attack combo.
         </div>
       </div>
       <!-- dots -->
@@ -102,9 +78,6 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
         <label for="ptp-hero-1"></label>
         <label for="ptp-hero-2"></label>
         <label for="ptp-hero-3"></label>
-        <label for="ptp-hero-4"></label>
-        <label for="ptp-hero-5"></label>
-        <label for="ptp-hero-6"></label>
       </div>
     </div>
 
@@ -113,19 +86,13 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
   /* HERO CAROUSEL (ptp-hero-*) */
   #ptp-hero-1:checked ~ .media-slides figure:nth-child(1),
   #ptp-hero-2:checked ~ .media-slides figure:nth-child(2),
-  #ptp-hero-3:checked ~ .media-slides figure:nth-child(3),
-  #ptp-hero-4:checked ~ .media-slides figure:nth-child(4),
-  #ptp-hero-5:checked ~ .media-slides figure:nth-child(5),
-  #ptp-hero-6:checked ~ .media-slides figure:nth-child(6) {
+  #ptp-hero-3:checked ~ .media-slides figure:nth-child(3) {
     display: block;
   }
 
   #ptp-hero-1:checked ~ .media-dots label:nth-child(1),
   #ptp-hero-2:checked ~ .media-dots label:nth-child(2),
-  #ptp-hero-3:checked ~ .media-dots label:nth-child(3),
-  #ptp-hero-4:checked ~ .media-dots label:nth-child(4),
-  #ptp-hero-5:checked ~ .media-dots label:nth-child(5),
-  #ptp-hero-6:checked ~ .media-dots label:nth-child(6) {
+  #ptp-hero-3:checked ~ .media-dots label:nth-child(3) {
     background: #38bdf8;
     transform: scale(1.2);
   }
@@ -177,15 +144,9 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
   #ptp-hero-1:checked ~ .media-arrows .arrow-prev-1,
   #ptp-hero-2:checked ~ .media-arrows .arrow-prev-2,
   #ptp-hero-3:checked ~ .media-arrows .arrow-prev-3,
-  #ptp-hero-4:checked ~ .media-arrows .arrow-prev-4,
-  #ptp-hero-5:checked ~ .media-arrows .arrow-prev-5,
-  #ptp-hero-6:checked ~ .media-arrows .arrow-prev-6,
   #ptp-hero-1:checked ~ .media-arrows .arrow-next-1,
   #ptp-hero-2:checked ~ .media-arrows .arrow-next-2,
-  #ptp-hero-3:checked ~ .media-arrows .arrow-next-3,
-  #ptp-hero-4:checked ~ .media-arrows .arrow-next-4,
-  #ptp-hero-5:checked ~ .media-arrows .arrow-next-5,
-  #ptp-hero-6:checked ~ .media-arrows .arrow-next-6 {
+  #ptp-hero-3:checked ~ .media-arrows .arrow-next-3{
     opacity: 1;
     pointer-events: auto;
   }
@@ -290,55 +251,27 @@ This project demonstrates:
   <input type="radio" name="ptp-move-media" id="ptp-move-6">
 
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><img src="/projects/placeholder.png" alt="Movement debug"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Platforming"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Dash state"></figure>
+    <figure><video src="/public/videos/path-to-power/ptp-showcase-1.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="/public/videos/path-to-power/ptp-hud-3.mp4" autoplay muted loop playsinline></video></figure>
   </div>
 
   <div class="media-arrows">
-    <label for="ptp-move-6" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
+    <label for="ptp-move-2" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
     <label for="ptp-move-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
-    <label for="ptp-move-2" class="media-arrow-btn media-arrow-prev arrow-prev-3">‹</label>
-    <label for="ptp-move-3" class="media-arrow-btn media-arrow-prev arrow-prev-4">‹</label>
-    <label for="ptp-move-4" class="media-arrow-btn media-arrow-prev arrow-prev-5">‹</label>
-    <label for="ptp-move-5" class="media-arrow-btn media-arrow-prev arrow-prev-6">‹</label>
+    <label for="ptp-move-1" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
     <label for="ptp-move-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
-    <label for="ptp-move-3" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
-    <label for="ptp-move-4" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
-    <label for="ptp-move-5" class="media-arrow-btn media-arrow-next arrow-next-4">›</label>
-    <label for="ptp-move-6" class="media-arrow-btn media-arrow-next arrow-next-5">›</label>
-    <label for="ptp-move-1" class="media-arrow-btn media-arrow-next arrow-next-6">›</label>
   </div>
     <div class="media-captions">
             <div class="media-caption">
-            Showcase of collecting the Final Gem.
+            Shows responsive input responsiveness, late inputs still register, extra window
             </div>
             <div class="media-caption">
-            Showcase of face paced Robot Boss fight.
-            </div>
-            <div class="media-caption">
-            Showcase of tactical Necromancer Boss fight.
-            </div>
-            <div class="media-caption">
-            Showcase of Necromancer Boss Room.
-            </div>
-            <div class="media-caption">
-            Showcase of Robot Boss Room.
-            </div>
-            <div class="media-caption">
-            A picture of the Gem in the story.
+            Showcase of 8-directional dash system with input buffering
             </div>
         </div>
     <div class="media-dots">
         <label for="ptp-move-1"></label>
         <label for="ptp-move-2"></label>
-        <label for="ptp-move-3"></label>
-        <label for="ptp-move-4"></label>
-        <label for="ptp-move-5"></label>
-        <label for="ptp-move-6"></label>
     </div>
 </div>
 
@@ -346,11 +279,11 @@ This project demonstrates:
 
 <div class="project-text">
 
-**What you're seeing:** A character that *feels good to control*—not by accident, but by design.
+**What you're seeing:** A character that *feels good to control* - not by accident, but by design.
 
 The movement system uses **three simultaneous input buffers** (jump, dash, attack) to prevent the "one-frame miss" frustration that kills game feel. Combined with forgiving physics (jump buffer window, coyote time, variable gravity), this creates a control scheme that's both snappy AND responsive to player intent.
 
-**Built on the Forgiving Movement Framework** (see dedicated project for deep dive) and expanded here with:
+**Built on the Forgiving Movement Framework** ([project link]) and expanded here with:
 - **Attack momentum preservation** (player momentum smoothly tweens to zero during attack, creating "commitment" feel without losing responsive control)
 - **State priority system** (movement locks during attack endlag, but facing direction remains independent for skill expression)
 - **Dash as action override** (dash cancels any action except enemy stuns, raising skill ceiling through deliberate action economy)
@@ -398,9 +331,6 @@ The movement system uses **three simultaneous input buffers** (jump, dash, attac
   }
 </style>
 
-<div class="media-caption">
-  <p><strong>Jump Buffer + Coyote Time Demonstration:</strong> Shows responsive jump registration—late inputs still register, extending jump window after leaving ground. Dash buffering allows rapid direction changes mid-air. Attack momentum preservation keeps flow while creating "commitment" feel. Notice how the character feels responsive, not floaty or laggy.</p>
-</div>
 </details>
 
 
@@ -422,12 +352,24 @@ The movement system uses **three simultaneous input buffers** (jump, dash, attac
   <input type="radio" name="ptp-combat-media" id="ptp-combat-6">
 
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><img src="/projects/placeholder.png" alt="Hit feedback"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Combo finisher"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Enemy reaction"></figure>
+    <figure>
+      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-showcase-1.mp4" type="video/mp4" /></video> 
+    </figure>
+    <figure>
+      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-1.mp4" type="video/mp4" /></video> 
+    </figure>
+    <figure>
+      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-2.mp4" type="video/mp4" /></video> 
+    </figure>
+    <figure>
+      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-3.mp4" type="video/mp4" /></video> 
+    </figure>
+    <figure>
+      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-4.mp4" type="video/mp4" /></video> 
+    </figure>
+    <figure>
+      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-5.mp4" type="video/mp4" /></video> 
+    </figure>
   </div>
 
   <div class="media-arrows">
@@ -437,13 +379,34 @@ The movement system uses **three simultaneous input buffers** (jump, dash, attac
     <label for="ptp-combat-3" class="media-arrow-btn media-arrow-prev arrow-prev-4">‹</label>
     <label for="ptp-combat-4" class="media-arrow-btn media-arrow-prev arrow-prev-5">‹</label>
     <label for="ptp-combat-5" class="media-arrow-btn media-arrow-prev arrow-prev-6">‹</label>
+    <label for="ptp-combat-1" class="media-arrow-btn media-arrow-next arrow-next-6">›</label>
     <label for="ptp-combat-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
     <label for="ptp-combat-3" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
     <label for="ptp-combat-4" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
     <label for="ptp-combat-5" class="media-arrow-btn media-arrow-next arrow-next-4">›</label>
     <label for="ptp-combat-6" class="media-arrow-btn media-arrow-next arrow-next-5">›</label>
-    <label for="ptp-combat-1" class="media-arrow-btn media-arrow-next arrow-next-6">›</label>
   </div>
+    <div class="media-captions">
+            <div class="media-caption">
+            Overview of 5-Layer Hit Feedback 
+            <p>(Watch VFX burst timing, SFX sync, enemy knockback, color flash intensity, and hit-stop all firing simultaneously.) </p>
+            </div>
+            <div class="media-caption">
+            Default 5-hit combo + slow motion
+            </div>
+            <div class="media-caption">
+            Landed version of 5-hit combo + slow motion
+            </div>
+            <div class="media-caption">
+            Default Energy(Ki) Charging + slow motion
+            </div>
+            <div class="media-caption">
+            Showcase of Energy(Ki) Charging & Dash into mid-air + slow motion
+            </div> 
+            <div class="media-caption">
+            Showcase of Kamehameha (not fully finished) + slow motion
+            </div>
+        </div>
 
   <div class="media-dots">
     <label for="ptp-combat-1"></label>
@@ -468,24 +431,9 @@ When the player lands a hit:
 6. **Hit-stop freeze** (0.05–0.08s time-freeze creating impact feel)
 7. **UI update** (score popup, health bar lerp, screen edge flash)
 
-All coordinated from a single `ApplyExternalHit()` call,  **pure modular orchestration.**
+All coordinated from a single `ApplyExternalHit()` call,  **pure modular design.**
 
-**The hidden sophistication:** Hit-stop duration scales per combo step (early hits shorter, final hit longer = crescendo effect). This creates a natural rhythm without explicit combo-counter UI.
-
-**Why this matters:** Game feel is HARD. Most students either don't think about it or create tangled code. You've proven you understand:
-- Feedback layering (more ≠ better; synchronized ≠ overwhelming)
-- Performance (object pooling prevents runtime allocation stalls)
-- Communication design (feedback tells player what happened, not just animation)
-
-**The Professional Difference:** All 7 layers fire from one `ApplyExternalHit()` method. One call, zero desync. This is how production systems work—single source of truth, orchestrated feedback, no surprise cascades.
-
-</div>
-
-<div class="media-caption">
-  <p><strong>5-Layer Hit Feedback (Normal + Slow-Motion 0.3x):</strong> Watch VFX burst timing, SFX sync, enemy knockback, color flash intensity, and hit-stop all firing simultaneously. The slow-motion clip shows hit-stop duration scaling with combo step—early hits freeze briefly (0.05s), final hit freezes longer (0.08s), creating natural rhythm without UI counters. This is production-grade game feel engineering.</p>
-</div>
-
-</details>
+Also, every feedback layer's intensity scales per combo step, creates a natural rhythm without explicit combo-counter UI.
 
 
 <style>
@@ -494,7 +442,7 @@ All coordinated from a single `ApplyExternalHit()` call,  **pure modular orchest
   #ptp-combat-3:checked ~ .media-slides figure:nth-child(3),
   #ptp-combat-4:checked ~ .media-slides figure:nth-child(4),
   #ptp-combat-5:checked ~ .media-slides figure:nth-child(5),
-  #ptp-combat-6:checked ~ .media-slides figure:nth-child(6) {
+  #ptp-combat-6:checked ~ .media-slides figure:nth-child(6)  {
     display: block;
   }
 
@@ -523,209 +471,79 @@ All coordinated from a single `ApplyExternalHit()` call,  **pure modular orchest
     opacity: 1;
     pointer-events: auto;
   }
-</style>
 
-
-
-
-## 3. UI System (UIToolKit) {.outline-only}
-
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ <strong>UI System</strong> : UIToolkit</span>
-    <span class="section-icon">▾</span>
-  </summary>
-
-
-<!-- UI MEDIA CAROUSEL (ptp-ui-*) -->
-<div class="media-carousel">
-  <input type="radio" name="ptp-ui-media" id="ptp-ui-1" checked>
-  <input type="radio" name="ptp-ui-media" id="ptp-ui-2">
-  <input type="radio" name="ptp-ui-media" id="ptp-ui-3">
-  <input type="radio" name="ptp-ui-media" id="ptp-ui-4">
-  <input type="radio" name="ptp-ui-media" id="ptp-ui-5">
-  <input type="radio" name="ptp-ui-media" id="ptp-ui-6">
-
-  <div class="media-slides">
-    <figure><img src="/projects/placeholder.png" alt="In-game HUD"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Health bar reaction"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Death screen"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Main menu"></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-  </div>
-
-  <div class="media-arrows">
-    <label for="ptp-ui-6" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
-    <label for="ptp-ui-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
-    <label for="ptp-ui-2" class="media-arrow-btn media-arrow-prev arrow-prev-3">‹</label>
-    <label for="ptp-ui-3" class="media-arrow-btn media-arrow-prev arrow-prev-4">‹</label>
-    <label for="ptp-ui-4" class="media-arrow-btn media-arrow-prev arrow-prev-5">‹</label>
-    <label for="ptp-ui-5" class="media-arrow-btn media-arrow-prev arrow-prev-6">‹</label>
-    <label for="ptp-ui-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
-    <label for="ptp-ui-3" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
-    <label for="ptp-ui-4" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
-    <label for="ptp-ui-5" class="media-arrow-btn media-arrow-next arrow-next-4">›</label>
-    <label for="ptp-ui-6" class="media-arrow-btn media-arrow-next arrow-next-5">›</label>
-    <label for="ptp-ui-1" class="media-arrow-btn media-arrow-next arrow-next-6">›</label>
-  </div>
-
-  <div class="media-dots">
-    <label for="ptp-ui-1"></label>
-    <label for="ptp-ui-2"></label>
-    <label for="ptp-ui-3"></label>
-    <label for="ptp-ui-4"></label>
-    <label for="ptp-ui-5"></label>
-    <label for="ptp-ui-6"></label>
-  </div>
-</div>
-<div class="project-text">
-
-**What you're seeing:** Production-quality UI built entirely in C#, no UXML drag-and-drop.
-
-Built with **Unity's modern UIElements system**, entirely code-driven for:
-- **Rapid iteration** (no editor round-trips; change code, see results instantly)
-- **Designer collaboration** (parameter-driven UI: adjust bar colors, animation speeds, positioning in code comments)
-- **Reusability** (ColorBar component, pop animation system, menu builder all decoupled)
-
-**In-Game HUD (always visible):**
-- Avatar icon (bottom-left)
-- Health bar (Green→Orange→Red gradient, animated lerp)
-- Energy bar (Cyan→Yellow, animated lerp with shine effect)
-- Stamina units (3 discrete yellow/gray boxes = psychological "use up units" vs. linear drain)
-- Score label (top-right, pop + shake on hit)
-
-**Dynamic Combat Feedback:**
-- Floating "+Score" text (golden, floats up, fades, syncs with combo)
-- Score pop animation (size pulse + color flash)
-- Screen shake feedback (syncs with camera impulse)
-
-**Menu System:**
-- Main Menu (fade-in title, play/settings/quit buttons, adjustable UI scale)
-- Pause Menu (overlay, time freezes, SFX/BGM volume sliders)
-- Death Screen (full-screen overlay, revive button)
-- Sign Text Boxes (triggered by collider proximity, environmental flavor)
-
-
-
-**The Tech Advantage:** Pure C# UIToolkit avoids UXML merge conflicts, enables hot-reload iteration, and shows you understand modern best practices. This is the industry-standard direction for UI in 2024+.
-
-</div>
-
-<div class="media-caption">
-  <p><strong>Production-Ready UIToolkit (Pure C#, No UXML):</strong> In-game HUD with animated health/energy bars, color gradients (Green→Orange→Red), discrete stamina units for psychological "resource spending", score popups with shake effects. Main menu with fade-in, pause overlay with volume sliders, death screen with revive button. All built declaratively in C#—no editor drag-drop, rapid iteration, designer-friendly parameters.</p>
-</div>
-</details>
-
-<style>
-  #ptp-ui-1:checked ~ .media-slides figure:nth-child(1),
-  #ptp-ui-2:checked ~ .media-slides figure:nth-child(2),
-  #ptp-ui-3:checked ~ .media-slides figure:nth-child(3),
-  #ptp-ui-4:checked ~ .media-slides figure:nth-child(4),
-  #ptp-ui-5:checked ~ .media-slides figure:nth-child(5),
-  #ptp-ui-6:checked ~ .media-slides figure:nth-child(6) {
-    display: block;
+  
+  /* arrow container */
+  .media-arrows {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+    padding: 0 0.6rem;
   }
 
-  #ptp-ui-1:checked ~ .media-dots label:nth-child(1),
-  #ptp-ui-2:checked ~ .media-dots label:nth-child(2),
-  #ptp-ui-3:checked ~ .media-dots label:nth-child(3),
-  #ptp-ui-4:checked ~ .media-dots label:nth-child(4),
-  #ptp-ui-5:checked ~ .media-dots label:nth-child(5),
-  #ptp-ui-6:checked ~ .media-dots label:nth-child(6) {
-    background: #38bdf8;
-    transform: scale(1.2);
-  }
 
-  #ptp-ui-1:checked ~ .media-arrows .arrow-prev-1,
-  #ptp-ui-2:checked ~ .media-arrows .arrow-prev-2,
-  #ptp-ui-3:checked ~ .media-arrows .arrow-prev-3,
-  #ptp-ui-4:checked ~ .media-arrows .arrow-prev-4,
-  #ptp-ui-5:checked ~ .media-arrows .arrow-prev-5,
-  #ptp-ui-6:checked ~ .media-arrows .arrow-prev-6,
-  #ptp-ui-1:checked ~ .media-arrows .arrow-next-1,
-  #ptp-ui-2:checked ~ .media-arrows .arrow-next-2,
-  #ptp-ui-3:checked ~ .media-arrows .arrow-next-3,
-  #ptp-ui-4:checked ~ .media-arrows .arrow-next-4,
-  #ptp-ui-5:checked ~ .media-arrows .arrow-next-5,
-  #ptp-ui-6:checked ~ .media-arrows .arrow-next-6 {
-    opacity: 1;
+  .media-arrow-btn {
     pointer-events: auto;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 999px;
+    border: 2.5px solid rgba(148, 163, 184, 0.55);
+    background: rgba(61, 61, 61, 0.58);
+    color: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
   }
+
+
+  .media-arrow-btn:hover {
+    background: #38bdf8;
+    border-color: #38bdf8;
+    color: #020617;
+  }
+
+
+  /* hide all arrows by default */
+  .media-arrows .media-arrow-btn {
+    opacity: 0;
+    pointer-events: none;
+  }
+
 </style>
 
 
-
-
-
-## 4. Resource System Design{.outline-only}
-
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ <strong>Ki & Stamina System</strong>: Resource Design</span>
-    <span class="section-icon">▾</span>
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>Ki & Stamina System</strong>: Resource Design</span>
+    <span class="mini-panel-icon">▼</span>
   </summary>
+
+  <div class="mini-panel-body">
+
+  
+
 
 <!-- MOVEMENT MEDIA CAROUSEL (ptp-move-*) -->
 <div class="media-carousel">
   <input type="radio" name="ptp-re-media" id="ptp-re-1" checked>
-  <input type="radio" name="ptp-re-media" id="ptp-re-2">
-  <input type="radio" name="ptp-re-media" id="ptp-re-3">
-  <input type="radio" name="ptp-re-media" id="ptp-re-4">
-  <input type="radio" name="ptp-re-media" id="ptp-re-5">
-  <input type="radio" name="ptp-re-media" id="ptp-re-6">
 
-  <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><img src="/projects/placeholder.png" alt="Movement debug"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Platforming"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Dash state"></figure>
+  <div class="media-slides">    
+    <video controls preload="metadata">
+      <source src="/public/videos/path-to-power/ptp-ki-1.mp4" type="video/mp4" />
+    </video>
   </div>
 
-  <div class="media-arrows">
-    <label for="ptp-re-6" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
-    <label for="ptp-re-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
-    <label for="ptp-re-2" class="media-arrow-btn media-arrow-prev arrow-prev-3">‹</label>
-    <label for="ptp-re-3" class="media-arrow-btn media-arrow-prev arrow-prev-4">‹</label>
-    <label for="ptp-re-4" class="media-arrow-btn media-arrow-prev arrow-prev-5">‹</label>
-    <label for="ptp-re-5" class="media-arrow-btn media-arrow-prev arrow-prev-6">‹</label>
-    <label for="ptp-re-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
-    <label for="ptp-re-3" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
-    <label for="ptp-re-4" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
-    <label for="ptp-re-5" class="media-arrow-btn media-arrow-next arrow-next-4">›</label>
-    <label for="ptp-re-6" class="media-arrow-btn media-arrow-next arrow-next-5">›</label>
-    <label for="ptp-re-1" class="media-arrow-btn media-arrow-next arrow-next-6">›</label>
-  </div>
-    <div class="media-captions">
-            <div class="media-caption">
-            Showcase of collecting the Final Gem.
-            </div>
-            <div class="media-caption">
-            Showcase of face paced Robot Boss fight.
-            </div>
-            <div class="media-caption">
-            Showcase of tactical Necromancer Boss fight.
-            </div>
-            <div class="media-caption">
-            Showcase of Necromancer Boss Room.
-            </div>
-            <div class="media-caption">
-            Showcase of Robot Boss Room.
-            </div>
-            <div class="media-caption">
-            A picture of the Gem in the story.
-            </div>
-        </div>
-    <div class="media-dots">
-        <label for="ptp-re-1"></label>
-        <label for="ptp-re-2"></label>
-        <label for="ptp-re-3"></label>
-        <label for="ptp-re-4"></label>
-        <label for="ptp-re-5"></label>
-        <label for="ptp-re-6"></label>
-    </div>
+  <div class="media-captions">
+          <div class="media-caption">
+          Showcase the ways to drain/gain energy.
+          </div>
+      </div>
 </div>
 
 <div class="project-text">
@@ -741,18 +559,43 @@ Built with **Unity's modern UIElements system**, entirely code-driven for:
 **Energy Cost & Regen:**
 - Ki Blast: 20 energy cost, 0.2s cooldown, 3s regen delay after use
 - Kamehameha: 15 energy cost/second while firing (variable, not fixed)
+- Punching: 5 energy gain per hit
 - **Smart delay:** 3s delay after use prevents spam (can't chain abilities endlessly)
 - **Quick ability access:** Instant cooldown reset if held long enough (rewards planning)
 
-**Why this matters:** Balancing sophistication. You didn't just assign random numbers—you've architected a system with:
-- **Cost variance** (different abilities cost differently)
-- **Regen delay** (separates cost from regeneration strategy)
-- **Contextual timing** (delay after use, not cooldown timer = feels different to player)
-- **Variable costs** (Kamehameha costs 15/sec while firing—scales with usage, not fixed)
 
-This is the difference between "system works" and "system feels fair and intentional."
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>The Psychological Layer</strong></span>
+    <span class="mini-panel-icon">▼</span>
+  </summary>
 
-**The Psychological Layer:** Holding a button longer to charge feels rewarding. Discrete stamina units feel more "spendable" than linear drain. Regen delay after use feels like strategic planning, not arbitrary cooldown timer. These details separate casual gameplay from felt fairness.
+  <div class="mini-panel-body">
+
+  Holding a button longer to charge feels rewarding. Discrete stamina units feel more "spendable" than linear drain. Regen delay after use feels like strategic planning, not arbitrary cooldown timer. These details separate casual gameplay from felt fairness.
+
+  </div>
+</details>
+
+</div>
+
+
+<style>
+  #ptp-re-1:checked ~ .media-slides figure:nth-child(1){
+    display: block;
+  }
+
+</style>
+
+
+
+
+  </div>
+</details>
+
+
+
+
 
 </div>
 
@@ -760,187 +603,193 @@ This is the difference between "system works" and "system feels fair and intenti
 
 
 
-<style>
-  #ptp-re-1:checked ~ .media-slides figure:nth-child(1),
-  #ptp-re-2:checked ~ .media-slides figure:nth-child(2),
-  #ptp-re-3:checked ~ .media-slides figure:nth-child(3),
-  #ptp-re-4:checked ~ .media-slides figure:nth-child(4),
-  #ptp-re-5:checked ~ .media-slides figure:nth-child(5),
-  #ptp-re-6:checked ~ .media-slides figure:nth-child(6) {
-    display: block;
-  }
 
-  #ptp-re-1:checked ~ .media-dots label:nth-child(1),
-  #ptp-re-2:checked ~ .media-dots label:nth-child(2),
-  #ptp-re-3:checked ~ .media-dots label:nth-child(3),
-  #ptp-re-4:checked ~ .media-dots label:nth-child(4),
-  #ptp-re-5:checked ~ .media-dots label:nth-child(5),
-  #ptp-re-6:checked ~ .media-dots label:nth-child(6) {
-    background: #38bdf8;
-    transform: scale(1.2);
-  }
 
-  #ptp-re-1:checked ~ .media-arrows .arrow-prev-1,
-  #ptp-re-2:checked ~ .media-arrows .arrow-prev-2,
-  #ptp-re-3:checked ~ .media-arrows .arrow-prev-3,
-  #ptp-re-4:checked ~ .media-arrows .arrow-prev-4,
-  #ptp-re-5:checked ~ .media-arrows .arrow-prev-5,
-  #ptp-re-6:checked ~ .media-arrows .arrow-prev-6,
-  #ptp-re-1:checked ~ .media-arrows .arrow-next-1,
-  #ptp-re-2:checked ~ .media-arrows .arrow-next-2,
-  #ptp-re-3:checked ~ .media-arrows .arrow-next-3,
-  #ptp-re-4:checked ~ .media-arrows .arrow-next-4,
-  #ptp-re-5:checked ~ .media-arrows .arrow-next-5,
-  #ptp-re-6:checked ~ .media-arrows .arrow-next-6 {
-    opacity: 1;
-    pointer-events: auto;
-  }
-</style>
 
-## 5. Combo System {.outline-only}
+## 3. UI System (UIToolKit) {.outline-only}
 
 <details class="section-panel">
   <summary class="section-header">
-    <span class="section-title">✮ <strong>Combat Design</strong>: Intelligent Attack Sequencing</span>
+    <span class="section-title">✮ <strong>UI System</strong> : UIToolkit</span>
     <span class="section-icon">▾</span>
   </summary>
 
 
-<!-- MOVEMENT MEDIA CAROUSEL (ptp-move-*) -->
+<!-- UI MEDIA CAROUSEL (ptp-ui-*) -->
 <div class="media-carousel">
-  <input type="radio" name="ptp-cd-media" id="ptp-cd-1" checked>
-  <input type="radio" name="ptp-cd-media" id="ptp-cd-2">
-  <input type="radio" name="ptp-cd-media" id="ptp-cd-3">
-  <input type="radio" name="ptp-cd-media" id="ptp-cd-4">
-  <input type="radio" name="ptp-cd-media" id="ptp-cd-5">
-  <input type="radio" name="ptp-cd-media" id="ptp-cd-6">
+  <input type="radio" name="ptp-ui0-media" id="ptp-ui0-1" checked>
 
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><img src="/projects/placeholder.png" alt="Movement debug"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Platforming"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Dash state"></figure>
+    <figure><video src="/public/videos/path-to-power/ptp-hud-0.mp4" autoplay muted loop playsinline></video></figure>
   </div>
 
-  <div class="media-arrows">
-    <label for="ptp-cd-6" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
-    <label for="ptp-cd-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
-    <label for="ptp-cd-2" class="media-arrow-btn media-arrow-prev arrow-prev-3">‹</label>
-    <label for="ptp-cd-3" class="media-arrow-btn media-arrow-prev arrow-prev-4">‹</label>
-    <label for="ptp-cd-4" class="media-arrow-btn media-arrow-prev arrow-prev-5">‹</label>
-    <label for="ptp-cd-5" class="media-arrow-btn media-arrow-prev arrow-prev-6">‹</label>
-    <label for="ptp-cd-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
-    <label for="ptp-cd-3" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
-    <label for="ptp-cd-4" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
-    <label for="ptp-cd-5" class="media-arrow-btn media-arrow-next arrow-next-4">›</label>
-    <label for="ptp-cd-6" class="media-arrow-btn media-arrow-next arrow-next-5">›</label>
-    <label for="ptp-cd-1" class="media-arrow-btn media-arrow-next arrow-next-6">›</label>
-  </div>
-    <div class="media-captions">
+<div class="media-captions">
             <div class="media-caption">
-            Showcase of collecting the Final Gem.
-            </div>
-            <div class="media-caption">
-            Showcase of face paced Robot Boss fight.
-            </div>
-            <div class="media-caption">
-            Showcase of tactical Necromancer Boss fight.
-            </div>
-            <div class="media-caption">
-            Showcase of Necromancer Boss Room.
-            </div>
-            <div class="media-caption">
-            Showcase of Robot Boss Room.
-            </div>
-            <div class="media-caption">
-            A picture of the Gem in the story.
+            Overview of player HUD.
             </div>
         </div>
-    <div class="media-dots">
-        <label for="ptp-move-1"></label>
-        <label for="ptp-move-2"></label>
-        <label for="ptp-move-3"></label>
-        <label for="ptp-move-4"></label>
-        <label for="ptp-move-5"></label>
-        <label for="ptp-move-6"></label>
-    </div>
 </div>
-
-
 <div class="project-text">
 
-**What you're seeing:** 5-hit combo that chains smoothly and responds to context.
+UI & HUD built with **Unity's modern UIElements system**, entirely code-driven for:
+- **Rapid iteration** (change code, see results instantly)
+- **Designer collaboration** (parameter-driven UI: adjust bar colors, animation speeds, positioning)
+- **Reusability** (E.g: ColorBar, Animation & Menu components all decoupled)
 
-**Animation-Driven Timing (NOT frame-counting):**
-- Damage check fires via animation event (frame-perfect, tied to animation logic not gameplay loop)
-- Combo window opens during animation, closes when animation event triggers
-- Next input buffered automatically (player can queue next hit during current attack's endlag)
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>In-Game HUD (always visible)</strong></span>
+    <span class="mini-panel-icon">▼</span>
+  </summary>
 
-**Context-Aware Damage:**
-- Damage scales by combo step (Hit 1 < Hit 2 < ... < Hit 5)
-- **Momentum recording system:** Before attack event fires, player momentum is recorded
-- Attack momentum smoothly tweens to zero (0.3s tween) during attack animation, then restored
-- Final hit (combo 5) has extended knockback scale (0.9x impulse multiplier for finishing hit emphasis)
+  <div class="mini-panel-body">
+  <div class="media-carousel">
+  <input type="radio" name="ptp-hud-media" id="ptp-hud-1" checked>
+  <input type="radio" name="ptp-hud-media" id="ptp-hud-2">
+  <input type="radio" name="ptp-hud-media" id="ptp-hud-3">
+  <input type="radio" name="ptp-hud-media" id="ptp-hud-4">
+  <div class="media-slides">
+    <figure><video src="/public/videos/path-to-power/ptp-hud-1.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="/public/videos/path-to-power/ptp-hud-2.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="/public/videos/path-to-power/ptp-hud-3.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="/public/videos/path-to-power/ptp-hud-4.mp4" autoplay muted loop playsinline></video></figure>
+  </div>
+  <div class="media-arrows">
+    <label for="ptp-hud-4" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
+    <label for="ptp-hud-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
+    <label for="ptp-hud-2" class="media-arrow-btn media-arrow-prev arrow-prev-3">‹</label>
+    <label for="ptp-hud-3" class="media-arrow-btn media-arrow-prev arrow-prev-4">‹</label>
+      <label for="ptp-hud-1" class="media-arrow-btn media-arrow-next arrow-next-4">›</label>
+      <label for="ptp-hud-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
+      <label for="ptp-hud-3" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
+      <label for="ptp-hud-4" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
+  </div>
+    <div class="media-captions">
+                <div class="media-caption">
+                  Avatar icon + Energy bar (Cyan→Yellow, animated lerp)
+                </div>
+                <div class="media-caption">
+                  Health bar (Green→Orange→Red gradient, animated lerp)
+                </div>
+                <div class="media-caption">
+                  Stamina units (3 discrete yellow/gray boxes = psychological "use up units" vs. linear drain)
+                </div>
+                <div class="media-caption">
+                  Score label (top-right, pop + shake on hit + Floating "+Score" text)
+                </div>
+            </div>
+    </div>
 
-**Designer-Friendly Tuning:**
-- Each attack defined in `ComboAttackData` struct:
-  ```csharp
-  damage, knockback, radius, offset, attackMomentum, comboTimeout, hitStopDuration
-  ```
-- Parameters hot-swappable (no code recompile needed to adjust feel)
-- Easy for other designers to test variations without touching game logic
 
-**Why this matters:** Shows you understand:
-- **Animation-event synchronization** (rare skill; most devs use frame counting = fragile)
-- **State machine design** (combo queuing, timeout management, input buffering all working together)
-- **Game design thinking** (contextual damage, momentum preservation = intentional design, not random)
-- **Team workflow** (parameter-driven = collaborative environment ready)
+    
+  <style>
+    #ptp-hud-1:checked ~ .media-slides figure:nth-child(1),
+    #ptp-hud-2:checked ~ .media-slides figure:nth-child(2),
+    #ptp-hud-3:checked ~ .media-slides figure:nth-child(3),
+    #ptp-hud-4:checked ~ .media-slides figure:nth-child(4) {
+      display: block;
+    }
 
-**The Rare Skill:** Most game developers don't know about animation event synchronization. They either hardcode frame numbers (brittle, breaks if animator changes) or use callbacks scattered everywhere (unmaintainable). You've built the professional approach: events fire exactly when animators intend, programmers listen and respond. This scales to teams.
+
+    #ptp-hud-1:checked ~ .media-arrows .arrow-prev-1,
+    #ptp-hud-2:checked ~ .media-arrows .arrow-prev-2,
+    #ptp-hud-3:checked ~ .media-arrows .arrow-prev-3,
+    #ptp-hud-4:checked ~ .media-arrows .arrow-prev-4,
+    #ptp-hud-1:checked ~ .media-arrows .arrow-next-1,
+    #ptp-hud-2:checked ~ .media-arrows .arrow-next-2,
+    #ptp-hud-3:checked ~ .media-arrows .arrow-next-3,
+    #ptp-hud-4:checked ~ .media-arrows .arrow-next-4 {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+
+  </div>
+</details>
+
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>Menu Systems</strong></span>
+    <span class="mini-panel-icon">▼</span>
+  </summary>
+
+  <div class="mini-panel-body">
+  <div class="media-carousel">
+  <input type="radio" name="ptp-ui-media" id="ptp-ui-1" checked>
+  <input type="radio" name="ptp-ui-media" id="ptp-ui-2">
+  <input type="radio" name="ptp-ui-media" id="ptp-ui-3">
+  <input type="radio" name="ptp-ui-media" id="ptp-ui-4">
+  <div class="media-slides">
+    <figure><video src="/public/videos/path-to-power/ptp-ui-1.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="/public/videos/path-to-power/ptp-ui-2.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="/public/videos/path-to-power/ptp-ui-3.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="/public/videos/path-to-power/ptp-ui-4.mp4" autoplay muted loop playsinline></video></figure>
+  </div>
+  <div class="media-arrows">
+    <label for="ptp-ui-4" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
+    <label for="ptp-ui-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
+    <label for="ptp-ui-2" class="media-arrow-btn media-arrow-prev arrow-prev-3">‹</label>
+    <label for="ptp-ui-3" class="media-arrow-btn media-arrow-prev arrow-prev-4">‹</label>
+      <label for="ptp-ui-1" class="media-arrow-btn media-arrow-next arrow-next-4">›</label>
+      <label for="ptp-ui-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
+      <label for="ptp-ui-3" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
+      <label for="ptp-ui-4" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
+  </div>
+    <div class="media-captions">
+                <div class="media-caption">
+                  Main Menu (fade-in title, play/settings/quit buttons, adjustable UI scale)
+                </div>
+                <div class="media-caption">
+                  Pause Menu (overlay, time freezes, SFX/BGM volume sliders)
+                </div>
+                <div class="media-caption">
+                  Death Screen (full-screen overlay, revive button)
+                </div>
+                <div class="media-caption">
+                  Sign Text Boxes (triggered by collider proximity, environmental flavor)
+                </div>
+            </div>
+    </div>
+
+    
+  <style>
+    #ptp-ui-1:checked ~ .media-slides figure:nth-child(1),
+    #ptp-ui-2:checked ~ .media-slides figure:nth-child(2),
+    #ptp-ui-3:checked ~ .media-slides figure:nth-child(3),
+    #ptp-ui-4:checked ~ .media-slides figure:nth-child(4) {
+      display: block;
+    }
+
+
+    #ptp-ui-1:checked ~ .media-arrows .arrow-prev-1,
+    #ptp-ui-2:checked ~ .media-arrows .arrow-prev-2,
+    #ptp-ui-3:checked ~ .media-arrows .arrow-prev-3,
+    #ptp-ui-4:checked ~ .media-arrows .arrow-prev-4,
+    #ptp-ui-1:checked ~ .media-arrows .arrow-next-1,
+    #ptp-ui-2:checked ~ .media-arrows .arrow-next-2,
+    #ptp-ui-3:checked ~ .media-arrows .arrow-next-3,
+    #ptp-ui-4:checked ~ .media-arrows .arrow-next-4 {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+
+  </div>
+</details>
 
 </div>
 
 </details>
 
-
 <style>
-  #ptp-cd-1:checked ~ .media-slides figure:nth-child(1),
-  #ptp-cd-2:checked ~ .media-slides figure:nth-child(2),
-  #ptp-cd-3:checked ~ .media-slides figure:nth-child(3),
-  #ptp-cd-4:checked ~ .media-slides figure:nth-child(4),
-  #ptp-cd-5:checked ~ .media-slides figure:nth-child(5),
-  #ptp-cd-6:checked ~ .media-slides figure:nth-child(6) {
+  #ptp-ui0-1:checked ~ .media-slides figure:nth-child(1) {
     display: block;
   }
 
-  #ptp-cd-1:checked ~ .media-dots label:nth-child(1),
-  #ptp-cd-2:checked ~ .media-dots label:nth-child(2),
-  #ptp-cd-3:checked ~ .media-dots label:nth-child(3),
-  #ptp-cd-4:checked ~ .media-dots label:nth-child(4),
-  #ptp-cd-5:checked ~ .media-dots label:nth-child(5),
-  #ptp-cd-6:checked ~ .media-dots label:nth-child(6) {
-    background: #38bdf8;
-    transform: scale(1.2);
-  }
-
-  #ptp-cd-1:checked ~ .media-arrows .arrow-prev-1,
-  #ptp-cd-2:checked ~ .media-arrows .arrow-prev-2,
-  #ptp-cd-3:checked ~ .media-arrows .arrow-prev-3,
-  #ptp-cd-4:checked ~ .media-arrows .arrow-prev-4,
-  #ptp-cd-5:checked ~ .media-arrows .arrow-prev-5,
-  #ptp-cd-6:checked ~ .media-arrows .arrow-prev-6,
-  #ptp-cd-1:checked ~ .media-arrows .arrow-next-1,
-  #ptp-cd-2:checked ~ .media-arrows .arrow-next-2,
-  #ptp-cd-3:checked ~ .media-arrows .arrow-next-3,
-  #ptp-cd-4:checked ~ .media-arrows .arrow-next-4,
-  #ptp-cd-5:checked ~ .media-arrows .arrow-next-5,
-  #ptp-cd-6:checked ~ .media-arrows .arrow-next-6 {
-    opacity: 1;
-    pointer-events: auto;
-  }
 </style>
+
+
+
 
 ---
 
@@ -994,13 +843,13 @@ This is the difference between "system works" and "system feels fair and intenti
 - ✅ Maintainability (changes to one manager don't cascade)
 - ✅ Extensibility (add new feedback layer without touching existing code)
 
-**Why This Matters:** The diagram shows clear separation of concerns. Input flows to three systems independently. All feedback funnels through one manager. This is professional architecture—easy to debug, easy to extend, easy to test.
+**Why This Matters:** The diagram shows clear separation of concerns. Input flows to three systems independently. All feedback funnels through one manager. This is professional architecture. Easy to debug, Easy to extend, Easy to test.
 
 </div>
 
 </details>
 
-## System 1: Movement {.outline-only}
+## 1. Movement {.outline-only}
 
 <details class="section-panel">
   <summary class="section-header">
@@ -1056,7 +905,7 @@ rigidbody.velocity = new Vector2(attackAnimationMomentum.x, rigidbody.velocity.y
 
 </details>
 
-## System 2: Combat {.outline-only}
+## 2. Combat {.outline-only}
 
 <details class="section-panel">
   <summary class="section-header">
@@ -1105,13 +954,12 @@ public class ComboAttackData
 
 **What the player feels:** Each hit feels slightly more impactful than the last. They don't see a "combo counter"—they *feel* the rhythm in the freezes. This is psychological game design.
 
-**The Sophistication:** Most developers hardcode per-combo-step values (ugly, error-prone). You've parametrized the entire system. Change one struct, all combos adjust. This is scalable thinking.
 
 </div>
 
 </details>
 
-## System 3: Feedback Synchronization {.outline-only}
+## 3. Feedback Synchronization {.outline-only}
 
 <details class="section-panel">
   <summary class="section-header">
@@ -1168,13 +1016,12 @@ public void ApplyExternalHit(float dmg, float knockback, Vector3 attackerPos,
 - Same intensity data (hit-stop scales match, color intensity scales match)
 - Result: Feedback feels "punchy", coordinated, impactful
 
-This is the hidden skill most game developers never learn: **synchronized feedback is what separates AAA game feel from amateur hour.**
 
 </div>
 
 </details>
 
-## System 4: UIToolkit Declarative System {.outline-only}
+## 4. UI System (Declarative) {.outline-only}
 
 <details class="section-panel">
   <summary class="section-header">
@@ -1225,7 +1072,6 @@ public class ColorBar
 - ✅ Scalability (cleaner code for large UI systems)
 - ✅ Team collaboration (code-based, not editor-based)
 
-**The Hiring Signal:** Knowing UIToolkit (modern) vs. Unity UI Canvas (legacy) signals you stay current with tooling. Knowing to write it in C# instead of UXML signals you understand workflow efficiency.
 
 </div>
 
@@ -1248,7 +1094,7 @@ public class ColorBar
 <div class="project-text">
 
 
-Delivered in **4 weeks under deadline pressure.** Here's the philosophy:
+Delivered in **4 weeks under deadline pressure.** Here's the my apporach:
 
 ### Build the Foundation First
 
@@ -1286,7 +1132,7 @@ Every tunable value defined in structures:
 
 **Result:** One person can balance game in hours (no code rewrites), team environment ready.
 
-**Proof:** The 4-week deadline proves this works. With hardcoded values, you'd spend 2 weeks just tweaking numbers. Parameter-driven, you spent 2 weeks building systems and 2 weeks tuning parameters.
+**Proof:** The 4-week deadline proves this works, instead of using hard coded values.
 
 </div>
 
