@@ -6,7 +6,7 @@ export default defineConfig({
   title: "RayZc - Game Developer",
   description: "Game development portfolio and projects",
   themeConfig: {
-    logo: '/public/images/raymond-portrait.jpg',  
+    logo: '/images/raymond-portrait.jpg',  
 
     nav: [
       { text: 'Home', link: '/' },
