@@ -350,8 +350,8 @@
 
 /* Center the main content column in the viewport */
 .VPContent .VPDoc {
-  margin-left: auto !important;
-  margin-right: auto !important;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 /* Nudge the main content slightly to the left to feel visually centered */
@@ -1329,4 +1329,33 @@ html {
   margin-bottom: 2.5rem;
   border: none;
   border-top: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+
+.VPNavBar .VPNavBarTitle .logo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.home .VPHero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: top;
+  gap: 2.5rem;
+}
+
+/* Put the video in the second column, aligned with the hero */
+.hero-video-wrapper {
+  margin-top: -30.5rem;
+  margin-bottom: 1.5rem;
+  grid-column: 2;
+  justify-self: center;
+}
+
+.hero-video-wrapper video {
+  max-width: 1220px;
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
 }

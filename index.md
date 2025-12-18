@@ -7,9 +7,7 @@ hero:
   name: "Raymond Cheng"
   text: "Game development portfolio and projects"
   tagline: Game dev student focusing on Unity & Unreal Engine 5
-  image:
-    src: /images/raymond-portrait.jpg
-    alt: "Raymond Cheng"
+  image: false
 
   actions:
     - theme: brand
@@ -23,16 +21,13 @@ hero:
       text: Contact
       link: ./#contact
 
-features:
-  - title: Unity 2D Platformers
-    details: Dragon Ball-inspired combat-focused platformer built with custom controllers and combat systems.
-  - title: Unreal Engine 5 FPS
-    details: First-person shooter project with custom weapons, AI, and VFX.
-  - title: Tech Stack
-    details: C#, C++, Unity, Unreal Engine 5, Git, VFX and shaders.
 ---
 
 <div id="top">
+
+<div class="hero-video-wrapper">
+  <video src="/public/videos/path-to-power/ptp-showcase-1.mp4" autoplay muted loop playsinline></video>
+</div>
 
 
 ##

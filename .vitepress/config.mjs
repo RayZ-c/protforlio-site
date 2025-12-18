@@ -6,7 +6,8 @@ export default defineConfig({
   title: "RayZc - Game Developer",
   description: "Game development portfolio and projects",
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
+    logo: '/public/images/raymond-portrait.jpg',  
+
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Projects', link: '/projects/' },
