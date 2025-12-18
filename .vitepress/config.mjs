@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/protfolio-site/',   // repo name, with slashes
+  base: '/protforlio-site/',   // repo name, with slashes
   title: "RayZc - Game Developer",
   description: "Game development portfolio and projects",
   themeConfig: {
