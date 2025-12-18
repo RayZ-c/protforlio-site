@@ -4,7 +4,7 @@ title: Path to Power
 description: A fast-paced Dragon Ball–inspired 2D action platformer built solo in Unity over 4 weeks, focused on forgiving movement mechanics, multi-layer combat feedback, and declarative C# UI systems.
 ---
 
-<a href="/projects" class="back-home-button"> ❮❮ All Projects </a>
+<a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
 
 # Path to Power {.page-title-center}
 -------
@@ -54,22 +54,22 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
       <!-- slides -->
       <div class="media-slides">
         <figure>
-          <img src="/projects/placeholder.png" alt="Path to Power main gameplay">
+          <img src="./projects/placeholder.png" alt="Path to Power main gameplay">
         </figure>
         <figure>
-          <video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video>
+          <video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video>
         </figure>
         <figure>
-          <video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video>
+          <video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video>
         </figure>
         <figure>
-          <img src="/projects/placeholder.png" alt="Kamehameha charge">
+          <img src="./projects/placeholder.png" alt="Kamehameha charge">
         </figure>
         <figure>
-          <img src="/projects/placeholder.png" alt="UI HUD showcase">
+          <img src="./projects/placeholder.png" alt="UI HUD showcase">
         </figure>
         <figure>
-          <img src="/projects/placeholder.png" alt="Environment and level design">
+          <img src="./projects/placeholder.png" alt="Environment and level design">
         </figure>
       </div>
       <!-- arrows -->
@@ -332,12 +332,12 @@ This project demonstrates:
   <input type="radio" name="ptp-move-media" id="ptp-move-6">
 
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><img src="/projects/placeholder.png" alt="Movement debug"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Platforming"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Dash state"></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><img src="./projects/placeholder.png" alt="Movement debug"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Platforming"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Dash state"></figure>
   </div>
 
   <div class="media-arrows">
@@ -467,12 +467,12 @@ The movement system uses **three simultaneous input buffers** (jump, dash, attac
   <input type="radio" name="ptp-combat-media" id="ptp-combat-6">
 
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><img src="/projects/placeholder.png" alt="Hit feedback"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Combo finisher"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Enemy reaction"></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><img src="./projects/placeholder.png" alt="Hit feedback"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Combo finisher"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Enemy reaction"></figure>
   </div>
 
   <div class="media-arrows">
@@ -592,12 +592,12 @@ All coordinated from a single `ApplyExternalHit()` call—**no callback spaghett
   <input type="radio" name="ptp-ui-media" id="ptp-ui-6">
 
   <div class="media-slides">
-    <figure><img src="/projects/placeholder.png" alt="In-game HUD"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Health bar reaction"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Death screen"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Main menu"></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><img src="./projects/placeholder.png" alt="In-game HUD"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Health bar reaction"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Death screen"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Main menu"></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
   </div>
 
   <div class="media-arrows">
@@ -721,12 +721,12 @@ Built with **Unity's modern UIElements system**, entirely code-driven for:
   <input type="radio" name="ptp-re-media" id="ptp-re-6">
 
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><img src="/projects/placeholder.png" alt="Movement debug"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Platforming"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Dash state"></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><img src="./projects/placeholder.png" alt="Movement debug"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Platforming"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Dash state"></figure>
   </div>
 
   <div class="media-arrows">
@@ -861,12 +861,12 @@ This is the difference between "system works" and "system feels fair and intenti
   <input type="radio" name="ptp-cd-media" id="ptp-cd-6">
 
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><img src="/projects/placeholder.png" alt="Movement debug"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Platforming"></figure>
-    <figure><img src="/projects/placeholder.png" alt="Dash state"></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="./public/videos/path-to-power/ptp-placeholder.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><img src="./projects/placeholder.png" alt="Movement debug"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Platforming"></figure>
+    <figure><img src="./projects/placeholder.png" alt="Dash state"></figure>
   </div>
 
   <div class="media-arrows">

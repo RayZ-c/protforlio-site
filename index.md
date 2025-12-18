@@ -14,14 +14,14 @@ hero:
   actions:
     - theme: brand
       text: View Projects
-      link: /projects/
+      link: ./projects/
     - theme: alt
       text: About Me
-      link: /#about
+      link: ./#about
       
     - theme: alt2
       text: Contact
-      link: /#contact
+      link: ./#contact
 
 features:
   - title: Unity 2D Platformers
@@ -43,9 +43,9 @@ Check out some of the projects I am most proud of. {.section-title-center}
 
 <div class="featured-projects">
 
-  <a class="project-card card-DB-plat" href="/projects/path-to-power">
+  <a class="project-card card-DB-plat" href="./projects/path-to-power">
     <div class="project-media">
-      <img src="/projects/placeholder.png" alt="Dragon Ball 2D Platformer placeholder" />
+      <img src="./projects/placeholder.png" alt="Dragon Ball 2D Platformer placeholder" />
       <div class="project-pill-row">
         <span class="pill">September 2025</span>
       </div>
@@ -67,9 +67,9 @@ Check out some of the projects I am most proud of. {.section-title-center}
     </div>
   </a>
 
-  <a class="project-card card-unreal-fps" href="/projects/ue5-fps">
+  <a class="project-card card-unreal-fps" href="./projects/ue5-fps">
     <div class="project-media">
-      <img src="/projects/placeholder.png" alt="Unreal Engine 5 FPS placeholder" />
+      <img src="./projects/placeholder.png" alt="Unreal Engine 5 FPS placeholder" />
       <div class="project-pill-row">
         <span class="pill">September 2025</span>
       </div>
@@ -95,7 +95,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
 </div>
 
 <div class="view-all-wrapper">
-  <a class="view-all-button" href="/projects/">View All Projects →</a>
+  <a class="view-all-button" href="./projects/">View All Projects →</a>
 </div>
 
 

@@ -4,7 +4,7 @@ title: Pixel Adventure
 description: A pixel-art top-down action game with two unique boss encounters and persistent gem-collection progression
 ---
 
-<a href="/projects" class="back-home-button"> ❮❮ All Projects </a>
+<a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
 
 
 
