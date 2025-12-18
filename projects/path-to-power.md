@@ -6,42 +6,30 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
 
 <a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
 
+<div class="project-info-row">
+  <div class="project-info-left">
+    <p class="info-line">
+      <span class="info-line-label">Project Status :</span>
+      <span class="info-line-value"> Ongoing (Core systems completed) | 4 Weeks </span>
+    </p>
+    <p class="info-line">
+      <span class="info-line-label">Project Type :</span>
+      <span class="info-line-value"> Solo Project | Unity (C#)  </span>
+    </p>
+    <p class="info-line">
+      <span class="info-line-label">Core Focus :</span>
+      <span class="info-line-value"> Movement & Combat feel | UI systems</span>
+    </p>
+  </div>
+
+</div>
+
 # Path to Power {.page-title-center}
 -------
 
 <p class="project-text">
   A <strong>2D action platformer</strong> inspired by anime combat, built to showcase a <strong>forgiving movement & combat framework</strong>, <strong>multi-layer hit feedback orchestration</strong>, and a <strong>pure C# UIToolkit HUD</strong>—all shipped solo in 4 weeks under deadline pressure.
 </p>
-
-<div class="project-info-row">
-  <div class="project-info-left">
-    <p class="info-line">
-      <span class="info-line-label">Project Status :</span>
-      <span class="info-line-value"> Ongoing (Core systems complete)</span>
-    </p>
-    <p class="info-line">
-      <span class="info-line-label">Project Type :</span>
-      <span class="info-line-value"> Solo Project</span>
-    </p>
-    <p class="info-line">
-      <span class="info-line-label">Project Duration :</span>
-      <span class="info-line-value"> 4 Weeks + prior framework</span>
-    </p>
-    <p class="info-line">
-      <span class="info-line-label">Software Used :</span>
-      <span class="info-line-value"> Unity</span>
-    </p>
-    <p class="info-line">
-      <span class="info-line-label">Languages Used :</span>
-      <span class="info-line-value"> C#</span>
-    </p>
-    <p class="info-line">
-      <span class="info-line-label">Core Focus :</span>
-      <span class="info-line-value"> Movement feel, combat feedback, UI systems</span>
-    </p>
-  </div>
-
-</div>
 <!-- HERO MEDIA CAROUSEL (ptp-hero-*) -->
     <div class="media-carousel">
       <!-- radios -->
@@ -240,7 +228,7 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
 
 <div class="project-text">
 
-### "Build the foundation right, polish meaningfully, iterate fast."
+# "Build the foundation right, polish meaningfully, iterate fast."
 
 This project demonstrates:
 - ✅ **Responsive**, **forgiving** mechanics that feel great to control
@@ -265,42 +253,12 @@ This project demonstrates:
 
 <div class="project-text">
 
-
-✅ **Object Pooling (VFX & SFX)**
-- Pre-instantiated at game start (avoids runtime allocation stalls)
-- Automatic lifetime management (deactivate after duration)
-- Support for per-playback customization (color, scale, pitch variation)
-- Performance conscious: no GC pressure on hit
-
-✅ **Animation Event Synchronization**
-- Damage checks tied to animation frames, not gameplay loop
-- Frame-perfect: damage fires exactly when animator event triggers
-- Enables artists to time attacks visually, not programmers guessing frames
-- Scales to multi-character rosters (each has own animation timing)
-
-✅ **State Priority System**
-- Clear hierarchy: attacking > charging > moving
-- Facing direction independent (skill expression through action cancels)
-- Dash overrides any state except enemy stuns (raises action ceiling)
-- Prevents unintended state conflicts
-
-✅ **Input Buffering (3 Simultaneous)**
-- Jump buffer (retroactive input registration, 0.15s window)
-- Dash buffer (directional tracking, last input prioritized)
-- Attack buffer (combo queuing during endlag)
-- Result: Player inputs feel responsive even if mistimed
-
-✅ **Modular Architecture**
-- Managers decoupled (VFX/SFX/UI/Audio all independent)
-- Single orchestration point (ApplyExternalHit() for hit feedback)
-- Designer-friendly parameters (ComboAttackData struct, hot-swappable)
-- Easy to debug (clear data flow, no hidden dependencies)
-
-✅ **Designer Collaboration**
-- Parameter-driven tuning (no code recompile for balance changes)
-- Visual feedback tied to data (damage scale → knockback scale → hit-stop scale)
-- Clear separation: artists animate, programmers script, designers tune
-- Rapid iteration enabled (4-week Polish cycle proven)
+  - ✅ **Object Pooling (VFX & SFX) :** Support for per-playback customization (color, scale, pitch variation, lifetime...etc)
+  - ✅ **Animation Event Synchronization :** Enables artists to time attacks visually, not programmers guessing frames
+  - ✅ **State Priority System :** Allows action canceling & Prevents unintended state conflicts
+  - ✅ **Input Buffering (3 Simultaneous) :** Jump, Dash, Attacks buffer
+  - ✅ **Modular Architecture :** Decoupled systems (VFX/SFX/UI/Audio all independent)
+  - ✅ **Designer Collaboration :** Rapid iteration with Parameter-driven tuning (no code recompile for balance changes)
 
 
 </div>
@@ -312,7 +270,7 @@ This project demonstrates:
 ---
 ## - - - --->Features<--- - - -  {.outline-only}
 
-# 𓆩Headline Features𓆪 {.section-title-center}
+# Highlight Features𓆪 {.section-title-center}
 
 ## 1. Movement Framework {.outline-only}
 
@@ -396,11 +354,8 @@ The movement system uses **three simultaneous input buffers** (jump, dash, attac
 - **Attack momentum preservation** (player momentum smoothly tweens to zero during attack, creating "commitment" feel without losing responsive control)
 - **State priority system** (movement locks during attack endlag, but facing direction remains independent for skill expression)
 - **Dash as action override** (dash cancels any action except enemy stuns, raising skill ceiling through deliberate action economy)
-- **Ki charging gravity modulation** (reduced gravity during charge for distinctive floaty feel, separating charge state from normal movement)
+- **Ki charging/blasting gravity modulation** (reduced gravity during charge for distinctive floaty feel, separating charge state from normal movement)
 
-**Why this matters:** Intermediate-level platformer design. Most junior devs hardcode jump strength; you've architected forgiveness into the system. This is what separates "player is fighting controls" from "controls feel great."
-
-**Key Takeaway:** The movement foundation is so solid it became a standalone reusable framework project. This demonstrates architectural thinking—recognizing patterns worth extracting before building on top of them.
 
 </div>
 
@@ -501,7 +456,7 @@ The movement system uses **three simultaneous input buffers** (jump, dash, attac
 </div>
 <div class="project-text">
 
-**What you're seeing:** A single melee hit triggering 5+ simultaneous systems.
+**3 Core combat inputs:** 5-hit melee combo, Ki blasts, and Ki charge.
 
 When the player lands a hit:
 
@@ -513,7 +468,7 @@ When the player lands a hit:
 6. **Hit-stop freeze** (0.05–0.08s time-freeze creating impact feel)
 7. **UI update** (score popup, health bar lerp, screen edge flash)
 
-All coordinated from a single `ApplyExternalHit()` call—**no callback spaghetti, pure modular orchestration.**
+All coordinated from a single `ApplyExternalHit()` call,  **pure modular orchestration.**
 
 **The hidden sophistication:** Hit-stop duration scales per combo step (early hits shorter, final hit longer = crescendo effect). This creates a natural rhythm without explicit combo-counter UI.
 

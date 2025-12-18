@@ -7,6 +7,18 @@ description: A pixel-art top-down action game with two unique boss encounters an
 <a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
 
 
+<div class="project-info-row">
+  <div class="project-info-left">
+    <p class="info-line">
+      <span class="info-line-label">Project Status :</span>
+      <span class="info-line-value"> Ongoing | 8 Weeks</span>
+    </p>
+    <p class="info-line">
+      <span class="info-line-label">Project Type :</span>
+      <span class="info-line-value"> Solo Project | Unity (C#)</span>
+    </p>
+  </div>
+</div>
 
 # Pixel Adventure {.page-title-center}
 -------
@@ -15,31 +27,6 @@ description: A pixel-art top-down action game with two unique boss encounters an
 <p class="project-text">
   A <strong>Unity 2D top-down action game</strong> where players battle unique bosses and collect gems to unlock the final room, focusing on <strong>responsive combat</strong>, <strong>boss design</strong>, and <strong>smooth game feel</strong>.
 </p>
-
-
-<div class="project-info-row">
-  <div class="project-info-left">
-    <p class="info-line">
-      <span class="info-line-label">Project Status :</span>
-      <span class="info-line-value"> Ongoing</span>
-    </p>
-    <p class="info-line">
-      <span class="info-line-label">Project Type :</span>
-      <span class="info-line-value"> Solo Project</span>
-    </p>
-    <p class="info-line">
-      <span class="info-line-label">Project Duration :</span>
-      <span class="info-line-value"> 8 Weeks </span>
-    </p>
-    <p class="info-line">
-      <span class="info-line-label">Software Used :</span>
-      <span class="info-line-value"> Unity</span>
-    </p>
-    <p class="info-line">
-      <span class="info-line-label">Languages Used :</span>
-      <span class="info-line-value"> C#</span>
-    </p>
-  </div>
 
 
   <div class="project-info-right">
@@ -108,7 +95,6 @@ description: A pixel-art top-down action game with two unique boss encounters an
       </div>
     </div>
   </div>
-</div>
 
 
 <style>
