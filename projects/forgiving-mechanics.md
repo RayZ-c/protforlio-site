@@ -1,7 +1,7 @@
 ---
 layout: doc
 title: C# Forgiving Movement Framework
-description: A reusable character movement controller with forgiving input mechanics, coyote time, jump buffering, and slope handling built for rapid game prototyping.
+description: A reusable character movement controller with forgiving input mechanics, coyote time, jump buffering, and gravity handling built for rapid game prototyping.
 ---
 
 <a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
@@ -24,7 +24,7 @@ description: A reusable character movement controller with forgiving input mecha
 
 </div>
 
-# C# Forgiving Movement Framework {.page-title-center}
+# Forgiving Movement Framework {.page-title-center}
 -------
 
 <p class="project-text">
@@ -225,7 +225,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
   - ✅ **Coyote Time (Jump Grace Window):** 0.15s after leaving ground, jump still works
   - ✅ **Jump Input Buffering:** Early inputs register up to 0.1s before landing
   - ✅ **Variable Gravity:** Apex hang (0.4x), descent fall (5.5x) for natural feel
-  - ✅ **Slope Detection & Walking:** Raycast-based ground detection handles slopes gracefully
+  - ✅ **Ground Detection & Walking:** Raycast-based ground detection handles slopes gracefully
   - ✅ **Momentum Preservation:** Attack/dash systems inherit player velocity
   - ✅ **Dash Override System:** Dash cancels movement, not actions (skill expression)
   - ✅ **Acceleration Curves:** Smooth ramp-up from idle → running (not instant)
@@ -297,33 +297,67 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 **What you're seeing:** A player who *can't* miss a jump due to bad timing—input windows are large enough to be forgiving, small enough to feel responsive.
 
-**Jump Buffer:**
-- Player presses jump 0.15s BEFORE landing
-- System records the input timestamp
-- On landing, if buffer is active, jump executes retroactively
-- Result: No "one-frame miss" frustration, but not exploitable
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>Jump Buffer</strong></span>
+    <span class="mini-panel-icon">▼</span>
+  </summary>
 
-**Coyote Time:**
-- Player leaves ground (platform edge, fall-through)
-- For 0.15s after leaving, jump is still available
-- Works even if player held jump button while walking off (momentum based)
-- Result: "I jumped too late" moments become successes
+  <div class="mini-panel-body">
+
+  - Player presses jump 0.15s BEFORE landing
+  - System records the input timestamp
+  - On landing, if buffer is active, jump executes retroactively
+  - <strong>Result:</strong> No "one-frame miss" frustration, but not exploitable
+
+  </div>
+</details>
+
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>Coyote Time</strong></span>
+    <span class="mini-panel-icon">▼</span>
+  </summary>
+
+  <div class="mini-panel-body">
+
+  - Player leaves ground (platform edge, fall-through)
+  - For 0.15s after leaving, jump is still available
+  - Works even if player held jump button while walking off (momentum based)
+  - <strong>Result:</strong> "I jumped too late" moments become successes
+
+  </div>
+</details>
+
 
 **Why Both Exist (Not One or the Other):**
-- Buffer alone: Punishes fast, reactive players (feels unresponsive)
-- Coyote alone: Punishes predictive players (feels cheap)
-- Together: Both playstyles work, game feels fair
+- Buffer **alone**: Punishes fast, reactive players (feels unresponsive)
+- Coyote **alone**: Punishes predictive players (feels cheap)
+- **Together**: Both playstyles work, game feels fair
 
-**Implementation:**
-```csharp
-if (jumpInputTime > Time.time - jumpBufferWindow && isGrounded)
-    Jump();  // retroactively register
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>Implementation</strong></span>
+    <span class="mini-panel-icon">▼</span>
+  </summary>
 
-if (coyoteTimeCounter > 0f && jumpPerformed)
-    Jump();  // free jump after leaving ground
-```
+  <div class="mini-panel-body">
 
-**The Result:** Players report "movement feels so good" before understanding why. That's excellent game design.
+
+  ```csharp
+  if (jumpInputTime > Time.time - jumpBufferWindow && isGrounded)
+      Jump();  // retroactively register
+
+  if (coyoteTimeCounter > 0f && jumpPerformed)
+      Jump();  // free jump after leaving ground
+  ```
+
+  **The Result:** Players report "movement feels so good" before understanding why. That's excellent game design.
+
+
+  </div>
+</details>
+
 
 </div>
 
@@ -351,7 +385,7 @@ if (coyoteTimeCounter > 0f && jumpPerformed)
 </details>
 
 
-## 2. Ground Detection & Slopes {.outline-only}
+## 2. Ground Detection {.outline-only}
 
 <details class="section-panel">
   <summary class="section-header">
@@ -409,30 +443,35 @@ if (coyoteTimeCounter > 0f && jumpPerformed)
 
 **The Solution: Capsule Raycasting**
 
-Multiple raycasts from capsule bottom, fanned to catch edges:
-```csharp
-RaycastHit2D hit = Physics2D.CapsuleCast(
-    position: bottomCenter,
-    size: capsuleSize,
-    direction: Vector2.down,
-    distance: groundCheckDistance,
-    layerMask: groundLayer
-);
-```
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>Implementation</strong></span>
+    <span class="mini-panel-icon">▼</span>
+  </summary>
 
-**Why this works:**
-- ✅ Catches ground on slopes (raycasts fan out, so angled surfaces work)
-- ✅ Detects edges early (distance check is bigger than visual size)
-- ✅ Works at any frame rate (raycast is frame-time independent)
-- ✅ No rigidbody collision jitter (runs in FixedUpdate separately)
+  <div class="mini-panel-body">
 
-**Slope Handling:**
-- Detect surface normal from raycast hit
-- Adjust player velocity to follow slope (dot product with normal)
-- Prevent "sliding down" unintended slopes (angle threshold check)
-- Result: Player walks smoothly up 45° slopes, doesn't "stick" to steep surfaces
 
-**The Takeaway:** Ground detection is so fundamental that most junior devs ignore it. It's the *first* thing to get right.
+  Multiple raycasts from capsule bottom, fanned to catch edges:
+  ```csharp
+  RaycastHit2D hit = Physics2D.CapsuleCast(
+      position: bottomCenter,
+      size: capsuleSize,
+      direction: Vector2.down,
+      distance: groundCheckDistance,
+      layerMask: groundLayer
+  );
+  ```
+
+  **Why this works:**
+  - ✅ Catches ground on slopes (raycasts fan out, so angled surfaces work)
+  - ✅ Detects edges early (distance check is bigger than visual size)
+  - ✅ Works at any frame rate (raycast is frame-time independent)
+  - ✅ No rigidbody collision jitter (runs in FixedUpdate separately)
+  </div>
+</details>
+
+
 
 </div>
 
@@ -467,48 +506,158 @@ RaycastHit2D hit = Physics2D.CapsuleCast(
     <span class="section-icon">▾</span>
   </summary>
 
+
+<!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
+<div class="media-carousel">
+  <input type="radio" name="fm-gravity-media" id="fm-gravity-1" checked>
+  <input type="radio" name="fm-gravity-media" id="fm-gravity-2">
+
+  <div class="media-slides">
+    <figure><video
+        autoplay
+        muted
+        playsinline
+        controls
+        preload="metadata">
+        <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
+    </video></figure>
+    <figure><video
+        autoplay
+        muted
+        playsinline
+        controls
+        preload="metadata">
+        <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
+    </video></figure>
+  </div>
+
+  <div class="media-arrows">
+    <label for="fm-gravity-2" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
+    <label for="fm-gravity-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
+    <label for="fm-gravity-1" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
+    <label for="fm-gravity-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
+  </div>
+    <div class="media-captions">
+            <div class="media-caption">
+            Capsule raycasts detect ground reliably on flat and angled surfaces
+            </div>
+            <div class="media-caption">
+            Walking up slopes without snapping or stuttering
+            </div>
+        </div>
+    <div class="media-dots">
+        <label for="fm-ground-1"></label>
+        <label for="fm-ground-2"></label>
+    </div>
+</div>
+
 <div class="project-text">
 
 **Variable Gravity (Hang Time Effect):**
 
-At jump apex, gravity is reduced to 0.4x. During descent, gravity jumps to 5.5x.
 
-```csharp
-if (jumpHeld && velocity.y < hangTimeThreshold)
-    rigidbody.gravityScale = normalGravity * 0.4f;  // hang
-else if (velocity.y < 0)
-    rigidbody.gravityScale = normalGravity * 5.5f;  // fall fast
-```
 
-**Why it works:**
-- Player feels floaty at the apex (more control, longer hang time for planning)
-- Player falls quickly after (commitment to jump, no floaty feel late in jump)
-- Matches real-world intuition (ball thrown up slowly falls back, but we perceive hang)
-- Separates arc feel from trajectory (arc *is* the game feel)
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>Implementation</strong></span>
+    <span class="mini-panel-icon">▼</span>
+  </summary>
+
+  <div class="mini-panel-body">
+
+  At jump apex, gravity is reduced to 0.4x. During descent, gravity jumps to 5.5x.
+
+  ```csharp
+  if (jumpHeld && velocity.y < hangTimeThreshold)
+      rigidbody.gravityScale = normalGravity * 0.4f;  // hang
+  else if (velocity.y < 0)
+      rigidbody.gravityScale = normalGravity * 5.5f;  // fall fast
+  ```
+
+  **Why it works:**
+  - Player feels floaty at the apex (more control, longer hang time for planning)
+  - Player falls quickly after (commitment to jump, no floaty feel late in jump)
+  - Matches real-world intuition (ball thrown up slowly falls back, but we perceive hang)
+  - Separates arc feel from trajectory (arc *is* the game feel)
+
+  </div>
+</details>
+
 
 **Acceleration Curves (Smooth Ramp-Up):**
 
-```csharp
-targetVelocity = inputDirection * maxSpeed;
-velocity.x = Mathf.Lerp(velocity.x, targetVelocity, acceleration * Time.deltaTime);
-```
 
-**Why it works:**
-- Instant acceleration feels jerky (unrealistic, unintuitive)
-- Smooth lerp feels responsive and weighty (player has momentum)
-- Acceleration value is tunable (0.1 = sluggy, 0.5 = snappy, 0.9 = instant-ish)
-- Asymmetric accel/decel curves possible (faster stop = more control)
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>Implementation</strong></span>
+    <span class="mini-panel-icon">▼</span>
+  </summary>
+
+  <div class="mini-panel-body">
+
+    
+  ```csharp
+  targetVelocity = inputDirection * maxSpeed;
+  velocity.x = Mathf.Lerp(velocity.x, targetVelocity, acceleration * Time.deltaTime);
+  ```
+
+  **Why it works:**
+  - Instant acceleration feels jerky (unrealistic, unintuitive)
+  - Smooth lerp feels responsive and weighty (player has momentum)
+  - Acceleration value is tunable (0.1 = sluggy, 0.5 = snappy, 0.9 = instant-ish)
+  - Asymmetric accel/decel curves possible (faster stop = more control)
+
+  </div>
+</details>
+
 
 **Parameter-Driven:**
-```csharp
-[SerializeField] float maxSpeed = 5f;
-[SerializeField] float acceleration = 0.85f;
-[SerializeField] float hangTimeGravity = 0.4f;
-[SerializeField] float fallGravity = 5.5f;
-```
 
-All tunable in inspector. No code recompile. Change at runtime in play mode.
 
+<details class="mini-panel">
+  <summary class="mini-panel-header">
+    <span class="mini-panel-title"> <strong>Implementation</strong></span>
+    <span class="mini-panel-icon">▼</span>
+  </summary>
+
+  <div class="mini-panel-body">
+
+
+  ```csharp
+  [SerializeField] float maxSpeed = 5f;
+  [SerializeField] float acceleration = 0.85f;
+  [SerializeField] float hangTimeGravity = 0.4f;
+  [SerializeField] float fallGravity = 5.5f;
+  ```
+
+  All tunable in inspector. No code recompile. Change at runtime in play mode.
+
+  
+  </div>
+</details>
+
+
+
+<style>
+  #fm-gravity-1:checked ~ .media-slides figure:nth-child(1),
+  #fm-gravity-2:checked ~ .media-slides figure:nth-child(2) {
+    display: block;
+  }
+
+  #fm-gravity-1:checked ~ .media-dots label:nth-child(1),
+  #fm-gravity-2:checked ~ .media-dots label:nth-child(2) {
+    background: #38bdf8;
+    transform: scale(1.2);
+  }
+
+  #fm-gravity-1:checked ~ .media-arrows .arrow-prev-1,
+  #fm-gravity-2:checked ~ .media-arrows .arrow-prev-2,
+  #fm-gravity-1:checked ~ .media-arrows .arrow-next-1,
+  #fm-gravity-2:checked ~ .media-arrows .arrow-next-2 {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
 </div>
 
 </details>
@@ -532,29 +681,29 @@ All tunable in inspector. No code recompile. Change at runtime in play mode.
 ```
 ┌──────────────────────────────────────────────┐
 │        CharacterMovement.cs (Core)           │
-│  Handles velocity, acceleration, gravity     │
+│   Handles velocity, acceleration, gravity    │
 └──────────────────────────────────────────────┘
                       ↓
 ┌──────────────────────────────────────────────┐
-│      GroundDetection.cs (Raycast)            │
-│  Tells CharacterMovement if grounded         │
+│         GroundDetection.cs (Raycast)         │
+│     Tells CharacterMovement if grounded      │
 └──────────────────────────────────────────────┘
                       ↓
 ┌──────────────────────────────────────────────┐
-│   TopDownCharacterController.cs (Input)      │
-│  Maps input → movement calls                 │
+│           InputHandler.cs (Input)            │
+│       Maps input → movement calls            │
 └──────────────────────────────────────────────┘
                       ↓
 ┌──────────────────────────────────────────────┐
 │      Optional: Combat/Dash Systems           │
-│  Built on top of movement foundation         │
+│    Built on top of movement foundation       │
 └──────────────────────────────────────────────┘
 ```
 
 **Single Responsibility:**
 - `CharacterMovement`: Pure physics
 - `GroundDetection`: Pure raycasting
-- `TopDownCharacterController`: Input mapping
+- `InputHandler`: Input mapping
 - `Combat/Dash`: Systems that consume movement API
 
 **Why This Matters:** You can swap any layer without breaking others. Change ground detection logic? CharacterMovement doesn't care. Add new input? Movement doesn't change. This is professional architecture.
@@ -757,7 +906,7 @@ if (moveInput != 0)
 
 ## - - - --->Extras<--- - - -  {.outline-only}
 
-# Extra Notes {.section-title-center}
+# 𓆩Extra Notes𓆪 {.section-title-center}
 
 ## When to Use This Framework {.outline-only}
 
@@ -770,14 +919,13 @@ if (moveInput != 0)
 <div class="project-text">
 
 **Perfect For:**
-- ✅ Top-down action games (Zelda-like, isometric)
+- ✅ Platformers action games (E.g: Hollow knight)
 - ✅ 2D roguelikes or dungeon crawlers
 - ✅ Rapid prototyping (setup in 30 minutes)
 - ✅ Multiplayer-ready (fully deterministic physics)
 - ✅ Teams (parameter-driven, not hard-coded)
 
 **Less Ideal For:**
-- ❌ Platformers (use 2D platformer controller instead—different physics needs)
 - ❌ Grid-based movement (use AStar pathfinding instead)
 - ❌ 3D games (code is 2D-only; 3D version available separately)
 
@@ -785,11 +933,11 @@ if (moveInput != 0)
 
 </details>
 
-## Framework vs. Game-Specific Implementation {.outline-only}
+## Framework Implementation {.outline-only}
 
 <details class="section-panel">
   <summary class="section-header">
-    <span class="section-title">✮ Framework Philosophy</span>
+    <span class="section-title">✮ Framework vs. Game-Specific Implementation</span>
     <span class="section-icon">▾</span>
   </summary>
 
@@ -854,7 +1002,7 @@ The framework handles the *foundation*. You handle the *flavor*.
 <div class="project-text">
 
 - **GitHub:** [Not available yet]
-- **Used In:** Path to Power
+- **Used In:** <a href='/protforlio-site/projects/path-to-power' >Path to Power</a>
 - **Live Demo:** [Not available yet]
 - **Documentation:** Included in codebase
 

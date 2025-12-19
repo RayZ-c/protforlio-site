@@ -312,7 +312,7 @@ This project demonstrates:
 
 The movement system uses **three simultaneous input buffers** (jump, dash, attack) to prevent the "one-frame miss" frustration that kills game feel. Combined with forgiving physics (jump buffer window, coyote time, variable gravity), this creates a control scheme that's both snappy AND responsive to player intent.
 
-**Built on the Forgiving Movement Framework** ([project link]) and expanded here with:
+**Built on the** <a href='/protforlio-site/projects/forgiving-mechanics' >**Forgiving Movement Framework**</a> and expanded here with:
 - **Attack momentum preservation** (player momentum smoothly tweens to zero during attack, creating "commitment" feel without losing responsive control)
 - **State priority system** (movement locks during attack endlag, but facing direction remains independent for skill expression)
 - **Dash as action override** (dash cancels any action except enemy stuns, raising skill ceiling through deliberate action economy)
@@ -584,9 +584,6 @@ Also, every feedback layer's intensity scales per combo step, creates a natural 
   </summary>
 
   <div class="mini-panel-body">
-
-  
-
 
 <!-- MOVEMENT MEDIA CAROUSEL (ptp-move-*) -->
 <div class="media-carousel">
@@ -1141,7 +1138,7 @@ public class ColorBar
 ## - - - --->Extras<--- - - -  {.outline-only}
 
 
-# Extra Notes {.section-title-center}
+# 𓆩Extra Notes𓆪 {.section-title-center}
 ## Smart Balancing {.outline-only}
 
 <details class="section-panel">
