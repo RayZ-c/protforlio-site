@@ -1142,7 +1142,7 @@ public class ColorBar
 
 
 # Extra Notes {.section-title-center}
-## Reflections𓆪 {.outline-only}
+## Smart Balancing {.outline-only}
 
 <details class="section-panel">
   <summary class="section-header">

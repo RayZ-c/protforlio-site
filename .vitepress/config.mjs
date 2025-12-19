@@ -5,6 +5,9 @@ export default defineConfig({
   base: '/protforlio-site/',   // repo name, with slashes
   title: "RayZc - Game Developer",
   description: "Game development portfolio and projects",
+
+    appearance: 'force-dark', // ← always dark, no light mode
+
   themeConfig: {
     logo: '/images/raymond-portrait.jpg',  
 
