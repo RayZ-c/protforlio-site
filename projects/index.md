@@ -46,14 +46,14 @@ const allProjects = [
     featured: false
   },
   {
-    id: 'project-4',
-    title: 'Project 4 (Placeholder)',
-    summary: 'Short description for project 4.',
-    link: '/protforlio-site/projects/project-4',
+    id: 'forgiving-mechanics',
+    title: 'Forgiving Mechanics Framework',
+    summary: 'Production-ready top-down movement controller with jump buffer, coyote time, and slope handling.',
+    link: '/protforlio-site/projects/forgiving-mechanics',
     image: '/projects/placeholder.png',
-    tags: ['Unreal', 'Prototype'],
-    date: 'September 2025',
-    context: 'Academic',
+    tags: ['Unity', 'C#', 'Framework', 'Movement', 'Architecture'],
+    date: 'December 2025',
+    context: 'Reusable Framework',
     featured: false
   },
   {

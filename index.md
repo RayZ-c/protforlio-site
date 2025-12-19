@@ -112,7 +112,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
 <div id="about">
   <div class="about-card">
     <p class="about-text">
-      I am a student at <strong> <a href="https://www.staffs.ac.uk/" target="_blank" rel="noopener noreferrer">Staffordshire University</a></strong>, studying <strong><a href="https://www.staffs.ac.uk/course/computer-games-design-programming-bsc" target="_blank" rel="noopener noreferrer">BCs (Hons) Games Programming and Design</a></strong>, specialising in <strong2>fast‑paced combat</strong2>, <strong2>gameplay feel</strong2>, and <strong2>VFX/SFX&nbsp;implementation</strong2>.
+      I am a student at <strong> <a href="https://www.staffs.ac.uk/" target="_blank" rel="noopener noreferrer">University of Staffordshire</a></strong>, studying <strong><a href="https://www.staffs.ac.uk/course/computer-games-design-programming-bsc" target="_blank" rel="noopener noreferrer">BCs (Hons) Games Programming and Design</a></strong>, specialising in <strong2>fast‑paced combat</strong2>, <strong2>gameplay feel</strong2>, and <strong2>VFX/SFX&nbsp;implementation</strong2>.
     </p>
     <p class="about-text">
       Most of my projects are built in <strong>Unity</strong> and <strong>Unreal Engine 5</strong>, where I focus on responsive controllers, boss fights, and readable & scalable C#/C++ architecture.
@@ -214,7 +214,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
     <h3 class="education-title">BSc (Hons) Games Programming and Design</h3>
     <p class="experience-subtitle">
       <a href="https://www.staffs.ac.uk/" target="_blank" rel="noopener noreferrer">
-        Staffordshire University
+        University of Staffordshire
       </a> · Stoke-on-Trent, United Kingdom
     </p>
     <ul class="experience-list">
