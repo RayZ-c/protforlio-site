@@ -41,15 +41,30 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
       <input type="radio" name="ptp-hero-media" id="ptp-hero-6">
       <!-- slides -->
       <div class="media-slides">
-        <figure>
-          <video src="/public/videos/path-to-power/ptp-showcase-1.mp4" autoplay muted loop playsinline></video>
-        </figure>
-        <figure>
-          <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-showcase-2.mp4" type="video/mp4" /></video> 
-        </figure>
-        <figure>
-          <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-2.mp4" type="video/mp4" /></video> 
-        </figure>
+        <figure><video
+            autoplay
+            muted
+            playsinline
+            controls
+            preload="metadata">
+            <source src="/videos/path-to-power/ptp-showcase-1.mp4" type="video/mp4" />
+        </video></figure>
+        <figure><video
+            autoplay
+            muted
+            playsinline
+            controls
+            preload="metadata">
+            <source src="/videos/path-to-power/ptp-showcase-4.mp4" type="video/mp4" />
+        </video></figure>
+        <figure><video
+            autoplay
+            muted
+            playsinline
+            controls
+            preload="metadata">
+            <source src="/videos/path-to-power/ptp-showcase-3.mp4" type="video/mp4" />
+        </video></figure>
       </div>
       <!-- arrows -->
       <div class="media-arrows">
@@ -67,10 +82,10 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
           Complete combat system overview.
         </div>
         <div class="media-caption">
-          Showcase of Dash + Energy Charging and "Kamehameha".
+          Showcase of movement + dash.
         </div>
         <div class="media-caption">
-          Showcase of 5-hit basic attack combo.
+          Showcase of Main Menu.
         </div>
       </div>
       <!-- dots -->
@@ -251,8 +266,22 @@ This project demonstrates:
   <input type="radio" name="ptp-move-media" id="ptp-move-6">
 
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-showcase-1.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-hud-3.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video
+        autoplay
+        muted
+        playsinline
+        controls
+        preload="metadata">
+        <source src="/videos/path-to-power/ptp-showcase-4.mp4" type="video/mp4" />
+    </video></figure>
+    <figure><video
+        autoplay
+        muted
+        playsinline
+        controls
+        preload="metadata">
+        <source src="/videos/path-to-power/ptp-showcase-5.mp4" type="video/mp4" />
+    </video></figure>
   </div>
 
   <div class="media-arrows">
@@ -263,10 +292,10 @@ This project demonstrates:
   </div>
     <div class="media-captions">
             <div class="media-caption">
-            Shows responsive input responsiveness, late inputs still register, extra window
+            Shows responsive input responsiveness, late inputs still register, extra window (coyote jump)
             </div>
             <div class="media-caption">
-            Showcase of 8-directional dash system with input buffering
+            Showcase of Ki charging/blasting gravity change in mid-air
             </div>
         </div>
     <div class="media-dots">
@@ -352,24 +381,54 @@ The movement system uses **three simultaneous input buffers** (jump, dash, attac
   <input type="radio" name="ptp-combat-media" id="ptp-combat-6">
 
   <div class="media-slides">
-    <figure>
-      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-showcase-1.mp4" type="video/mp4" /></video> 
-    </figure>
-    <figure>
-      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-1.mp4" type="video/mp4" /></video> 
-    </figure>
-    <figure>
-      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-2.mp4" type="video/mp4" /></video> 
-    </figure>
-    <figure>
-      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-3.mp4" type="video/mp4" /></video> 
-    </figure>
-    <figure>
-      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-4.mp4" type="video/mp4" /></video> 
-    </figure>
-    <figure>
-      <video controls preload="metadata"><source src="/public/videos/path-to-power/ptp-combat-5.mp4" type="video/mp4" /></video> 
-    </figure>
+    <figure><video
+        autoplay
+        muted
+        playsinline
+        controls
+        preload="metadata">
+        <source src="/videos/path-to-power/ptp-showcase-1.mp4" type="video/mp4" />
+    </video></figure>
+    <figure><video
+        autoplay
+        muted
+        playsinline
+        controls
+        preload="metadata">
+        <source src="/videos/path-to-power/ptp-combat-1.mp4" type="video/mp4" />
+    </video></figure>
+    <figure><video
+        autoplay
+        muted
+        playsinline
+        controls
+        preload="metadata">
+        <source src="/videos/path-to-power/ptp-combat-2.mp4" type="video/mp4" />
+    </video></figure>
+    <figure><video
+        autoplay
+        muted
+        playsinline
+        controls
+        preload="metadata">
+        <source src="/videos/path-to-power/ptp-combat-3.mp4" type="video/mp4" />
+    </video></figure>
+    <figure><video
+        autoplay
+        muted
+        playsinline
+        controls
+        preload="metadata">
+        <source src="/videos/path-to-power/ptp-combat-4.mp4" type="video/mp4" />
+    </video></figure>
+    <figure><video
+        autoplay
+        muted
+        playsinline
+        controls
+        preload="metadata">
+        <source src="/videos/path-to-power/ptp-combat-5.mp4" type="video/mp4" />
+    </video></figure>
   </div>
 
   <div class="media-arrows">

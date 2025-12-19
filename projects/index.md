@@ -14,7 +14,7 @@ const allProjects = [
     title: 'Dragon Ball 2D Platformer',
     summary: 'Combat-focused 2D platformer with custom controller, combo system, and VFX.',
     link: '/protforlio-site/projects/path-to-power',
-    image: '/protforlio-site/videos/path-to-power/ptp-showcase-1.mp4',
+    image: '/protforlio-site/videos/path-to-power/ptp-showcase-3.mp4',
     hoverVideo: '/protforlio-site/videos/path-to-power/ptp-showcase-1.mp4',
     tags: ['Unity', 'C#', '2D', 'Side-Scroller', 'Action'],
     date: 'September 2025',

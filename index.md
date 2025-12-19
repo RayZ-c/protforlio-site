@@ -52,7 +52,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
   <a class="project-card card-DB-plat" href="./projects/path-to-power">
     <div class="project-media">
       <video id="hero-video" autoplay muted loop playsinline>
-          <source src="/public/videos/path-to-power/ptp-showcase-1.mp4" type="video/mp4" />
+          <source src="/videos/path-to-power/ptp-showcase-3.mp4" type="video/mp4" />
         </video>
         <div class="project-pill-row">
         <span class="pill">September 2025</span>
