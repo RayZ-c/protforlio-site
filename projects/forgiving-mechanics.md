@@ -28,7 +28,7 @@ description: A reusable character movement controller with forgiving input mecha
 -------
 
 <p class="project-text">
-  A <strong>production-ready character movement controller</strong> for top-down games, built on <strong>forgiving mechanics principles</strong> (jump buffer, coyote time, variable gravity). Designed as a <strong>reusable framework</strong> that ships in weeks, not months—enabling rapid prototyping and team collaboration through <strong>parameter-driven architecture</strong>.
+  A <strong>production-ready character movement controller</strong> for side-scroller games, built on <strong>forgiving mechanics principles</strong> (jump buffer, coyote time, variable gravity). Designed as a <strong>reusable framework</strong> that ships in weeks, not months—enabling rapid prototyping and team collaboration through <strong>parameter-driven architecture</strong>.
 </p>
 <!-- HERO MEDIA CAROUSEL (fm-hero-*) -->
     <div class="media-carousel">
@@ -41,55 +41,43 @@ description: A reusable character movement controller with forgiving input mecha
         <figure><video
             autoplay
             muted
+            loop
             playsinline
             controls
             preload="metadata">
-            <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
+            <source src="/videos/forgiving-mechanics/fm-showcase-1.mp4" type="video/mp4" />
         </video></figure>
         <figure><video
             autoplay
             muted
+            loop
             playsinline
             controls
             preload="metadata">
-            <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
-        </video></figure>
-        <figure><video
-            autoplay
-            muted
-            playsinline
-            controls
-            preload="metadata">
-            <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
+            <source src="/videos/forgiving-mechanics/fm-coyotetime.mp4" type="video/mp4" />
         </video></figure>
       </div>
       <!-- arrows -->
       <div class="media-arrows">
         <!-- prev -->
-        <label for="fm-hero-3" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
+        <label for="fm-hero-2" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
         <label for="fm-hero-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
-        <label for="fm-hero-2" class="media-arrow-btn media-arrow-prev arrow-prev-3">‹</label>
         <!-- next -->
-        <label for="fm-hero-1" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
+        <label for="fm-hero-1" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
         <label for="fm-hero-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
-        <label for="fm-hero-3" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
       </div>
       <div class="media-captions">
         <div class="media-caption">
           Forgiving jump mechanics showcase.
         </div>
         <div class="media-caption">
-          Ground detection and slope handling.
-        </div>
-        <div class="media-caption">
-          Dash and momentum preservation.
+          Accurate Ground detection (E.g: coyote time showcase).
         </div>
       </div>
       <!-- dots -->
       <div class="media-dots">
         <label for="fm-hero-1"></label>
         <label for="fm-hero-2"></label>
-        <label for="fm-hero-3"></label>
       </div>
     </div>
 
@@ -258,18 +246,20 @@ Every system is built to answer: *"How do we make movement feel fair?"*
     <figure><video
         autoplay
         muted
+        loop
         playsinline
         controls
         preload="metadata">
-        <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
+        <source src="/videos/forgiving-mechanics/fm-jumpbuffer.mp4" type="video/mp4" />
     </video></figure>
     <figure><video
         autoplay
         muted
+        loop
         playsinline
         controls
         preload="metadata">
-        <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
+        <source src="/videos/forgiving-mechanics/fm-coyotetime.mp4" type="video/mp4" />
     </video></figure>
   </div>
 
@@ -402,38 +392,20 @@ Every system is built to answer: *"How do we make movement feel fair?"*
     <figure><video
         autoplay
         muted
+        loop
         playsinline
         controls
         preload="metadata">
-        <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
+        <source src="/videos/forgiving-mechanics/fm-grounddetection.mp4" type="video/mp4" />
     </video></figure>
-    <figure><video
-        autoplay
-        muted
-        playsinline
-        controls
-        preload="metadata">
-        <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-
-  <div class="media-arrows">
-    <label for="fm-ground-2" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
-    <label for="fm-ground-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
-    <label for="fm-ground-1" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
-    <label for="fm-ground-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
   </div>
     <div class="media-captions">
             <div class="media-caption">
             Capsule raycasts detect ground reliably on flat and angled surfaces
             </div>
-            <div class="media-caption">
-            Walking up slopes without snapping or stuttering
-            </div>
         </div>
     <div class="media-dots">
         <label for="fm-ground-1"></label>
-        <label for="fm-ground-2"></label>
     </div>
 </div>
 
@@ -516,39 +488,18 @@ Every system is built to answer: *"How do we make movement feel fair?"*
     <figure><video
         autoplay
         muted
+        loop
         playsinline
         controls
         preload="metadata">
-        <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
+        <source src="/videos/forgiving-mechanics/fm-vjh.mp4" type="video/mp4" />
     </video></figure>
-    <figure><video
-        autoplay
-        muted
-        playsinline
-        controls
-        preload="metadata">
-        <source src="/videos/forgiving-mechanics/fm-placeholder.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-
-  <div class="media-arrows">
-    <label for="fm-gravity-2" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
-    <label for="fm-gravity-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
-    <label for="fm-gravity-1" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
-    <label for="fm-gravity-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
   </div>
     <div class="media-captions">
             <div class="media-caption">
-            Capsule raycasts detect ground reliably on flat and angled surfaces
-            </div>
-            <div class="media-caption">
-            Walking up slopes without snapping or stuttering
+            Variable Jump Gravity (Hang Time Effect) + Acceleration curves showcase.
             </div>
         </div>
-    <div class="media-dots">
-        <label for="fm-ground-1"></label>
-        <label for="fm-ground-2"></label>
-    </div>
 </div>
 
 <div class="project-text">
@@ -706,7 +657,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 - `InputHandler`: Input mapping
 - `Combat/Dash`: Systems that consume movement API
 
-**Why This Matters:** You can swap any layer without breaking others. Change ground detection logic? CharacterMovement doesn't care. Add new input? Movement doesn't change. This is professional architecture.
+**Why This Matters:** You can swap any layer without breaking others. Change ground detection logic? CharacterMovement doesn't care. Add new input? Movement doesn't change.
 
 **Integration Point:**
 ```csharp
@@ -860,7 +811,7 @@ Slopes feel natural, don't stick where they shouldn't.
 
 <details class="section-panel">
   <summary class="section-header">
-    <span class="section-title">✮ System 3: Top-Down Controller</span>
+    <span class="section-title">✮ System 3: Side-Scroller Controller</span>
     <span class="section-icon">▾</span>
   </summary>
 

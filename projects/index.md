@@ -48,7 +48,7 @@ const allProjects = [
   {
     id: 'forgiving-mechanics',
     title: 'Forgiving Mechanics Framework',
-    summary: 'Production-ready top-down movement controller with jump buffer, coyote time, and slope handling.',
+    summary: 'Production-ready movement controller for side scroller games, built on forgiving mechanics principles.',
     link: '/protforlio-site/projects/forgiving-mechanics',
     image: '/projects/placeholder.png',
     tags: ['Unity', 'C#', 'Framework', 'Movement', 'Architecture'],
