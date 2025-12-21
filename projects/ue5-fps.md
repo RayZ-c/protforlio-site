@@ -645,7 +645,7 @@ void AGameManager::AddScore(int32 Amount)
 </style>
 </details>
 
-## Pickup & Buff System {.outline-only}
+## 5. Pickup & Buff System {.outline-only}
 
 <details class="section-panel">
   <summary class="section-header">
