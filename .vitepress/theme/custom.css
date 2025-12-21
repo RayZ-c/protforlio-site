@@ -150,7 +150,7 @@
   border: 1.5px solid rgb(255, 255, 255);
   border-color: rgba(34, 197, 94, 0.8);
 }
-
+.tag-movement,
 .tag-action,
 .tag-ai {
   background: rgba(248, 113, 113, 0.15);

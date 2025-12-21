@@ -18,7 +18,7 @@ const allProjects = [
     hoverVideo: '/protforlio-site/videos/path-to-power/ptp-showcase-1.mp4',
     tags: ['Unity', 'C#', '2D', 'Side-Scroller', 'Action'],
     date: 'September 2025',
-    context: 'Academic',
+    context: 'Personal',
     featured: true
   },
   {
@@ -50,8 +50,9 @@ const allProjects = [
     title: 'Forgiving Mechanics Framework',
     summary: 'Production-ready movement controller for side scroller games, built on forgiving mechanics principles.',
     link: '/protforlio-site/projects/forgiving-mechanics',
-    image: '/projects/placeholder.png',
-    tags: ['Unity', 'C#', 'Framework', 'Movement', 'Architecture'],
+    image: '/protforlio-site/videos/forgiving-mechanics/fm-showcase-2.mp4',
+    hoverVideo: '/protforlio-site/videos/forgiving-mechanics/fm-showcase-2.mp4',
+    tags: ['Unity', 'C#', '2D', 'Side-Scroller', 'Movement'],
     date: 'December 2025',
     context: 'Reusable Framework',
     featured: false
@@ -236,6 +237,7 @@ const hoveredId = ref(null)
             tag === 'Top-Down' ? 'tag-topdown' : '',
             tag === 'Side-Scroller' ? 'tag-sidescroll' : '',
             tag === 'Action' ? 'tag-action' : '',
+            tag === 'Movement' ? 'tag-movement' : '',
             tag === 'FPS' ? 'tag-fps' : '',
             tag === 'AI' ? 'tag-ai' : '',
             tag === 'Prototype' ? 'tag-prototype' : '',

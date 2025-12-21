@@ -69,8 +69,8 @@ Check out some of the projects I am most proud of. {.section-title-center}
         <span class="tag tag-unity">Unity</span>
         <span class="tag tag-2d">2D</span>
         <span class="tag tag-csharp">C#</span>
-        <span class="tag tag-platformer">Platformer</span>
-        <span class="tag tag-combat">Combat</span>
+        <span class="tag tag-sidescroll">Platformer</span>
+        <span class="tag tag-action">Combat</span>
       </div>
     </div>
   </a>
