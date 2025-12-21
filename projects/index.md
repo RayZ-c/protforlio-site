@@ -23,13 +23,13 @@ const allProjects = [
   },
   {
     id: 'ue5-fps',
-    title: 'Unreal Engine 5 FPS',
-    summary: 'Solo-developed FPS prototype with custom weapons, AI enemies, and pacing.',
+    title: '1st Person Shooter Framework',
+    summary: 'Production-ready FPS framework with fully modular systems to showcase architecture expertise.',
     link: '/protforlio-site/projects/ue5-fps',
-    image: '/projects/placeholder.png',
-    hoverVideo: '/protforlio-site/videos/PixelAdventure/pa-1.mp4',
+    image: '/protforlio-site/videos/ue5-fps/fps-showcase-0.mp4',
+    hoverVideo: '/protforlio-site/videos/ue5-fps/fps-showcase-0.mp4',
     tags: ['Unreal', 'C++', '3D', 'FPS', 'AI'],
-    date: 'September 2025',
+    date: 'October 2025',
     context: 'Academic',
     featured: true
   },
@@ -53,7 +53,7 @@ const allProjects = [
     image: '/protforlio-site/videos/forgiving-mechanics/fm-showcase-2.mp4',
     hoverVideo: '/protforlio-site/videos/forgiving-mechanics/fm-showcase-2.mp4',
     tags: ['Unity', 'C#', '2D', 'Side-Scroller', 'Movement'],
-    date: 'December 2025',
+    date: 'August 2025',
     context: 'Reusable Framework',
     featured: false
   },

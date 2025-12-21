@@ -157,7 +157,7 @@ description: A reusable character movement controller with forgiving input mecha
 
 <details class="section-panel">
   <summary class="section-header">
-    <span class="section-title">☑︎ Quick Summary for Developers</span>
+    <span class="section-title">☑︎ Quick Summary for Recruiters</span>
     <span class="section-icon">▾</span>
   </summary>
 

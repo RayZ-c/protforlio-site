@@ -63,7 +63,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
       <span class="pill pill-accent">Featured</span>
     </div>
     <div class="project-body">
-      <h3>Dragon Ball 2D Platformer →</h3>
+      <h3>Dragon Ball 2D Platformer</h3>
       <p>Combat-focused 2D platformer with custom controller, combo system, and VFX.</p>
       <div class="project-tags">
         <span class="tag tag-unity">Unity</span>
@@ -74,10 +74,11 @@ Check out some of the projects I am most proud of. {.section-title-center}
       </div>
     </div>
   </a>
-
   <a class="project-card card-unreal-fps" href="./projects/ue5-fps">
     <div class="project-media">
-      <img src="./projects/placeholder.png" alt="Unreal Engine 5 FPS placeholder" />
+      <video id="hero-video" autoplay muted loop playsinline>
+          <source src="/videos/ue5-fps/fps-showcase-0.mp4" type="video/mp4" />
+        </video>
       <div class="project-pill-row">
         <span class="pill">September 2025</span>
       </div>
@@ -87,7 +88,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
       <span class="pill pill-accent">Featured</span>
     </div>
     <div class="project-body">
-      <h3>Unreal Engine 5 FPS →</h3>
+      <h3>1st Person Shooter Framework</h3>
       <p>Solo-developed FPS prototype with custom weapons, AI enemies, and pacing.</p>
       <div class="project-tags">
         <span class="tag tag-unreal">Unreal</span>
