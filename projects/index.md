@@ -58,10 +58,10 @@ const allProjects = [
     featured: false
   },
   {
-    id: 'project-5',
-    title: 'Project 5 (Placeholder)',
+    id: 'elder-escape',
+    title: 'Elder Escape',
     summary: 'Short description for project 5.',
-    link: '/protforlio-site/projects/project-5',
+    link: '/protforlio-site/projects/elder-escape',
     image: '/projects/placeholder.png',
     tags: ['Game Jam'],
     date: 'September 2025',
