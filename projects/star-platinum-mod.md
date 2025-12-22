@@ -1,6 +1,6 @@
 ---
 layout: doc
-title: Star Platinum over Iron Fist Mod
+title: Viral Marvel Rivals Mod (Star Platinum)
 description: Marvel Rivals character mod. 10M+ views. Professional audio design with 154 custom sound effects.
 ---
 
@@ -23,7 +23,7 @@ description: Marvel Rivals character mod. 10M+ views. Professional audio design 
   </div>
 </div>
 
-# Star Platinum over Iron Fist Mod {.page-title-center}
+# Marvel Rivals Mod (Star Platinum) {.page-title-center}
 
 <p class="project-text">
   A viral community character replacement mod with <strong>10-15 million cross&nbsp;platform impressions.</strong> I are the <strong>lead sound designer</strong> responsible for all 154 custom sound effects—sourced, edited, and integrated from JoJo games and anime. 
@@ -152,9 +152,8 @@ Different sound categories require different loudness profiles for immersion:
 
 <div class="project-text">
 
-- **GitHub:** [Not available yet]
-- **Source Code Documentation:** [Not available yet]
-- **Play in Browser:** [Not available yet]
+- **Offical Mod Page:** <a href= https://www.nexusmods.com/marvelrivals/mods/2106 >New Page</a> | <a href=https://www.nexusmods.com/marvelrivals/mods/412 >Old Page</a>
+- **Mod Creators Discord:** Me (rayz.c) | Lynks (lynks.)
 
 </div>
 
