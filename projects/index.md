@@ -59,13 +59,14 @@ const allProjects = [
   },
   {
     id: 'elder-escape',
-    title: 'Elder Escape',
-    summary: 'Short description for project 5.',
+    title: 'Cyborg Monkey Endless Runner',
+    summary: 'A 4‑day endless runner built in Blueprints, featuring a disabled old man in a wheelchair chased by cyborg monkeys.',
     link: '/protforlio-site/projects/elder-escape',
-    image: '/projects/placeholder.png',
-    tags: ['Game Jam'],
-    date: 'September 2025',
-    context: 'Academic',
+    image: '/protforlio-site/videos/elder-escape/ee-showcase-2.mp4',
+    hoverVideo: '/protforlio-site/videos/elder-escape/ee-showcase-2.mp4',
+    tags: ['Unreal', 'Blueprints', '3D', 'Game Jam'],
+    date: 'September 2024',
+    context: 'Team Project',
     featured: false
   },
   {
@@ -234,6 +235,7 @@ const hoveredId = ref(null)
             tag === '3D' ? 'tag-3d' : '',
             tag === 'Unreal' ? 'tag-unreal' : '',
             tag === 'C++' ? 'tag-cpp' : '',
+            tag === 'Blueprints' ? 'tag-cpp' : '',
             tag === 'Top-Down' ? 'tag-topdown' : '',
             tag === 'Side-Scroller' ? 'tag-sidescroll' : '',
             tag === 'Action' ? 'tag-action' : '',
