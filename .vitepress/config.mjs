@@ -15,6 +15,8 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Projects', link: '/projects/' },
       { text: 'About', link: '/#about' },
+      { text: 'Experience', link: '/#experience' },
+      { text: 'Education', link: '/#education' },
       { text: 'Contact', link: '/#contact' }
     ],
 

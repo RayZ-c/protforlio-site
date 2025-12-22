@@ -58,7 +58,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
         <span class="pill">September 2025</span>
       </div>
       <div class="project-pill-row2">
-        <span class="pill">Academic</span>
+        <span class="pill">Personal</span>
       </div>
       <span class="pill pill-accent">Featured</span>
     </div>
@@ -80,7 +80,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
           <source src="/videos/ue5-fps/fps-showcase-0.mp4" type="video/mp4" />
         </video>
       <div class="project-pill-row">
-        <span class="pill">September 2025</span>
+        <span class="pill">October 2025</span>
       </div>
       <div class="project-pill-row2">
         <span class="pill">Academic</span>
@@ -133,7 +133,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
 ##
 
 # Experience {.section-title-center}
-
+<div id="experience">
 <div class="experience-card">
   <div class="experience-meta">
     <span class="experience-date">Dec 2021 – Present</span>
@@ -167,7 +167,6 @@ Check out some of the projects I am most proud of. {.section-title-center}
   </div>
 </div>
 
-
 <div class="experience-card">
   <div class="experience-meta">
     <span class="experience-date">2024 – Present</span>
@@ -198,6 +197,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
 </div>
 
 
+</div>
 
 
 
@@ -206,6 +206,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
 
 # Education {.section-title-center}
 
+<div id="education">
 <div class="education-section">
 
   <div class="experience-card education-card">
@@ -270,6 +271,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
     </div>
   </div>
 
+</div>
 </div>
 
 ##
