@@ -70,14 +70,15 @@ const allProjects = [
     featured: false
   },
   {
-    id: 'project-6',
-    title: 'Project 6 (Placeholder)',
-    summary: 'Short description for project 6.',
-    link: '/protforlio-site/projects/project-6',
-    image: '/projects/placeholder.png',
-    tags: ['Personal'],
+    id: 'star-platinum-mod',
+    title: 'Viral Marvel Rivals Mod (Star Platinum)',
+    summary: 'A character mod with 10-15 million cross-platform impressions.',
+    link: '/protforlio-site/projects/star-platinum-mod',
+    image: '/protforlio-site/videos/starplat-mod/sp-showcase-1.mp4',
+    hoverVideo: '/protforlio-site/videos/starplat-mod/sp-showcase-1.mp4',
+    tags: ['Unreal', "SFX"],
     date: 'September 2025',
-    context: 'Academic',
+    context: 'Personal',
     featured: false
   },
   {

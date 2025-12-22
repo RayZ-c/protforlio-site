@@ -391,4 +391,25 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </details>
 
+
+
+## Links & Resources {.outline-only}
+
+<details class="section-panel">
+  <summary class="section-header">
+    <span class="section-title">✮ Links & Resources</span>
+    <span class="section-icon">▾</span>
+  </summary>
+
+<div class="project-text">
+
+- **GitHub:** [Not available yet]
+- **Playtest Link:** <a href='https://rayzc.itch.io/elder-escape' >Elder Escape</a>
+- **Documentation:** Included in codebase
+
+</div>
+
+</details>
+
 ---
+
