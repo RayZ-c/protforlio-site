@@ -349,6 +349,11 @@
   gap: 0.9rem;
 }
 
+/* Prevent horizontal overflow from any wider child (including the banner) */
+.VPContent {
+  overflow-x: hidden;
+}
+
 
 /* Center the main content column in the viewport */
 .VPContent .VPDoc {
@@ -356,11 +361,7 @@
   margin-right: 2rem;
 }
 
-/* Nudge the main content slightly to the left to feel visually centered */
-.VPContent .VPDoc {
-  position: absolute;
-  left: 5%; /* tweak: try -20, -30, -40 until it looks right on your screen */
-}
+
 
 .projects-header-row {
   display: flex;
@@ -1353,12 +1354,16 @@ html {
 .hero-video-wrapper {
   margin-top: -28.5rem;
   margin-bottom: 1.5rem;
+  padding: 0 -.5rem;       /* matches page padding */
   grid-column: 2;
   justify-self: center;
 }
 
 .hero-video-wrapper video {
-  max-width: 1400px;
+  max-width: 98rem; /* or 60rem/960px – tweak to taste */
+  max-height: 58rem; /* or 60rem/960px – tweak to taste */
+  height: auto;
+  display: block;
   border-radius: 1.25rem;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
 }

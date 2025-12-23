@@ -31,14 +31,6 @@ hero:
   </video>
 </div>
 
-<script>
-  function heroVideoToggleMute() {
-    const v = document.getElementById('hero-video');
-    v.muted = !v.muted;
-    if (!v.paused) return;
-    v.play().catch(() => {});
-  }
-</script>
 
 
 ##
