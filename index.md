@@ -27,7 +27,7 @@ hero:
 
 <div class="hero-video-wrapper">
   <video id="hero-video" autoplay muted loop playsinline>
-    <source src="/public/videos/path-to-power/ptp-showcase-1.mp4" type="video/mp4" />
+    <source src="/videos/path-to-power/ptp-showcase-1.mp4" type="video/mp4" />
   </video>
 </div>
 

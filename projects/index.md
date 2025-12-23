@@ -80,30 +80,36 @@ const allProjects = [
     date: 'September 2025',
     context: 'Personal',
     featured: false
-  },
+  }
+]
+
+const otherProjects = [
   {
-    id: 'project-7',
-    title: 'Project 7 (Placeholder)',
-    summary: 'Short description for project 7.',
-    link: '/protforlio-site/projects/project-7',
-    image: '/projects/placeholder.png',
-    tags: ['University'],
-    date: 'September 2025',
-    context: 'Academic',
+    id: 'roblox-luffy',
+    title: 'Roblox RPG Movesets',
+    summary: 'Modular PvP combat framework with data-driven abilities, polished visuals and monetisation hooks.',
+    link: '/protforlio-site/projects/roblox-luffy',
+    image: '/protforlio-site/videos/roblox-luffy/rl-showcase-1.mp4',
+    hoverVideo: '/protforlio-site/videos/roblox-luffy/rl-showcase-1.mp4',
+    tags: ['Roblox', 'Lua', 'For Sale'],
+    date: '2023',
+    context: 'Commission',
     featured: false
   },
   {
-    id: 'project-8',
-    title: 'Project 8 (Placeholder)',
-    summary: 'Short description for project 8.',
-    link: '/protforlio-site/projects/project-8',
-    image: '/projects/placeholder.png',
-    tags: ['Prototype'],
-    date: 'September 2025',
-    context: 'Academic',
+    id: 'roblox-combat',
+    title: 'Roblox Combat System',
+    summary: 'Reusable PvP combat framework sold for multiple client games.',
+    link: '/protforlio-site/projects/roblox-tycoon-core',
+    image: '/protforlio-site/videos/roblox/tycoon-core-loop.mp4',
+    hoverVideo: '/protforlio-site/videos/roblox/tycoon-core-showcase.mp4',
+    tags: ['Roblox', 'Lua', 'For Sale'],
+    date: '2022',
+    context: 'Commission',
     featured: false
   }
 ]
+
 
 
 const search = ref('')
@@ -205,6 +211,84 @@ const hoveredId = ref(null)
         playsinline
       ></video>
       <!-- Hovered: show hover video -->
+      <video
+        v-else
+        :src="project.hoverVideo"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+      <div class="project-pill-row">
+        <span class="pill">{{ project.date || 'TBD' }}</span>
+      </div>
+      <div class="project-pill-row2">
+        <span class="pill">{{ project.context || 'Project' }}</span>
+      </div>
+      <span class="pill pill-accent" v-if="project.featured">Featured</span>
+    </div>
+    <div class="project-body">
+      <h3>{{ project.title }}</h3>
+      <p>{{ project.summary }}</p>
+      <div class="project-tags">
+        <span
+          v-for="tag in project.tags"
+          :key="tag"
+          class="tag"
+          :class="[
+            tag === 'Unity' ? 'tag-unity' : '',
+            tag === 'C#' ? 'tag-csharp' : '',
+            tag === '2D' ? 'tag-2d' : '',
+            tag === '3D' ? 'tag-3d' : '',
+            tag === 'Unreal' ? 'tag-unreal' : '',
+            tag === 'C++' ? 'tag-cpp' : '',
+            tag === 'Blueprints' ? 'tag-cpp' : '',
+            tag === 'Top-Down' ? 'tag-topdown' : '',
+            tag === 'Side-Scroller' ? 'tag-sidescroll' : '',
+            tag === 'Action' ? 'tag-action' : '',
+            tag === 'Movement' ? 'tag-movement' : '',
+            tag === 'FPS' ? 'tag-fps' : '',
+            tag === 'AI' ? 'tag-ai' : '',
+            tag === 'Prototype' ? 'tag-prototype' : '',
+            tag === 'Game Jam' ? 'tag-gamejam' : ''
+          ]"
+        >
+          {{ tag }}
+        </span>
+      </div>
+    </div>
+  </a>
+</div>
+
+
+
+##
+
+# Other Projects (For Sale & Sold)
+
+<div class="projects-subtitle other-projects-subtitle">
+  
+  Commission-based projects built for clients, focused on gameplay systems, monetisation-ready design, and polished player experiences.
+</div>
+
+<div class="projects-grid">
+  <a
+    v-for="project in otherProjects"
+    :key="project.id"
+    class="project-card project-card-small"
+    :href="project.link"
+    @mouseenter="hoveredId = project.id"
+    @mouseleave="hoveredId = null"
+  >
+    <div class="project-media">
+      <video
+        v-if="hoveredId !== project.id"
+        :src="project.image"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
       <video
         v-else
         :src="project.hoverVideo"
