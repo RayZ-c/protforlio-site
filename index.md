@@ -289,10 +289,13 @@ Check out some of the projects I am most proud of. {.section-title-center}
       Open to gameplay programming roles, internships, and freelance commissions.
     </p>
     <ul class="experience-list">
-      <li>
-        For opportunities or commissions, reach out via email:
-        <strong>raymondcheng0223@gmail.com</strong>
+      <div> <p>
+        For opportunities or commissions, reach out via:
         <!-- change to a mailto link when ready -->
+        </p>
+      </div>
+      <li>
+        Email: <strong>raymondcheng0223@gmail.com</strong> | Discord: <strong>rayz.c</strong>
       </li>
       <li>
         Based in <strong>United Kingdom (GMT)</strong>; usually replies within <strong>24–48 hours</strong>.
@@ -321,7 +324,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
                 </a>
             </div>
             <div class="social-icons-image">
-                <a href="http://www.twitter.com">
+                <a href="https://x.com/RayRay123c">
                     <img src="https://img.icons8.com/?size=100&id=yoQabS8l0qpr&format=png&color=000000" alt="Twitter Icon">
                 </a>
             </div>

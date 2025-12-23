@@ -100,9 +100,9 @@ const otherProjects = [
     id: 'roblox-combat',
     title: 'Roblox Combat System',
     summary: 'Reusable PvP combat framework sold for multiple client games.',
-    link: '/protforlio-site/projects/roblox-tycoon-core',
-    image: '/protforlio-site/videos/roblox/tycoon-core-loop.mp4',
-    hoverVideo: '/protforlio-site/videos/roblox/tycoon-core-showcase.mp4',
+    link: '/protforlio-site/projects/roblox-combat',
+    image: '/protforlio-site/videos/roblox-combat/rc-preview.mp4',
+    hoverVideo: '/protforlio-site/videos/roblox-combat/rc-preview.mp4',
     tags: ['Roblox', 'Lua', 'For Sale'],
     date: '2022',
     context: 'Commission',
@@ -143,6 +143,8 @@ const hoveredId = ref(null)
 
 
 <a href="/protforlio-site/" class="back-home2-button"> ❮❮ Home </a>
+
+<a id="top"></a>
 
 # Projects
 
@@ -314,6 +316,9 @@ const hoveredId = ref(null)
           :key="tag"
           class="tag"
           :class="[
+            tag === 'For Sale' ? 'tag-forsale' : '',
+            tag === 'Lua' ? 'tag-lua' : '',
+            tag === 'Roblox' ? 'tag-roblox' : '',
             tag === 'Unity' ? 'tag-unity' : '',
             tag === 'C#' ? 'tag-csharp' : '',
             tag === '2D' ? 'tag-2d' : '',
@@ -337,3 +342,14 @@ const hoveredId = ref(null)
     </div>
   </a>
 </div>
+
+
+
+<div class="scroll-controls">
+  <button class="scroll-btn scroll-up" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Scroll to top">
+    ↑
+  </button>
+  <a class="scroll-btn scroll-down" href="#bottom" aria-label="Scroll to bottom">↓</a>
+</div>
+
+<a id="bottom"></a>
