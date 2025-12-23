@@ -1351,14 +1351,14 @@ html {
 
 /* Put the video in the second column, aligned with the hero */
 .hero-video-wrapper {
-  margin-top: -30.5rem;
+  margin-top: -28.5rem;
   margin-bottom: 1.5rem;
   grid-column: 2;
   justify-self: center;
 }
 
 .hero-video-wrapper video {
-  max-width: 1220px;
+  max-width: 1400px;
   border-radius: 1.25rem;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
 }

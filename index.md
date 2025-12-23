@@ -5,8 +5,8 @@ layout: home
 
 hero:
   name: "Raymond Cheng"
-  text: "Game development portfolio and projects"
-  tagline: Game dev student focusing on Unity & Unreal Engine 5
+  text: "Game development portfolio"
+  tagline: Student, Game Designer & Programmer 
   image: false
 
   actions:
@@ -27,7 +27,7 @@ hero:
 
 <div class="hero-video-wrapper">
   <video id="hero-video" autoplay muted loop playsinline>
-    <source src="/videos/path-to-power/ptp-showcase-1.mp4" type="video/mp4" />
+    <source src="/videos/banner.mp4" type="video/mp4" />
   </video>
 </div>
 
