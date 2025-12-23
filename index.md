@@ -26,7 +26,7 @@ hero:
 <div id="top">
 
 <div class="hero-video-wrapper">
-  <video id="hero-video" autoplay muted loop playsinline>
+  <video id="hero-video" autoplay muted loop playsinline preload="metadata">
     <source src="/videos/banner.mp4" type="video/mp4" />
   </video>
 </div>
@@ -43,7 +43,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
 
   <a class="project-card card-DB-plat" href="./projects/path-to-power">
     <div class="project-media">
-      <video id="hero-video" autoplay muted loop playsinline>
+      <video id="hero-video" autoplay muted loop playsinline preload="none" loading="lazy">
           <source src="/videos/path-to-power/ptp-showcase-1V2.mp4" type="video/mp4" />
         </video>
         <div class="project-pill-row">
@@ -68,7 +68,7 @@ Check out some of the projects I am most proud of. {.section-title-center}
   </a>
   <a class="project-card card-unreal-fps" href="./projects/ue5-fps">
     <div class="project-media">
-      <video id="hero-video" autoplay muted loop playsinline>
+      <video id="hero-video" autoplay muted loop playsinline preload="none" loading="lazy">
           <source src="/videos/ue5-fps/fps-showcase-0.mp4" type="video/mp4" />
         </video>
       <div class="project-pill-row">
