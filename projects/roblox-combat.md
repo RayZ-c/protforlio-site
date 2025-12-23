@@ -38,7 +38,7 @@ description: Reusable 5-hit combo + blocking framework for Roblox. Sold to multi
             playsinline
             controls
             preload="metadata">
-            <source src="/protforlio-site/videos/roblox-combat/rc-showcase-1.mp4" type="video/mp4" />
+            <source src="/videos/roblox-combat/rc-showcase-1.mp4" type="video/mp4" />
         </video>
     </figure>
   </div>
