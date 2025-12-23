@@ -211,6 +211,7 @@ const hoveredId = ref(null)
         muted
         loop
         playsinline
+        preload="metadata"
       ></video>
       <!-- Hovered: show hover video -->
       <video
@@ -220,6 +221,7 @@ const hoveredId = ref(null)
         muted
         loop
         playsinline
+        preload="metadata"
       ></video>
       <div class="project-pill-row">
         <span class="pill">{{ project.date || 'TBD' }}</span>
@@ -290,6 +292,7 @@ const hoveredId = ref(null)
         muted
         loop
         playsinline
+        preload="none" loading="lazy"
       ></video>
       <video
         v-else
@@ -298,6 +301,7 @@ const hoveredId = ref(null)
         muted
         loop
         playsinline
+        preload="none" loading="lazy"
       ></video>
       <div class="project-pill-row">
         <span class="pill">{{ project.date || 'TBD' }}</span>
