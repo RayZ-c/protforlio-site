@@ -26,7 +26,14 @@ hero:
 <div id="top">
 
 <div class="hero-video-wrapper">
-  <video id="hero-video" autoplay muted loop playsinline preload="metadata">
+  <video 
+  id="hero-video" 
+  autoplay 
+  muted loop 
+  playsinline 
+  preload="metadata"
+  poster = "/banner-cover.jpg" 
+  >
     <source src="/videos/banner.mp4" type="video/mp4" />
   </video>
 </div>
