@@ -6,10 +6,26 @@ export default defineConfig({
   title: "RayZc - Game Developer",
   description: "Game development portfolio and projects",
 
-    appearance: 'force-dark', // ← always dark, no light mode
+  appearance: 'force-dark', // ← always dark, no light mode
+
+
+
+  head: [
+    ['meta', { property: 'og:title', content: 'RayZc - Game Developer' }],
+    ['meta', { property: 'og:description', content: 'Game development portfolio and projects' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:url', content: 'https://rayz-c.github.io/protforlio-site/' }],
+    ['meta', { property: 'og:image', content: 'https://rayz-c.github.io/protforlio-site/raymond-portrait.jpg' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'RayZc - Game Developer' }],
+    ['meta', { name: 'twitter:description', content: 'Game development portfolio and projects' }],
+    ['meta', { name: 'twitter:image', content: 'https://rayz-c.github.io/protforlio-site/raymond-portrait.jpg' }]
+  ],
+
+
 
   themeConfig: {
-    logo: '/images/raymond-portrait.jpg',  
+    logo: '/raymond-portrait.jpg',  
 
     nav: [
       { text: 'Home', link: '/' },
