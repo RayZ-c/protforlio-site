@@ -30,6 +30,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Projects', link: '/projects/' },
+      { text: 'CV', link: './cv.pdf' },
       { text: 'About Me', link: '/#about' },
       { text: 'Experience', link: '/#experience' },
       { text: 'Education', link: '/#education' },

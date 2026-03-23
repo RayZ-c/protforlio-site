@@ -13,10 +13,15 @@ hero:
     - theme: brand
       text: View Projects
       link: ./projects/
+
     - theme: alt
+      text: CV
+      link: ./cv.pdf
+
+    - theme: alt2
       text: About Me
       link: ./#about
-      
+
     - theme: alt2
       text: Contact
       link: ./#contact
