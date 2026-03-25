@@ -80,7 +80,19 @@ const allProjects = [
     date: 'September 2025',
     context: 'Personal',
     featured: false
-  }
+  },
+  {
+    id: 'twin-sync',
+    title: '2 Character Split Screen Puzzle',
+    summary: 'Built synchronized dual-character control and split-screen puzzle systems in a 36-hour game jam, delivering a stable playable prototype.',
+    link: 'https://abdulqadir53mohamedali.itch.io/twin-sync',
+    image: '',
+    hoverVideo: '',
+    tags: ['Unity', 'C#', '2D', 'Side-Scroller', 'Game Jam'],
+    date: 'February 2026',
+    context: 'Team Project',
+    featured: false
+  },
 ]
 
 const otherProjects = [
