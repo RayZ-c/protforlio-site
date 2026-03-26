@@ -994,7 +994,7 @@ Component-based pickup/buff system using data assets
 
 <div class="project-text">
 
-- **GitHub:** [Not available yet]
+- **GitHub:** <a href= https://github.com/RayZ-c/Cpp-For-Engines > Link</a>
 - **Source Code Documentation:** [Not available yet]
 - **Play in Browser:** [Not available yet]
 

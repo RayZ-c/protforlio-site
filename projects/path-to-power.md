@@ -1254,9 +1254,9 @@ Every tunable value defined in structures:
 
 <div class="project-text">
 
-- **GitHub:** [Not avaliable yet]
+- **GitHub:** <a href= https://github.com/RayZ-c/DragonBall2D-Platformer > Link</a>
 - **Forgiving Movement Framework:** [Not avaliable yet]
-- **Play in Browser:** [Not avaliable yet]
+- **Download to Play:** <a href= https://rayzc.itch.io/path-to-power > Itch.io </a>
 
 </div>
 
