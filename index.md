@@ -16,7 +16,7 @@ hero:
 
     - theme: alt
       text: CV
-      link: ./cv.pdf
+      link: ./cv_v2.pdf
 
     - theme: alt2
       text: About Me
