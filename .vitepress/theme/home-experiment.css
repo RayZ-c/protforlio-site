@@ -1,0 +1,1424 @@
+/* ==========================================================================
+   EXPERIMENTAL HOMEPAGE DESIGN SYSTEM  ("hx" = home experiment)
+   --------------------------------------------------------------------------
+   This file is intentionally self-contained and easy to remove.
+
+   Everything here is scoped to either:
+     .hx-root              the homepage wrapper rendered by HomeExperiment.vue
+     :root.hx-home ...     global/VitePress chrome overrides, only applied while
+                           the experimental homepage is mounted
+
+   Nothing in this file leaks onto the project gallery or the case studies.
+   To disable the experiment entirely: remove the `./home-experiment.css`
+   import from .vitepress/theme/index.js.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS — every tuneable visual value lives here
+   -------------------------------------------------------------------------- */
+
+.hx-root {
+  /* Surfaces: deep near-black navy, three elevations only. */
+  --hx-bg: #05070d;
+  --hx-bg-2: #080b14;
+  --hx-panel: #0b1019;
+  --hx-panel-2: #101725;
+
+  /* Hairlines */
+  --hx-line: rgba(150, 180, 230, 0.12);
+  --hx-line-strong: rgba(150, 180, 230, 0.24);
+
+  /* Ink */
+  --hx-ink: #eef2f9;
+  --hx-ink-2: #aeb9cd;
+  --hx-ink-3: #7d8aa1;
+
+  /* Two accents only: warm energy + cool energy. No third hue. */
+  --hx-orange: #ff8c1a;
+  --hx-orange-2: #ffb45e;
+  --hx-orange-soft: rgba(255, 140, 26, 0.13);
+  --hx-blue: #2e62d9;
+  --hx-blue-2: #9fc2ff;
+  --hx-blue-soft: rgba(87, 151, 255, 0.13);
+
+  /* The signature energy rule, reused across the whole page. */
+  --hx-rule: linear-gradient(90deg, transparent, var(--hx-orange), var(--hx-blue), #c9d6e8, transparent);
+
+  /* Type */
+  --hx-font-display: "Bebas Neue", "Barlow Condensed", Impact, sans-serif;
+  /* Heavier face reserved for the hero name so it holds up over footage. */
+  --hx-font-name: "Archivo Black", "Anton", Impact, sans-serif;
+  --hx-font-ui: "Barlow Condensed", "Bebas Neue", system-ui, sans-serif;
+  --hx-font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Spacing scale */
+  --hx-1: 4px;
+  --hx-2: 8px;
+  --hx-3: 12px;
+  --hx-4: 16px;
+  --hx-5: 24px;
+  --hx-6: 32px;
+  --hx-7: 48px;
+  --hx-8: 64px;
+  --hx-9: 96px;
+  --hx-10: 128px;
+
+  /* Geometry: sharp, with a single clipped corner language. */
+  --hx-notch: 14px;
+  --hx-notch-sm: 8px;
+  --hx-radius: 2px;
+
+  /* Motion */
+  --hx-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --hx-fast: 0.18s;
+  --hx-mid: 0.3s;
+  --hx-slow: 0.6s;
+
+  /* Layout */
+  --hx-container: 1200px;
+  --hx-gutter: clamp(20px, 5vw, 64px);
+  --hx-section-y: clamp(64px, 9vw, 128px);
+}
+
+/* --------------------------------------------------------------------------
+   2. PAGE SHELL
+   -------------------------------------------------------------------------- */
+
+.hx-root {
+  background: var(--hx-bg);
+  color: var(--hx-ink);
+  font-family: var(--hx-font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+.hx-root *,
+.hx-root *::before,
+.hx-root *::after {
+  box-sizing: border-box;
+}
+
+.hx-root p {
+  margin: 0 0 var(--hx-4);
+  color: var(--hx-ink-2);
+}
+
+.hx-root p:last-child {
+  margin-bottom: 0;
+}
+
+.hx-root strong {
+  color: var(--hx-ink);
+  font-weight: 600;
+}
+
+/* Inline emphasis used across About/Experience copy. */
+.hx-root .hx-hl {
+  color: var(--hx-orange-2);
+  font-weight: 600;
+}
+
+/* Wrapped in :where() so the specificity stays at 0-1-0 and any component
+   class (.hx-btn, .hx-card, .hx-channel, ...) beats it without !important.
+   Previously `.hx-root a:hover` won over `.hx-btn:hover` and painted the
+   primary button's label light-on-orange. */
+.hx-root :where(a) {
+  color: var(--hx-blue-2);
+  text-decoration: none;
+  transition: color var(--hx-fast) var(--hx-ease);
+}
+
+.hx-root :where(a:hover) {
+  color: var(--hx-orange-2);
+}
+
+.hx-root ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hx-root :focus-visible {
+  outline: 2px solid var(--hx-orange-2);
+  outline-offset: 3px;
+  border-radius: var(--hx-radius);
+}
+
+/* Global chrome overrides — only while the experimental homepage is mounted. */
+:root.hx-home {
+  scroll-behavior: smooth;
+}
+
+:root.hx-home .VPHome {
+  margin-bottom: 0;
+}
+
+:root.hx-home .VPContent {
+  background: var(--hx-bg, #05070d);
+  overflow-x: clip;
+}
+
+/* Desktop only: the fixed navbar floats transparently over the hero footage,
+   so the content must not be pushed down by it. Below 960px VitePress keeps
+   the navbar in normal flow, where an opaque bar is the correct behaviour. */
+@media (min-width: 960px) {
+  :root.hx-home .VPContent.is-home {
+    padding-top: 0;
+  }
+
+  :root.hx-home .VPNavBar.home.top {
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  :root.hx-home .VPNavBar.home.top .divider-line,
+  :root.hx-home .VPNavBar.home.top .divider {
+    background: transparent;
+  }
+}
+
+:root.hx-home .VPNavBar:not(.top) {
+  background: rgba(5, 7, 13, 0.82);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 1px 0 rgba(150, 180, 230, 0.14);
+}
+
+:root.hx-home .VPNavBar .VPNavBarMenuLink,
+:root.hx-home .VPNavBar .VPNavBarMenuGroup .button {
+  font-family: "Barlow Condensed", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+:root.hx-home .VPNavBar .VPNavBarMenuLink:hover,
+:root.hx-home .VPNavBar .VPNavBarMenuLink.active {
+  color: #ffb45e;
+}
+
+:root.hx-home .VPNavBarTitle .title {
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.08em;
+}
+
+:root.hx-home .VPNavBarTitle .logo {
+  border-radius: 50%;
+  border: 1px solid rgba(255, 140, 26, 0.5);
+}
+
+:root.hx-home .VPNavScreen {
+  background: rgba(5, 7, 13, 0.97);
+}
+
+/* --------------------------------------------------------------------------
+   3. LAYOUT PRIMITIVES
+   -------------------------------------------------------------------------- */
+
+.hx-shell {
+  width: 100%;
+  max-width: var(--hx-container);
+  margin-inline: auto;
+  padding-inline: var(--hx-gutter);
+}
+
+.hx-section {
+  position: relative;
+  padding-block: var(--hx-section-y);
+  scroll-margin-top: calc(var(--vp-nav-height, 64px) + 12px);
+}
+
+/* Alternating band so sections read as one continuous page, not stacked cards. */
+.hx-section--band {
+  background: var(--hx-bg-2);
+}
+
+.hx-section--band::before,
+.hx-section--band::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  height: 1px;
+  background: var(--hx-line);
+}
+
+.hx-section--band::before { top: 0; }
+.hx-section--band::after { bottom: 0; }
+
+/* --------------------------------------------------------------------------
+   4. SECTION HEADER
+   -------------------------------------------------------------------------- */
+
+.hx-head {
+  margin-bottom: var(--hx-7);
+  max-width: 62ch;
+}
+
+.hx-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hx-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hx-3);
+  margin: 0 0 var(--hx-3);
+  font-family: var(--hx-font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--hx-orange);
+}
+
+.hx-eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  background: currentColor;
+  flex: none;
+}
+
+.hx-head--center .hx-eyebrow::after {
+  content: "";
+  width: 26px;
+  height: 2px;
+  background: currentColor;
+  flex: none;
+}
+
+.hx-eyebrow--blue { color: var(--hx-blue-2); }
+
+.hx-title {
+  margin: 0;
+  font-family: var(--hx-font-display);
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: var(--hx-ink);
+}
+
+.hx-title em {
+  font-style: normal;
+  color: var(--hx-orange);
+}
+
+.hx-lead {
+  margin: var(--hx-4) 0 0;
+  max-width: 58ch;
+  font-size: 1.0625rem;
+  color: var(--hx-ink-2);
+}
+
+.hx-head--center .hx-lead {
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   5. BUTTONS  (clipped parallelogram, from the reference template)
+   -------------------------------------------------------------------------- */
+
+.hx-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hx-2);
+  isolation: isolate;
+  overflow: hidden;
+  padding: 13px 30px;
+  border: 2px solid var(--hx-orange);
+  background: transparent;
+  clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
+  color: var(--hx-ink);
+  font-family: var(--hx-font-ui);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--hx-mid) var(--hx-ease), border-color var(--hx-mid) var(--hx-ease);
+}
+
+.hx-btn::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  background: var(--hx-orange);
+  transform: translateX(-105%) skewX(-9deg);
+  transition: transform 0.38s var(--hx-ease);
+}
+
+.hx-btn:hover,
+.hx-btn:focus-visible {
+  color: #170a00;
+  border-color: var(--hx-orange-2);
+}
+
+.hx-btn:hover::after,
+.hx-btn:focus-visible::after {
+  transform: translateX(0) skewX(-9deg);
+}
+
+.hx-btn:active {
+  transform: translateY(1px);
+}
+
+.hx-btn--ghost {
+  border-color: var(--hx-line-strong);
+  color: var(--hx-ink-2);
+}
+
+.hx-btn--ghost::after {
+  background: var(--hx-blue-2);
+}
+
+.hx-btn--ghost:hover,
+.hx-btn--ghost:focus-visible {
+  border-color: var(--hx-blue-2);
+  color: #04070f;
+}
+
+/* Quiet text link with an arrow. */
+.hx-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hx-2);
+  font-family: var(--hx-font-ui);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hx-ink) !important;
+}
+
+.hx-link .hx-arrow {
+  transition: transform var(--hx-mid) var(--hx-ease);
+}
+
+.hx-link:hover {
+  color: var(--hx-orange-2) !important;
+}
+
+.hx-link:hover .hx-arrow {
+  transform: translateX(5px);
+}
+
+/* --------------------------------------------------------------------------
+   6. PILLS / TAGS  (one neutral treatment, two accent variants)
+   -------------------------------------------------------------------------- */
+
+.hx-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hx-2);
+}
+
+.hx-tag {
+  display: inline-block;
+  padding: 4px 11px;
+  border: 1px solid var(--hx-line-strong);
+  background: rgba(150, 180, 230, 0.05);
+  clip-path: polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+  color: var(--hx-ink-2);
+  font-family: var(--hx-font-ui);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hx-tag--warm {
+  border-color: rgba(255, 140, 26, 0.42);
+  background: var(--hx-orange-soft);
+  color: var(--hx-orange-2);
+}
+
+.hx-tag--cool {
+  border-color: rgba(87, 151, 255, 0.42);
+  background: var(--hx-blue-soft);
+  color: var(--hx-blue-2);
+}
+
+/* --------------------------------------------------------------------------
+   7. CREDIBILITY STRIP  (hero -> content transition)
+   -------------------------------------------------------------------------- */
+
+.hx-stats {
+  position: relative;
+  background: linear-gradient(180deg, #05070d 0%, var(--hx-bg-2) 100%);
+  border-bottom: 1px solid var(--hx-line);
+}
+
+.hx-stats::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  height: 2px;
+  background: var(--hx-rule);
+  opacity: 0.85;
+}
+
+.hx-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-block: var(--hx-6);
+}
+
+.hx-stat {
+  padding-inline: var(--hx-5);
+  border-left: 1px solid var(--hx-line);
+}
+
+.hx-stat:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.hx-stat-value {
+  display: block;
+  font-family: var(--hx-font-display);
+  font-size: clamp(2rem, 3.4vw, 2.85rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--hx-ink);
+}
+
+.hx-stat:nth-child(odd) .hx-stat-value { color: var(--hx-orange-2); }
+.hx-stat:nth-child(even) .hx-stat-value { color: var(--hx-blue-2); }
+
+.hx-stat-label {
+  display: block;
+  margin-top: var(--hx-2);
+  font-family: var(--hx-font-ui);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hx-ink-3);
+}
+
+
+/* --------------------------------------------------------------------------
+   7b. SHARED CARD HOVER TREATMENT
+   Same language as the featured-project cards: an orange outline, a gradient
+   bar sweeping across the top edge, and a pointer-tracked glow. Applied to the
+   About skill cards, the Experience/Education entries and the Contact panel.
+   Pointer position is fed in as --spot-x/--spot-y by HomeExperiment.vue.
+   -------------------------------------------------------------------------- */
+
+.hx-glow {
+  position: relative;
+  isolation: isolate;
+  --spot-x: 50%;
+  --spot-y: -30%;
+}
+
+/* `screen` means the glow only ever ADDS light. Over the near-white copy that
+   is a no-op, so text keeps full contrast instead of being washed out — which
+   is why this needs no separate "lift the content above it" layer. */
+.hx-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    320px circle at var(--spot-x) var(--spot-y),
+    rgba(255, 165, 70, 0.17),
+    rgba(255, 140, 26, 0.06) 42%,
+    transparent 68%
+  );
+  transition: opacity var(--hx-mid) var(--hx-ease);
+}
+
+.hx-glow:hover::after,
+.hx-glow:focus-within::after {
+  opacity: 1;
+}
+
+.hx-glow:hover,
+.hx-glow:focus-within {
+  border-color: rgba(255, 140, 26, 0.55);
+}
+
+/* Top sweep bar — only on the two that have a free ::before. The contact panel
+   already carries the permanent energy rule there. */
+.hx-skill::before,
+.hx-entry::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 3;
+  background: linear-gradient(90deg, var(--hx-orange), var(--hx-blue));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--hx-ease);
+}
+
+.hx-skill:hover::before,
+.hx-skill:focus-within::before,
+.hx-entry:hover::before,
+.hx-entry:focus-within::before {
+  transform: scaleX(1);
+}
+
+/* Keep each skill card's left accent stripe: the shared rule above sets
+   border-color on all four sides. */
+.hx-skill:hover,
+.hx-skill:focus-within {
+  border-left-color: var(--hx-orange);
+}
+
+.hx-skill:nth-child(even):hover,
+.hx-skill:nth-child(even):focus-within {
+  border-left-color: var(--hx-blue);
+}
+
+/* --------------------------------------------------------------------------
+   8. PROJECT CARDS
+   -------------------------------------------------------------------------- */
+
+.hx-projects {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--hx-5);
+}
+
+.hx-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--hx-line);
+  background: var(--hx-panel);
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--hx-notch)) 0,
+    100% var(--hx-notch),
+    100% 100%,
+    var(--hx-notch) 100%,
+    0 calc(100% - var(--hx-notch))
+  );
+  color: inherit;
+  text-decoration: none;
+  transition: border-color var(--hx-mid) var(--hx-ease), background var(--hx-mid) var(--hx-ease),
+    transform var(--hx-mid) var(--hx-ease);
+}
+
+/* Pointer-tracked spotlight (the 21st.dev spotlight-card idea, rebuilt with
+   two CSS custom properties instead of React + framer-motion). Sits above the
+   media but below .hx-card-body so body text keeps its full contrast. */
+.hx-card {
+  --spot-x: 50%;
+  --spot-y: -30%;
+}
+
+.hx-card-spot {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    300px circle at var(--spot-x) var(--spot-y),
+    rgba(255, 165, 70, 0.17),
+    rgba(255, 140, 26, 0.06) 42%,
+    transparent 68%
+  );
+  transition: opacity var(--hx-mid) var(--hx-ease);
+}
+
+.hx-card:hover .hx-card-spot,
+.hx-card:focus-visible .hx-card-spot {
+  opacity: 1;
+}
+
+.hx-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 3;
+  background: linear-gradient(90deg, var(--hx-orange), var(--hx-blue));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--hx-ease);
+}
+
+.hx-card:hover,
+.hx-card:focus-visible {
+  border-color: rgba(255, 140, 26, 0.55);
+  background: var(--hx-panel-2);
+  transform: translateY(-4px);
+}
+
+.hx-card:hover::before,
+.hx-card:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.hx-card-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: radial-gradient(120% 120% at 50% 0%, #16203a 0%, #060910 70%);
+}
+
+.hx-card-media video,
+.hx-card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--hx-ease), opacity var(--hx-mid) var(--hx-ease);
+}
+
+.hx-card:hover .hx-card-media video,
+.hx-card:hover .hx-card-media img {
+  transform: scale(1.045);
+}
+
+.hx-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5, 7, 13, 0.55) 0%, rgba(5, 7, 13, 0) 38%, rgba(11, 16, 25, 0.9) 100%);
+  pointer-events: none;
+}
+
+.hx-card-meta {
+  position: absolute;
+  z-index: 2;
+  top: var(--hx-3);
+  left: var(--hx-3);
+  right: var(--hx-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hx-2);
+  align-items: flex-start;
+}
+
+.hx-card-meta .hx-tag {
+  background: rgba(5, 7, 13, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.hx-card-meta .hx-flag {
+  margin-left: auto;
+}
+
+.hx-card-body {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--hx-3);
+  padding: var(--hx-5) var(--hx-5) var(--hx-6);
+}
+
+.hx-card-title {
+  margin: 0;
+  font-family: var(--hx-font-display);
+  font-size: clamp(1.6rem, 2.4vw, 2rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--hx-ink);
+  transition: color var(--hx-mid) var(--hx-ease);
+}
+
+.hx-card:hover .hx-card-title {
+  color: var(--hx-orange-2);
+}
+
+.hx-card-text {
+  margin: 0;
+  flex: 1;
+  font-size: 0.9688rem;
+  color: var(--hx-ink-2);
+}
+
+.hx-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hx-4);
+  margin-top: var(--hx-1);
+}
+
+.hx-card-cta {
+  font-family: var(--hx-font-ui);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--hx-ink-3);
+  white-space: nowrap;
+  transition: color var(--hx-mid) var(--hx-ease);
+}
+
+.hx-card:hover .hx-card-cta {
+  color: var(--hx-orange);
+}
+
+.hx-cta-row {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--hx-7);
+}
+
+/* --------------------------------------------------------------------------
+   9. ABOUT
+   -------------------------------------------------------------------------- */
+
+.hx-about {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: start;
+}
+
+.hx-portrait {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--hx-line-strong);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 20px) 0,
+    100% 20px,
+    100% 100%,
+    20px 100%,
+    0 calc(100% - 20px)
+  );
+  background: var(--hx-panel);
+}
+
+.hx-portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: saturate(1.02) contrast(1.04);
+}
+
+/* The source portrait has a bright white backdrop. Multiplying a warm→cool
+   duotone over it pulls that white into the site palette instead of punching
+   a light rectangle through the dark page. */
+.hx-portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(155deg, #ffb45e 0%, #6f8ed8 45%, #16223c 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.hx-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(5, 7, 13, 0) 55%, rgba(5, 7, 13, 0.75) 100%);
+  pointer-events: none;
+}
+
+.hx-portrait-caption {
+  display: block;
+  margin-top: var(--hx-3);
+  font-family: var(--hx-font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hx-ink-3);
+}
+
+.hx-about-body > p {
+  font-size: 1.0625rem;
+}
+
+.hx-skills {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--hx-3);
+  margin-top: var(--hx-7);
+  padding-top: var(--hx-7);
+  border-top: 1px solid var(--hx-line);
+}
+
+.hx-skill {
+  padding: var(--hx-4) var(--hx-4);
+  border: 1px solid var(--hx-line);
+  border-left: 2px solid var(--hx-orange);
+  background: var(--hx-panel);
+  transition: border-color var(--hx-mid) var(--hx-ease), background var(--hx-mid) var(--hx-ease);
+}
+
+.hx-skill:nth-child(even) {
+  border-left-color: var(--hx-blue);
+}
+
+.hx-skill:hover,
+.hx-skill:focus-within {
+  background: var(--hx-panel-2);
+}
+
+.hx-skill-name {
+  display: block;
+  font-family: var(--hx-font-ui);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--hx-ink);
+}
+
+.hx-skill-detail {
+  display: block;
+  margin-top: var(--hx-1);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--hx-ink-3);
+}
+
+/* --------------------------------------------------------------------------
+   10. TIMELINE  (experience + education share one component)
+   -------------------------------------------------------------------------- */
+
+.hx-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--hx-5);
+  padding-left: var(--hx-6);
+}
+
+.hx-timeline::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 5px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--hx-orange), var(--hx-blue), transparent);
+  opacity: 0.55;
+}
+
+.hx-entry-wrap {
+  position: relative;
+}
+
+.hx-entry-node {
+  position: absolute;
+  top: 30px;
+  left: calc(var(--hx-6) * -1 + 1px);
+  width: 11px;
+  height: 11px;
+  background: var(--hx-orange);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  transition: background var(--hx-mid) var(--hx-ease), transform var(--hx-mid) var(--hx-ease);
+}
+
+.hx-entry-wrap:hover .hx-entry-node {
+  background: var(--hx-blue-2);
+  transform: scale(1.25);
+}
+
+.hx-entry {
+  position: relative;
+  padding: var(--hx-5) clamp(20px, 3vw, 32px);
+  border: 1px solid var(--hx-line);
+  background: var(--hx-panel);
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--hx-notch)) 0,
+    100% var(--hx-notch),
+    100% 100%,
+    var(--hx-notch) 100%,
+    0 calc(100% - var(--hx-notch))
+  );
+  transition: border-color var(--hx-mid) var(--hx-ease), background var(--hx-mid) var(--hx-ease);
+}
+
+.hx-entry:hover,
+.hx-entry:focus-within {
+  background: var(--hx-panel-2);
+}
+
+.hx-entry-period {
+  display: inline-block;
+  margin-bottom: var(--hx-2);
+  font-family: var(--hx-font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--hx-orange);
+}
+
+.hx-entry-role {
+  margin: 0;
+  font-family: var(--hx-font-display);
+  font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--hx-ink);
+}
+
+.hx-entry-org {
+  margin: var(--hx-1) 0 var(--hx-4);
+  font-size: 0.9375rem;
+  color: var(--hx-ink-3);
+}
+
+.hx-entry-org a {
+  color: var(--hx-blue-2);
+}
+
+.hx-entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hx-3);
+  margin: 0 0 var(--hx-6);
+}
+
+.hx-entry-list li {
+  position: relative;
+  padding-left: var(--hx-5);
+  font-size: 0.9688rem;
+  color: var(--hx-ink-2);
+}
+
+.hx-entry-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 10px;
+  height: 2px;
+  background: var(--hx-orange);
+}
+
+.hx-entry > .hx-tags {
+  padding-top: var(--hx-4);
+  border-top: 1px solid var(--hx-line);
+}
+
+/* --------------------------------------------------------------------------
+   11. CONTACT
+   -------------------------------------------------------------------------- */
+
+.hx-contact {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--hx-line-strong);
+  background: linear-gradient(135deg, var(--hx-panel) 0%, #0d1424 55%, #0a1120 100%);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 24px) 0,
+    100% 24px,
+    100% 100%,
+    24px 100%,
+    0 calc(100% - 24px)
+  );
+  padding: clamp(28px, 5vw, 56px);
+}
+
+.hx-contact::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  height: 2px;
+  background: var(--hx-rule);
+}
+
+.hx-contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 56px);
+  align-items: start;
+}
+
+.hx-contact-title {
+  margin: 0 0 var(--hx-3);
+  font-family: var(--hx-font-display);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+
+.hx-availability {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hx-2);
+  margin-bottom: var(--hx-4);
+  padding: 5px 13px;
+  border: 1px solid rgba(255, 140, 26, 0.42);
+  background: var(--hx-orange-soft);
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+  font-family: var(--hx-font-ui);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--hx-orange-2);
+}
+
+.hx-availability .hx-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--hx-orange);
+  box-shadow: 0 0 0 0 rgba(255, 140, 26, 0.6);
+  animation: hx-pulse 2.4s var(--hx-ease) infinite;
+}
+
+@keyframes hx-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 140, 26, 0.55); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 140, 26, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 140, 26, 0); }
+}
+
+.hx-channels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hx-2);
+}
+
+.hx-channel {
+  display: flex;
+  align-items: baseline;
+  gap: var(--hx-4);
+  padding: var(--hx-3) var(--hx-4);
+  border: 1px solid var(--hx-line);
+  background: rgba(5, 7, 13, 0.45);
+  color: var(--hx-ink) !important;
+  transition: border-color var(--hx-mid) var(--hx-ease), background var(--hx-mid) var(--hx-ease),
+    transform var(--hx-fast) var(--hx-ease);
+}
+
+a.hx-channel:hover {
+  border-color: rgba(255, 140, 26, 0.5);
+  background: rgba(255, 140, 26, 0.07);
+  transform: translateX(3px);
+}
+
+.hx-channel-label {
+  flex: none;
+  width: 78px;
+  font-family: var(--hx-font-ui);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hx-ink-3);
+}
+
+.hx-channel-value {
+  font-size: 0.9688rem;
+  word-break: break-word;
+}
+
+/* Text-based social row — no remote icon images. */
+.hx-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hx-2);
+  margin-top: var(--hx-5);
+  padding-top: var(--hx-5);
+  border-top: 1px solid var(--hx-line);
+}
+
+.hx-social {
+  padding: 7px 15px;
+  border: 1px solid var(--hx-line-strong);
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+  font-family: var(--hx-font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hx-ink-2) !important;
+  transition: color var(--hx-fast) var(--hx-ease), border-color var(--hx-fast) var(--hx-ease),
+    background var(--hx-fast) var(--hx-ease);
+}
+
+.hx-social:hover,
+.hx-social:focus-visible {
+  border-color: var(--hx-blue-2);
+  background: var(--hx-blue-soft);
+  color: var(--hx-blue-2) !important;
+}
+
+/* --------------------------------------------------------------------------
+   12. FOOTER + SCROLL CONTROLS
+   -------------------------------------------------------------------------- */
+
+.hx-footer {
+  position: relative;
+  border-top: 1px solid var(--hx-line);
+  background: var(--hx-bg-2);
+  padding-block: var(--hx-6);
+}
+
+.hx-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hx-4);
+}
+
+.hx-footer-mark {
+  font-family: var(--hx-font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  color: var(--hx-ink);
+}
+
+.hx-footer-note {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--hx-ink-3);
+}
+
+.hx-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hx-4);
+  font-family: var(--hx-font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hx-scroll-controls {
+  position: fixed;
+  right: clamp(12px, 2vw, 24px);
+  bottom: clamp(12px, 3vh, 28px);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: var(--hx-2);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity var(--hx-mid) var(--hx-ease), transform var(--hx-mid) var(--hx-ease);
+}
+
+.hx-scroll-controls.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.hx-scroll-btn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--hx-line-strong);
+  background: rgba(8, 11, 20, 0.85);
+  backdrop-filter: blur(8px);
+  clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px);
+  color: var(--hx-ink) !important;
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color var(--hx-fast) var(--hx-ease), background var(--hx-fast) var(--hx-ease),
+    color var(--hx-fast) var(--hx-ease);
+}
+
+.hx-scroll-btn:hover,
+.hx-scroll-btn:focus-visible {
+  border-color: var(--hx-orange);
+  background: var(--hx-orange);
+  color: #170a00 !important;
+}
+
+/* --------------------------------------------------------------------------
+   13. SCROLL REVEAL
+   -------------------------------------------------------------------------- */
+
+/* The hidden state is only applied once HomeExperiment.vue has confirmed it
+   can actually reveal things again (`.hx-reveal-on`). Without JS, without an
+   IntersectionObserver, or when printing, every section stays visible. */
+.hx-root.hx-reveal-on [data-hx-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--hx-slow) var(--hx-ease), transform var(--hx-slow) var(--hx-ease);
+  transition-delay: var(--hx-delay, 0ms);
+}
+
+.hx-root.hx-reveal-on [data-hx-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media print {
+  .hx-root.hx-reveal-on [data-hx-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   14. RESPONSIVE
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 960px) {
+  .hx-projects {
+    grid-template-columns: 1fr;
+  }
+
+  .hx-skills {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hx-about {
+    grid-template-columns: 1fr;
+  }
+
+  .hx-portrait {
+    max-width: 320px;
+  }
+
+  .hx-contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hx-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--hx-5) 0;
+  }
+
+  .hx-stat:nth-child(odd) {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .hx-root {
+    font-size: 15.5px;
+  }
+
+  .hx-skills {
+    grid-template-columns: 1fr;
+  }
+
+  .hx-head {
+    margin-bottom: var(--hx-6);
+  }
+
+  .hx-eyebrow {
+    letter-spacing: 0.22em;
+    font-size: 0.8125rem;
+  }
+
+  .hx-timeline {
+    padding-left: var(--hx-5);
+  }
+
+  .hx-entry-node {
+    left: calc(var(--hx-5) * -1 + 1px);
+  }
+
+  .hx-card-body {
+    padding: var(--hx-4) var(--hx-4) var(--hx-5);
+  }
+
+  .hx-card-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--hx-3);
+  }
+
+  .hx-btn {
+    width: 100%;
+    padding-inline: 18px;
+  }
+
+  .hx-channel {
+    flex-direction: column;
+    gap: var(--hx-1);
+  }
+
+  .hx-channel-label {
+    width: auto;
+  }
+
+  .hx-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 400px) {
+  .hx-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hx-stat {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   15. REDUCED MOTION
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  :root.hx-home {
+    scroll-behavior: auto;
+  }
+
+  .hx-root *,
+  .hx-root *::before,
+  .hx-root *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hx-root.hx-reveal-on [data-hx-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hx-card:hover,
+  a.hx-channel:hover {
+    transform: none;
+  }
+}

@@ -1,8 +1,14 @@
 import { defineConfig } from 'vitepress'
 
+// Single source of truth for the GitHub Pages sub-path. Anything that
+// VitePress does NOT run through withBase() itself (nav links to non-HTML
+// assets such as the CV PDF) must be built from this constant, never
+// hardcoded a second time.
+const base = '/protforlio-site/'
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/protforlio-site/',   // repo name, with slashes
+  base,
   title: "RayZc - Game Developer",
   description: "Game development portfolio and projects",
 
@@ -11,6 +17,10 @@ export default defineConfig({
 
 
   head: [
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    // Hero name: Archivo Black · Display: Bebas Neue · UI/labels: Barlow Condensed · Body: Inter
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap' }],
     ['meta', { property: 'og:title', content: 'RayZc - Game Developer' }],
     ['meta', { property: 'og:description', content: 'Game development portfolio and projects' }],
     ['meta', { property: 'og:type', content: 'website' }],
@@ -30,7 +40,9 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Projects', link: '/projects/' },
-      { text: 'CV', link: '/protforlio-site/cv_v2.pdf' },
+      // VitePress's normalizeLink() skips withBase() for non-HTML targets,
+      // so the PDF link has to carry the base itself.
+      { text: 'CV', link: `${base}cv_v2.pdf`, target: '_blank' },
       { text: 'About Me', link: '/#about' },
       { text: 'Experience', link: '/#experience' },
       { text: 'Education', link: '/#education' },

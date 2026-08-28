@@ -4,6 +4,21 @@ import DefaultTheme from 'vitepress/theme'
 import './custom.css'
 import './style.css'
 
+// ── EXPERIMENTAL HOMEPAGE ────────────────────────────────────────────────────
+// The block below is the only wiring the homepage redesign needs. Delete these
+// imports + registrations (and restore the previous index.md) to revert it.
+import './home-experiment.css'
+import HomeExperiment from './components/HomeExperiment.vue'
+import HomeSection from './components/HomeSection.vue'
+import HomeProjectCard from './components/HomeProjectCard.vue'
+import HomeTimelineEntry from './components/HomeTimelineEntry.vue'
+import ShowreelHero from './components/ShowreelHero.vue'
+import HeroNameEnergy from './components/HeroNameEnergy.vue'
+// Alternative hero, kept available: swap <ShowreelHero /> for <PortfolioReveal />
+// in index.md to go back to the cursor-brush reveal banner.
+import PortfolioReveal from './components/PortfolioReveal.vue'
+// ─────────────────────────────────────────────────────────────────────────────
+
 /** @type {import('vitepress').Theme} */
 export default {
   extends: DefaultTheme,
@@ -13,6 +28,12 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    // ...
+    app.component('ShowreelHero', ShowreelHero)
+    app.component('HeroNameEnergy', HeroNameEnergy)
+    app.component('PortfolioReveal', PortfolioReveal)
+    app.component('HomeExperiment', HomeExperiment)
+    app.component('HomeSection', HomeSection)
+    app.component('HomeProjectCard', HomeProjectCard)
+    app.component('HomeTimelineEntry', HomeTimelineEntry)
   }
 }
