@@ -42,6 +42,12 @@ const SHOWREEL_CONFIG = {
   // Vue + CSS. Words cycle every rotateIntervalMs; the job title beside them
   // stays static so it remains scannable.
   rotateIntervalMs: 2200,
+  // Tech stack shown as interactive chips under the role line. The chips also
+  // run an idle "attract" sweep: each one plays its own hover state in order,
+  // engineCycleMs apart, wrapping straight back to the first with no pause.
+  engines: ['Unity', 'Unreal Engine 5', 'Roblox', 'C#', 'C++', 'Lua'],
+  engineCycleMs: 1000,
+
   rotatingWords: [
     'combat systems',
     'boss encounters',
@@ -126,6 +132,46 @@ const startWords = () => {
 const stopWords = () => {
   clearInterval(wordTimer)
   wordTimer = null
+}
+
+// --- engine chip attract mode ------------------------------------------------
+// Highlights one chip at a time. A real pointer always wins: entering the row
+// cancels the pass so the auto highlight never fights the chip you are on.
+const engines = SHOWREEL_CONFIG.engines
+const engineAutoIndex = ref(-1) // chip currently lit by the sweep, -1 = none
+const hoveredEngines = ref(0) // how many chips the pointer is inside right now
+let engineCursor = -1 // sweep position, kept across pauses so it resumes in place
+let engineTimer = null
+
+const stopEngines = () => {
+  clearTimeout(engineTimer)
+  engineTimer = null
+  engineAutoIndex.value = -1
+}
+
+const startEngines = () => {
+  if (engineTimer || reducedMotion.value || hoveredEngines.value > 0 || engines.length < 2) return
+  const step = () => {
+    // Wraps straight to 0 — no idle gap between passes.
+    engineCursor = (engineCursor + 1) % engines.length
+    engineAutoIndex.value = engineCursor
+    engineTimer = setTimeout(step, SHOWREEL_CONFIG.engineCycleMs)
+  }
+  engineTimer = setTimeout(step, SHOWREEL_CONFIG.engineCycleMs)
+}
+
+// Enter/leave are bound per chip, not to the <ul>: the list box spans the whole
+// hero column, so pointing anywhere near the row used to pause the sweep. The
+// counter absorbs the leave/enter pair fired when moving between two adjacent
+// chips, which would otherwise restart the timer on every crossing.
+const onEngineEnter = () => {
+  hoveredEngines.value += 1
+  stopEngines()
+}
+
+const onEngineLeave = () => {
+  hoveredEngines.value = Math.max(hoveredEngines.value - 1, 0)
+  if (hoveredEngines.value === 0) startEngines()
 }
 
 let cleanup = () => {}
@@ -252,9 +298,11 @@ onMounted(() => {
         if (entry.isIntersecting && !reducedMotion.value) {
           el.play?.().catch(() => {})
           startWords()
+          startEngines()
         } else {
           el.pause?.()
           stopWords()
+          stopEngines()
         }
       },
       { threshold: 0.05 }
@@ -263,10 +311,12 @@ onMounted(() => {
   } else if (!reducedMotion.value) {
     el.play?.().catch(() => {})
     startWords()
+    startEngines()
   }
 
   cleanup = () => {
     stopWords()
+    stopEngines()
     el?.removeEventListener('timeupdate', onTimeUpdate)
     el?.pause?.()
     observer?.disconnect()
@@ -306,7 +356,7 @@ onBeforeUnmount(() => cleanup())
       </h1>
       <p class="sr-role">
         <span class="sr-role-title">Gameplay Programmer</span>
-        <span class="sr-role-sep" aria-hidden="true">—</span>
+        <span class="sr-role-sep" aria-hidden="true"></span>
         <span class="sr-rotator">
           <!-- invisible sizer keeps the line from reflowing as words swap -->
           <span class="sr-rotator-sizer" aria-hidden="true">{{ longestWord }}</span>
@@ -319,11 +369,18 @@ onBeforeUnmount(() => cleanup())
           >{{ word }}</span>
         </span>
       </p>
-      <p class="sr-stack">
-        Unity <span aria-hidden="true">·</span> Unreal Engine 5 <span aria-hidden="true">·</span>
-        Roblox <span aria-hidden="true">·</span> C# <span aria-hidden="true">·</span>
-        C++ <span aria-hidden="true">·</span> Lua
-      </p>
+      <ul class="sr-engines">
+        <li
+          v-for="(engine, i) in SHOWREEL_CONFIG.engines"
+          :key="engine"
+          class="sr-engine"
+          :class="{ 'is-auto': engineAutoIndex === i }"
+          @pointerenter="onEngineEnter"
+          @pointerleave="onEngineLeave"
+        >
+          <span class="sr-engine-face">{{ engine }}</span>
+        </li>
+      </ul>
       <div class="sr-actions">
         <a
           class="hx-btn sr-magnet"
@@ -617,7 +674,17 @@ onBeforeUnmount(() => cleanup())
 }
 
 .sr-role-title { white-space: nowrap; }
-.sr-role-sep { color: rgba(255, 158, 44, 0.5); }
+
+/* Was an em-dash character, which read as generic AI copy. Now a small
+   diamond, echoing the timeline node marker used elsewhere on the page. */
+.sr-role-sep {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  background: currentColor;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  opacity: 0.75;
+}
 
 /* Rotating specialism. The sizer span reserves the width of the longest word,
    so the words can be absolutely positioned and swapped without reflow. */
@@ -660,17 +727,107 @@ onBeforeUnmount(() => cleanup())
   transform: translateY(105%);
 }
 
-.sr-stack {
-  margin: 10px 0 0;
-  font-family: var(--hx-font-ui, "Barlow Condensed", sans-serif);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #9fc2ff;
+/* Engine chips. The "loud-bird-67" mask treatment was dropped here: its bevel is
+   hidden by two painted rectangles, so it cannot sit over video without an opaque
+   face. These are transparent at rest instead — hairline outline, dimmed label —
+   and on hover they ignite: corner brackets snap out, the frame turns orange and
+   the chip scales up. Scale (not padding) does the growing so nothing reflows. */
+.sr-engines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
 }
 
-.sr-stack span { color: rgba(159, 194, 255, 0.5); }
+.sr-engine {
+  position: relative;
+  isolation: isolate;
+}
+
+.sr-engine-face {
+  position: relative;
+  display: block;
+  padding: 5px 11px;
+  border: 1px solid rgba(220, 230, 248, 0.18);
+  background: transparent;
+  font-family: var(--hx-font-ui, "Barlow Condensed", sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(220, 230, 248, 0.62);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
+  cursor: default;
+  transform-origin: center;
+  transition:
+    transform 0.32s var(--hx-ease),
+    color 0.32s var(--hx-ease),
+    border-color 0.32s var(--hx-ease),
+    background-color 0.32s var(--hx-ease),
+    box-shadow 0.32s var(--hx-ease);
+}
+
+/* Corner brackets: tucked inside and invisible at rest, they push outward and
+   fade in on hover so the chip reads like a targeting reticle. */
+.sr-engine-face::before,
+.sr-engine-face::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  opacity: 0;
+  border: 2px solid var(--hx-orange, #ff8c1a);
+  transition: opacity 0.32s var(--hx-ease), inset 0.32s var(--hx-ease);
+}
+
+.sr-engine-face::before {
+  top: 3px;
+  left: 3px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.sr-engine-face::after {
+  right: 3px;
+  bottom: 3px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.sr-engine:hover .sr-engine-face,
+.sr-engine:focus-within .sr-engine-face,
+.sr-engine.is-auto .sr-engine-face {
+  transform: scale(1.12);
+  color: #fff;
+  border-color: rgba(255, 140, 26, 0.75);
+  background-color: rgba(5, 7, 13, 0.42);
+  box-shadow: inset 0 0 18px rgba(255, 140, 26, 0.22), 0 0 16px rgba(255, 140, 26, 0.28);
+}
+
+.sr-engine:hover .sr-engine-face::before,
+.sr-engine:focus-within .sr-engine-face::before,
+.sr-engine.is-auto .sr-engine-face::before {
+  opacity: 1;
+  top: -3px;
+  left: -3px;
+}
+
+.sr-engine:hover .sr-engine-face::after,
+.sr-engine:focus-within .sr-engine-face::after,
+.sr-engine.is-auto .sr-engine-face::after {
+  opacity: 1;
+  right: -3px;
+  bottom: -3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-engine:hover .sr-engine-face,
+  .sr-engine:focus-within .sr-engine-face,
+  .sr-engine.is-auto .sr-engine-face { transform: none; }
+}
 
 .sr-actions {
   display: flex;
@@ -882,7 +1039,8 @@ onBeforeUnmount(() => cleanup())
     white-space: nowrap;
   }
 
-  .sr-stack { font-size: 0.8125rem; letter-spacing: 0.12em; }
+  .sr-engines { gap: 6px; margin-top: 12px; }
+  .sr-engine-face { padding: 4px 9px; font-size: 0.75rem; letter-spacing: 0.1em; }
 
   .sr-actions { gap: 10px; width: 100%; }
   .sr-actions .hx-btn { flex: 1 1 100%; }

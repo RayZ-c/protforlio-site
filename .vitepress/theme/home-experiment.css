@@ -8,7 +8,9 @@
      :root.hx-home ...     global/VitePress chrome overrides, only applied while
                            the experimental homepage is mounted
 
-   Nothing in this file leaks onto the project gallery or the case studies.
+   The one deliberate exception is section 16 at the bottom, which fixes a
+   navbar overflow that affects every page, not just the homepage.
+
    To disable the experiment entirely: remove the `./home-experiment.css`
    import from .vitepress/theme/index.js.
    ========================================================================== */
@@ -199,10 +201,24 @@
   color: #ffb45e;
 }
 
+/* Barlow Condensed, not Bebas Neue: Bebas has no lowercase glyphs at all, so
+   it rendered the title as "RAYZC - GAME DEVELOPER". This keeps the real
+   casing while staying in the same condensed family as the rest of the UI. */
 :root.hx-home .VPNavBarTitle .title {
-  font-family: "Bebas Neue", Impact, sans-serif;
-  font-size: 24px;
-  letter-spacing: 0.08em;
+  font-family: "Barlow Condensed", system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  min-width: 0;
+}
+
+/* At 24px the enlarged title plus the hamburger no longer fits a 320px
+   screen, so it steps back down on the narrowest phones. */
+@media (max-width: 480px) {
+  :root.hx-home .VPNavBarTitle .title {
+    font-size: 17px;
+    letter-spacing: 0.01em;
+  }
 }
 
 :root.hx-home .VPNavBarTitle .logo {
@@ -1157,25 +1173,54 @@ a.hx-channel:hover {
   border-top: 1px solid var(--hx-line);
 }
 
+/* Glass pills with a light sweep — adapted from the "shaggy-eel-44" buttons by
+   Itskrish01 on uiverse.io (MIT). The original is Tailwind with brand-logo
+   SVGs; this keeps the glass surface, the shine that crosses on hover and the
+   lift-and-tilt, but stays with text labels so no remote or traced brand
+   artwork is needed. */
 .hx-social {
-  padding: 7px 15px;
-  border: 1px solid var(--hx-line-strong);
-  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 8px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.35));
+  backdrop-filter: blur(10px);
   font-family: var(--hx-font-ui);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--hx-ink-2) !important;
-  transition: color var(--hx-fast) var(--hx-ease), border-color var(--hx-fast) var(--hx-ease),
-    background var(--hx-fast) var(--hx-ease);
+  transition: transform 0.3s var(--hx-ease), border-color 0.3s var(--hx-ease),
+    box-shadow 0.3s var(--hx-ease), color 0.3s var(--hx-ease), background 0.3s var(--hx-ease);
+}
+
+.hx-social::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 200, 140, 0.28), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.7s var(--hx-ease);
 }
 
 .hx-social:hover,
 .hx-social:focus-visible {
-  border-color: var(--hx-blue-2);
-  background: var(--hx-blue-soft);
-  color: var(--hx-blue-2) !important;
+  transform: translateY(-3px) rotate(-2deg) scale(1.06);
+  border-color: rgba(255, 140, 26, 0.5);
+  background: linear-gradient(135deg, rgba(255, 140, 26, 0.14), rgba(0, 0, 0, 0.4));
+  box-shadow: 0 10px 26px -10px rgba(255, 140, 26, 0.6);
+  color: #ffd7a8 !important;
+}
+
+.hx-social:hover::before,
+.hx-social:focus-visible::before {
+  transform: translateX(100%);
+}
+
+.hx-social:active {
+  transform: translateY(-1px) rotate(0deg) scale(0.97);
 }
 
 /* --------------------------------------------------------------------------
@@ -1228,41 +1273,125 @@ a.hx-channel:hover {
   z-index: 30;
   display: flex;
   flex-direction: column;
-  gap: var(--hx-2);
+  /* flex-end, not the default stretch: otherwise hovering one button widens
+     the column and drags the other button out to match. */
+  align-items: flex-end;
+  /* Not a spacing token: these two float free of any grid, and the shared --hx-2
+     (8px) read as one stuck-together lump once the buttons shrank to 46px. */
+  gap: 18px;
   opacity: 0;
-  transform: translateY(10px);
   pointer-events: none;
-  transition: opacity var(--hx-mid) var(--hx-ease), transform var(--hx-mid) var(--hx-ease);
+  /* --hx-drift is written every frame by the scroll spring in HomeExperiment.vue */
+  transform: translateY(var(--hx-drift, 0px));
+  transition: opacity var(--hx-mid) var(--hx-ease);
 }
 
 .hx-scroll-controls.is-visible {
   opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
 }
 
+/* Expanding pill — adapted from the "afraid-falcon-17" button by vinodjangid07
+   on uiverse.io (MIT). A round icon button that widens into a labelled pill on
+   hover while the arrow slides up out of view. Recoloured to the site's orange
+   and driven by a data-label so each button names its own action. */
 .hx-scroll-btn {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 46px;
+  height: 46px;
   border: 1px solid var(--hx-line-strong);
+  border-radius: 999px;
   background: rgba(8, 11, 20, 0.85);
   backdrop-filter: blur(8px);
-  clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px);
   color: var(--hx-ink) !important;
-  font-size: 1.05rem;
+  font-family: var(--hx-font-ui);
+  font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
-  transition: border-color var(--hx-fast) var(--hx-ease), background var(--hx-fast) var(--hx-ease),
-    color var(--hx-fast) var(--hx-ease);
+  transition: width 0.34s var(--hx-ease), background 0.34s var(--hx-ease),
+    border-color 0.34s var(--hx-ease), color 0.34s var(--hx-ease);
+}
+
+.hx-scroll-arrow {
+  display: block;
+  transition: transform 0.34s var(--hx-ease);
+}
+
+/* Idle bob, applied to the whole button. The two run the same keyframes on
+   opposite phases so they never bob in lockstep, which would read as one rigid
+   block. */
+@keyframes hx-arrow-bob {
+  0%, 100% { transform: translateY(-2.5px); }
+  50% { transform: translateY(2.5px); }
+}
+
+.hx-scroll-btn { animation: hx-arrow-bob 3.4s var(--hx-ease) infinite; }
+.hx-scroll-btn:nth-child(2) { animation-delay: -1.7s; }
+
+/* Hover holds the button still at its neutral position. It must NOT pause the
+   animation: pausing shifts that button's timeline, so the -1.7s phase offset
+   against its neighbour is permanently lost and the two desync. The clock keeps
+   running underneath and only the rendered position is overridden, so releasing
+   the hover drops straight back into the correct phase.
+   !important is required — a running CSS animation outranks a normal author
+   declaration, and this is the one thing that outranks the animation. */
+.hx-scroll-btn:hover,
+.hx-scroll-btn:focus-visible { transform: translateY(0) !important; }
+
+.hx-scroll-btn::before {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(120%);
+  transition: opacity 0.34s var(--hx-ease), transform 0.34s var(--hx-ease);
 }
 
 .hx-scroll-btn:hover,
 .hx-scroll-btn:focus-visible {
+  width: 158px;
   border-color: var(--hx-orange);
   background: var(--hx-orange);
   color: #170a00 !important;
+}
+
+.hx-scroll-btn:hover .hx-scroll-arrow,
+.hx-scroll-btn:focus-visible .hx-scroll-arrow {
+  transform: translateY(-220%);
+}
+
+.hx-scroll-btn:hover::before,
+.hx-scroll-btn:focus-visible::before {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hx-scroll-btn { animation: none; }
+  .hx-scroll-controls { transform: none; }
+}
+
+/* visually hidden but still announced */
+.hx-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -1420,5 +1549,41 @@ a.hx-channel:hover {
   .hx-card:hover,
   a.hx-channel:hover {
     transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   16. GLOBAL FIX — NAVBAR COLLAPSE BREAKPOINT  (applies to every page)
+   --------------------------------------------------------------------------
+   VitePress swaps the hamburger for the full nav menu at 768px. With seven
+   nav items plus the social links that row needs ~950px, so between roughly
+   780px and 940px the navbar overflowed the viewport and gave the whole site
+   a horizontal scrollbar with the content pushed off-centre.
+
+   Raising the swap to 960px keeps the hamburger until the full menu genuinely
+   fits. 960px is also where VitePress switches the navbar to `position: fixed`
+   and where the content column widens, so the two now change together.
+
+   Not scoped to .hx-home on purpose: the gallery and the case studies use the
+   same navbar and overflowed identically.
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 959px) {
+  .VPNavBar .VPNavBarMenu.menu,
+  .VPNavBar .VPNavBarExtra.extra {
+    display: none;
+  }
+
+  .VPNavBar .VPNavBarHamburger.hamburger {
+    display: flex;
+  }
+
+  /* The slide-down screen is hidden from 768px up; it has to come back for the
+     range where the hamburger is now the only way into the nav.
+     !important is needed here: VitePress ships this as a scoped style
+     (`.VPNavScreen[data-v-...]`), which outranks a plain class selector —
+     without it the hamburger opens nothing between 768px and 959px. */
+  .VPNavScreen {
+    display: block !important;
   }
 }

@@ -14,7 +14,36 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const ROOT_CLASS = 'hx-home'
 
-const showControls = ref(false)
+/**
+ * Scroll-reactive drift for the floating arrows.
+ *
+ * A classic damped spring (the model behind Framer Motion's useSpring):
+ *   v += (-stiffness * x - damping * v) * dt
+ *   x += v * dt
+ * Each scroll event injects velocity; the spring pulls back to 0 and overshoots
+ * slightly on the way, which is what reads as weight. The sign is inverted so
+ * the glyph LAGS the scroll — page moves down, arrow trails up — the same way a
+ * hanging object swings backward when its container accelerates forward.
+ *
+ * dampingRatio = damping / (2 * sqrt(stiffness)) ≈ 0.61 → underdamped, so it
+ * settles with one soft bounce instead of a dead stop.
+ */
+const DRIFT_CONFIG = {
+  stiffness: 170,
+  damping: 16,
+  impulse: 2.2, // px of spring velocity per px of scroll delta
+  maxOffset: 12, // safety clamp on position
+  // The real limiter. For this spring the peak of a free swing is v / sqrt(k),
+  // so capping velocity at maxOffset * sqrt(stiffness) makes a hard flick reach
+  // roughly maxOffset and stop there naturally, instead of slamming into the
+  // position clamp and snapping back.
+  maxVelocity: 12 * Math.sqrt(170),
+  restEpsilon: 0.05 // below this the loop parks itself until the next scroll
+}
+
+// Always on for the homepage: the two controls are the only jump affordance on a
+// long single page, and hiding them near the top made them feel unreliable.
+const showControls = ref(true)
 const root = ref(null)
 let cleanup = () => {}
 
@@ -53,16 +82,54 @@ onMounted(() => {
   }
   root.value?.addEventListener('pointermove', onSpotMove)
 
-  const onScroll = () => {
-    showControls.value = window.scrollY > window.innerHeight * 0.6
+  // --- scroll-driven arrow drift --------------------------------------------
+  let driftX = 0 // current offset, px
+  let driftV = 0 // current velocity, px/s
+  let lastY = window.scrollY
+  let lastT = 0
+  let frame = null
+
+  const controls = root.value?.querySelector('.hx-scroll-controls')
+
+  const tick = (now) => {
+    const dt = Math.min((now - lastT) / 1000, 0.032) // clamp so a stalled tab cannot explode the spring
+    lastT = now
+
+    driftV += (-DRIFT_CONFIG.stiffness * driftX - DRIFT_CONFIG.damping * driftV) * dt
+    driftX += driftV * dt
+    driftX = Math.max(-DRIFT_CONFIG.maxOffset, Math.min(DRIFT_CONFIG.maxOffset, driftX))
+
+    controls?.style.setProperty('--hx-drift', `${driftX.toFixed(2)}px`)
+
+    if (Math.abs(driftX) < DRIFT_CONFIG.restEpsilon && Math.abs(driftV) < DRIFT_CONFIG.restEpsilon) {
+      // settled: park the loop rather than burn a frame every 16ms forever
+      controls?.style.setProperty('--hx-drift', '0px')
+      frame = null
+      return
+    }
+    frame = requestAnimationFrame(tick)
   }
-  onScroll()
-  window.addEventListener('scroll', onScroll, { passive: true })
+
+  const onScroll = () => {
+    const y = window.scrollY
+    const delta = y - lastY
+    lastY = y
+    // negative: the glyph trails the direction of travel
+    driftV -= delta * DRIFT_CONFIG.impulse
+    driftV = Math.max(-DRIFT_CONFIG.maxVelocity, Math.min(DRIFT_CONFIG.maxVelocity, driftV))
+    if (frame === null) {
+      lastT = performance.now()
+      frame = requestAnimationFrame(tick)
+    }
+  }
+
+  if (!reduceMotion) window.addEventListener('scroll', onScroll, { passive: true })
 
   cleanup = () => {
     document.documentElement.classList.remove(ROOT_CLASS)
     root.value?.removeEventListener('pointermove', onSpotMove)
     window.removeEventListener('scroll', onScroll)
+    if (frame !== null) cancelAnimationFrame(frame)
     observer?.disconnect()
   }
 })
@@ -88,8 +155,16 @@ const toBottom = () => {
     <slot />
 
     <div class="hx-scroll-controls" :class="{ 'is-visible': showControls }">
-      <button class="hx-scroll-btn" type="button" aria-label="Scroll to top" @click="toTop">↑</button>
-      <button class="hx-scroll-btn" type="button" aria-label="Scroll to bottom" @click="toBottom">↓</button>
+      <!-- The spring drives the container (one transform for the whole block) and
+           each button carries its own bob, so the two never fight over transform. -->
+      <button class="hx-scroll-btn" type="button" data-label="Back to top" @click="toTop">
+        <span class="hx-scroll-arrow" aria-hidden="true">↑</span>
+        <span class="hx-sr-only">Back to top</span>
+      </button>
+      <button class="hx-scroll-btn" type="button" data-label="Jump to end" @click="toBottom">
+        <span class="hx-scroll-arrow" aria-hidden="true">↓</span>
+        <span class="hx-sr-only">Jump to end</span>
+      </button>
     </div>
   </div>
 </template>
