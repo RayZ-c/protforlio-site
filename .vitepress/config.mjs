@@ -10,6 +10,18 @@ const base = '/protforlio-site/'
 export default defineConfig({
   base,
   title: "RayZc - Game Developer",
+
+  // Anything matched here stays in the repo but is NOT turned into a public
+  // page. Without it, private planning notes and the leftover VitePress
+  // starter examples build into reachable, indexable URLs.
+  srcExclude: [
+    'project-context/**',   // internal planning notes, incl. the redesign brief
+    'test.md',              // scratch page
+    'api-examples.md',      // VitePress starter leftovers
+    'markdown-examples.md',
+    'test-project/**',      // separate vite sandbox, not part of the site
+    'README.md'
+  ],
   description: "Game development portfolio and projects",
 
   appearance: 'force-dark', // ← always dark, no light mode

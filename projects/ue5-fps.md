@@ -41,11 +41,10 @@ description: Production-ready FPS framework with modular systems for weapon/ammo
   <!-- slides -->
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/ue5-fps/fps-showcase-1.jpg" data-lazy-video>
         <source src="/videos/ue5-fps/fps-showcase-1.mp4" type="video/mp4" />
     </video></figure>
   </div>
@@ -306,12 +305,11 @@ void UWeaponComponent::Reload()
 
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         loop
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/ue5-fps/fps-checkpoint.jpg" data-lazy-video>
         <source src="/videos/ue5-fps/fps-checkpoint.mp4" type="video/mp4" />
     </video></figure>
   </div>
@@ -434,12 +432,11 @@ void APlayerController::OnRespawnClicked()
 
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         loop
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/ue5-fps/fps-ai.jpg" data-lazy-video>
         <source src="/videos/ue5-fps/fps-ai.mp4" type="video/mp4" />
     </video></figure>
   </div>
@@ -563,12 +560,11 @@ AProjectileBase* AProjectilePool::GetProjectile()
 
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         loop
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/ue5-fps/fps-score.jpg" data-lazy-video>
         <source src="/videos/ue5-fps/fps-score.mp4" type="video/mp4" />
     </video></figure>
   </div>
@@ -661,12 +657,11 @@ void AGameManager::AddScore(int32 Amount)
 
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         loop
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/ue5-fps/fps-pickup.jpg" data-lazy-video>
         <source src="/videos/ue5-fps/fps-pickup.mp4" type="video/mp4" />
     </video></figure>
   </div>

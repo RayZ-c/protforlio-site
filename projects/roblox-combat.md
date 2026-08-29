@@ -33,11 +33,10 @@ description: Reusable 5-hit combo + blocking framework for Roblox. Sold to multi
   <div class="media-slides">
     <figure>
         <video
-            autoplay
             muted
             playsinline
             controls
-            preload="metadata">
+            preload="none" poster="/posters/roblox-combat/rc-showcase-1.jpg" data-lazy-video>
             <source src="/videos/roblox-combat/rc-showcase-1.mp4" type="video/mp4" />
         </video>
     </figure>

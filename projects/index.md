@@ -219,22 +219,18 @@ const hoveredId = ref(null)
       <video
         v-if="hoveredId !== project.id"
         :src="project.image"
-        autoplay
         muted
         loop
         playsinline
-        preload="metadata"
-      ></video>
+        preload="none" data-lazy-video></video>
       <!-- Hovered: show hover video -->
       <video
         v-else
         :src="project.hoverVideo"
-        autoplay
         muted
         loop
         playsinline
-        preload="metadata"
-      ></video>
+        preload="none" data-lazy-video></video>
       <div class="project-pill-row">
         <span class="pill">{{ project.date || 'TBD' }}</span>
       </div>
@@ -300,21 +296,17 @@ const hoveredId = ref(null)
       <video
         v-if="hoveredId !== project.id"
         :src="project.image"
-        autoplay
         muted
         loop
         playsinline
-        preload="none" loading="lazy"
-      ></video>
+        preload="none" loading="lazy" data-lazy-video></video>
       <video
         v-else
         :src="project.hoverVideo"
-        autoplay
         muted
         loop
         playsinline
-        preload="none" loading="lazy"
-      ></video>
+        preload="none" loading="lazy" data-lazy-video></video>
       <div class="project-pill-row">
         <span class="pill">{{ project.date || 'TBD' }}</span>
       </div>

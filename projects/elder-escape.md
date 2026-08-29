@@ -40,11 +40,10 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
   <!-- slides -->
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/elder-escape/ee-showcase-1.jpg" data-lazy-video>
         <source src="/videos/elder-escape/ee-showcase-1.mp4" type="video/mp4" />
     </video></figure>
   </div>

@@ -42,27 +42,24 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
       <!-- slides -->
       <div class="media-slides">
         <figure><video
-            autoplay
             muted
             playsinline
             controls
-            preload="metadata">
+            preload="none" poster="/posters/path-to-power/ptp-showcase-1.jpg" data-lazy-video>
             <source src="/videos/path-to-power/ptp-showcase-1.mp4" type="video/mp4" />
         </video></figure>
         <figure><video
-            autoplay
             muted
             playsinline
             controls
-            preload="metadata">
+            preload="none" poster="/posters/path-to-power/ptp-showcase-4.jpg" data-lazy-video>
             <source src="/videos/path-to-power/ptp-showcase-4.mp4" type="video/mp4" />
         </video></figure>
         <figure><video
-            autoplay
             muted
             playsinline
             controls
-            preload="metadata">
+            preload="none" poster="/posters/path-to-power/ptp-showcase-3.jpg" data-lazy-video>
             <source src="/videos/path-to-power/ptp-showcase-3.mp4" type="video/mp4" />
         </video></figure>
       </div>
@@ -267,19 +264,17 @@ This project demonstrates:
 
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/path-to-power/ptp-showcase-4.jpg" data-lazy-video>
         <source src="/videos/path-to-power/ptp-showcase-4.mp4" type="video/mp4" />
     </video></figure>
     <figure><video
-        autoplay
         muted
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/path-to-power/ptp-showcase-5.jpg" data-lazy-video>
         <source src="/videos/path-to-power/ptp-showcase-5.mp4" type="video/mp4" />
     </video></figure>
   </div>
@@ -382,51 +377,45 @@ The movement system uses **three simultaneous input buffers** (jump, dash, attac
 
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/path-to-power/ptp-showcase-1.jpg" data-lazy-video>
         <source src="/videos/path-to-power/ptp-showcase-1.mp4" type="video/mp4" />
     </video></figure>
     <figure><video
-        autoplay
         muted
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/path-to-power/ptp-combat-1.jpg" data-lazy-video>
         <source src="/videos/path-to-power/ptp-combat-1.mp4" type="video/mp4" />
     </video></figure>
     <figure><video
-        autoplay
         muted
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/path-to-power/ptp-combat-2.jpg" data-lazy-video>
         <source src="/videos/path-to-power/ptp-combat-2.mp4" type="video/mp4" />
     </video></figure>
     <figure><video
-        autoplay
         muted
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/path-to-power/ptp-combat-3.jpg" data-lazy-video>
         <source src="/videos/path-to-power/ptp-combat-3.mp4" type="video/mp4" />
     </video></figure>
     <figure><video
-        autoplay
         muted
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/path-to-power/ptp-combat-4.jpg" data-lazy-video>
         <source src="/videos/path-to-power/ptp-combat-4.mp4" type="video/mp4" />
     </video></figure>
     <figure><video
-        autoplay
         muted
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/path-to-power/ptp-combat-5.jpg" data-lazy-video>
         <source src="/videos/path-to-power/ptp-combat-5.mp4" type="video/mp4" />
     </video></figure>
   </div>
@@ -590,8 +579,8 @@ Also, every feedback layer's intensity scales per combo step, creates a natural 
   <input type="radio" name="ptp-re-media" id="ptp-re-1" checked>
 
   <div class="media-slides">    
-    <video controls preload="metadata">
-      <source src="/public/videos/path-to-power/ptp-ki-1.mp4" type="video/mp4" />
+    <video controls preload="none" poster="/posters/path-to-power/ptp-ki-1.jpg" data-lazy-video>
+      <source src="/videos/path-to-power/ptp-ki-1.mp4" type="video/mp4" />
     </video>
   </div>
 
@@ -676,7 +665,7 @@ Also, every feedback layer's intensity scales per combo step, creates a natural 
   <input type="radio" name="ptp-ui0-media" id="ptp-ui0-1" checked>
 
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-hud-0.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="/videos/path-to-power/ptp-hud-0.mp4" muted loop playsinline preload="none" poster="/posters/path-to-power/ptp-hud-0.jpg" data-lazy-video></video></figure>
   </div>
 
 <div class="media-captions">
@@ -705,10 +694,10 @@ UI & HUD built with **Unity's modern UIElements system**, entirely code-driven f
   <input type="radio" name="ptp-hud-media" id="ptp-hud-3">
   <input type="radio" name="ptp-hud-media" id="ptp-hud-4">
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-hud-1.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-hud-2.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-hud-3.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-hud-4.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="/videos/path-to-power/ptp-hud-1.mp4" muted loop playsinline preload="none" poster="/posters/path-to-power/ptp-hud-1.jpg" data-lazy-video></video></figure>
+    <figure><video src="/videos/path-to-power/ptp-hud-2.mp4" muted loop playsinline preload="none" poster="/posters/path-to-power/ptp-hud-2.jpg" data-lazy-video></video></figure>
+    <figure><video src="/videos/path-to-power/ptp-hud-3.mp4" muted loop playsinline preload="none" poster="/posters/path-to-power/ptp-hud-3.jpg" data-lazy-video></video></figure>
+    <figure><video src="/videos/path-to-power/ptp-hud-4.mp4" muted loop playsinline preload="none" poster="/posters/path-to-power/ptp-hud-4.jpg" data-lazy-video></video></figure>
   </div>
   <div class="media-arrows">
     <label for="ptp-hud-4" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
@@ -776,10 +765,10 @@ UI & HUD built with **Unity's modern UIElements system**, entirely code-driven f
   <input type="radio" name="ptp-ui-media" id="ptp-ui-3">
   <input type="radio" name="ptp-ui-media" id="ptp-ui-4">
   <div class="media-slides">
-    <figure><video src="/public/videos/path-to-power/ptp-ui-1.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-ui-2.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-ui-3.mp4" autoplay muted loop playsinline></video></figure>
-    <figure><video src="/public/videos/path-to-power/ptp-ui-4.mp4" autoplay muted loop playsinline></video></figure>
+    <figure><video src="/videos/path-to-power/ptp-ui-1.mp4" muted loop playsinline preload="none" poster="/posters/path-to-power/ptp-ui-1.jpg" data-lazy-video></video></figure>
+    <figure><video src="/videos/path-to-power/ptp-ui-2.mp4" muted loop playsinline preload="none" poster="/posters/path-to-power/ptp-ui-2.jpg" data-lazy-video></video></figure>
+    <figure><video src="/videos/path-to-power/ptp-ui-3.mp4" muted loop playsinline preload="none" poster="/posters/path-to-power/ptp-ui-3.jpg" data-lazy-video></video></figure>
+    <figure><video src="/videos/path-to-power/ptp-ui-4.mp4" muted loop playsinline preload="none" poster="/posters/path-to-power/ptp-ui-4.jpg" data-lazy-video></video></figure>
   </div>
   <div class="media-arrows">
     <label for="ptp-ui-4" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>

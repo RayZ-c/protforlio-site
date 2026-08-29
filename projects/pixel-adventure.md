@@ -41,8 +41,8 @@ description: A pixel-art top-down action game with two unique boss encounters an
       <!-- slides -->
       <div class="media-slides">
         <figure><img src="/images/PixelAdventure/pa-1.png" alt="Pixel Adventure screenshot 1"></figure>
-        <figure><video src="/videos/PixelAdventure/pa-2.mp4" autoplay muted loop playsinline></video></figure>
-        <figure><video src="/videos/PixelAdventure/pa-3.mp4" autoplay muted loop playsinline></video></figure>
+        <figure><video src="/videos/PixelAdventure/pa-2.mp4" muted loop playsinline preload="none" poster="/posters/PixelAdventure/pa-2.jpg" data-lazy-video></video></figure>
+        <figure><video src="/videos/PixelAdventure/pa-3.mp4" muted loop playsinline preload="none" poster="/posters/PixelAdventure/pa-3.jpg" data-lazy-video></video></figure>
         <figure><img src="/images/PixelAdventure/pa-4.png" alt="Pixel Adventure screenshot 4"></figure>
         <figure><img src="/images/PixelAdventure/pa-5.png" alt="Pixel Adventure screenshot 5"></figure>
         <figure><img src="/images/PixelAdventure/pa-6.png" alt="Pixel Adventure screenshot 6"></figure>

@@ -39,21 +39,19 @@ description: A reusable character movement controller with forgiving input mecha
       <!-- slides -->
       <div class="media-slides">
         <figure><video
-            autoplay
             muted
             loop
             playsinline
             controls
-            preload="metadata">
+            preload="none" poster="/posters/forgiving-mechanics/fm-showcase-1.jpg" data-lazy-video>
             <source src="/videos/forgiving-mechanics/fm-showcase-1.mp4" type="video/mp4" />
         </video></figure>
         <figure><video
-            autoplay
             muted
             loop
             playsinline
             controls
-            preload="metadata">
+            preload="none" poster="/posters/forgiving-mechanics/fm-coyotetime.jpg" data-lazy-video>
             <source src="/videos/forgiving-mechanics/fm-coyotetime.mp4" type="video/mp4" />
         </video></figure>
       </div>
@@ -244,21 +242,19 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         loop
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/forgiving-mechanics/fm-jumpbuffer.jpg" data-lazy-video>
         <source src="/videos/forgiving-mechanics/fm-jumpbuffer.mp4" type="video/mp4" />
     </video></figure>
     <figure><video
-        autoplay
         muted
         loop
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/forgiving-mechanics/fm-coyotetime.jpg" data-lazy-video>
         <source src="/videos/forgiving-mechanics/fm-coyotetime.mp4" type="video/mp4" />
     </video></figure>
   </div>
@@ -390,12 +386,11 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         loop
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/forgiving-mechanics/fm-grounddetection.jpg" data-lazy-video>
         <source src="/videos/forgiving-mechanics/fm-grounddetection.mp4" type="video/mp4" />
     </video></figure>
   </div>
@@ -486,12 +481,11 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
   <div class="media-slides">
     <figure><video
-        autoplay
         muted
         loop
         playsinline
         controls
-        preload="metadata">
+        preload="none" poster="/posters/forgiving-mechanics/fm-vjh.jpg" data-lazy-video>
         <source src="/videos/forgiving-mechanics/fm-vjh.mp4" type="video/mp4" />
     </video></figure>
   </div>

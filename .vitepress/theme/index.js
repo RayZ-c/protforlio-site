@@ -19,6 +19,10 @@ import HeroNameEnergy from './components/HeroNameEnergy.vue'
 import PortfolioReveal from './components/PortfolioReveal.vue'
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Plays project-page gameplay clips only once they scroll into view, instead of
+// letting all ~40 buffer at once. See lazy-video.js for the full reasoning.
+import { setupLazyVideo } from './lazy-video'
+
 /** @type {import('vitepress').Theme} */
 export default {
   extends: DefaultTheme,
@@ -28,6 +32,8 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
+    setupLazyVideo(router)
+
     app.component('ShowreelHero', ShowreelHero)
     app.component('HeroNameEnergy', HeroNameEnergy)
     app.component('PortfolioReveal', PortfolioReveal)

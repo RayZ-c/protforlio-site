@@ -28,3 +28,25 @@ Thumbs.db
 # Logs
 logs
 *.log
+
+# VitePress local cache — build artefact, must not be committed
+.vitepress/cache
+.vitepress/dist
+
+# Visual Studio editor state
+.vs/
+
+# Local-only comparison/scratch pages served out of public/
+public/_lab/
+public/_compare/
+
+# Playwright MCP scratch output
+.playwright-mcp/
+
+# Local-only secrets & notes — never commit.
+# Anything matching *.local.* stays on this machine. The Discord webhook lives in
+# project-context/notify.local.md and is a credential: whoever has that URL can
+# post to the channel.
+*.local.md
+*.local.json
+project-context/notify.local.md
