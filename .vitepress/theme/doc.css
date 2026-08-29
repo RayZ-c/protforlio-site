@@ -1,0 +1,450 @@
+/* ==========================================================================
+   CASE-STUDY / DOCUMENT PAGES
+   --------------------------------------------------------------------------
+   Styling for VitePress `layout: doc` pages — the project write-ups.
+
+   These are deliberately CALMER than the homepage. They share its tokens,
+   typefaces and geometry, but none of its motion: no particle canvas, no
+   chroma effects, restrained hover only. A recruiter READS these pages; the
+   homepage is the one that performs.
+
+   Stylesheet map:
+     tokens.css      the values
+     style.css       maps VitePress's --vp-* onto those values
+     components.css  components whose content comes from markdown slots
+     doc.css         this file — long-form page styling
+     custom.css      remaining page-specific rules (shrinking)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Headings — the display face, matching the homepage's section headers
+   -------------------------------------------------------------------------- */
+
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4 {
+  font-family: var(--hx-font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-wrap: balance;
+  color: var(--hx-ink);
+}
+
+.vp-doc h1 {
+  font-size: clamp(2.1rem, 5vw, 3.1rem);
+  line-height: 1.02;
+  margin-top: var(--hx-3);
+  margin-bottom: var(--hx-2);
+}
+
+.vp-doc h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.1;
+  margin-top: var(--hx-8);
+  padding-top: var(--hx-5);
+  padding-bottom: var(--hx-2);
+  border-top: 1px solid var(--hx-line);
+}
+
+/* The signature rule, reused from the homepage, as a section marker. */
+.vp-doc h2::after {
+  content: "";
+  display: block;
+  width: 116px;
+  height: 2px;
+  margin-top: var(--hx-3);
+  background: var(--hx-rule);
+}
+
+.vp-doc h3 {
+  font-family: var(--hx-font-ui);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: var(--hx-6);
+}
+
+/* Project-card titles are h3 too, and `.vp-doc h3` (0-1-1) ties with
+   `.project-body h3`, so load order decided it and the card title came out at
+   the section-heading size instead of its own. */
+.vp-doc .project-body h3 {
+  font-size: 1.45rem;
+  letter-spacing: 0.01em;
+  margin-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Prose
+   -------------------------------------------------------------------------- */
+
+/* :where() keeps this at zero specificity so component classes inside the
+   document (tags, captions, panel internals) win without needing !important.
+   Written as `.vp-doc p, .vp-doc li` it is 0-1-1, which silently overrode the
+   tag colours because TagRow renders <li> elements. */
+.vp-doc :where(p, li) {
+  color: var(--hx-ink-2);
+}
+
+/* Reading measure. Media, code and tables stay full width. */
+.vp-doc > div > :where(p, ul, ol) {
+  max-width: 74ch;
+}
+
+.vp-doc :where(strong) {
+  color: var(--hx-ink);
+  font-weight: 600;
+}
+
+.vp-doc a {
+  color: var(--hx-orange-2);
+  text-decoration-color: rgba(255, 180, 94, 0.4);
+  text-underline-offset: 3px;
+  transition: color var(--hx-fast) var(--hx-ease);
+}
+
+.vp-doc a:hover {
+  color: var(--hx-orange);
+  text-decoration-color: currentColor;
+}
+
+.vp-doc a:focus-visible,
+.vp-doc :focus-visible {
+  outline: 2px solid var(--hx-orange);
+  outline-offset: 2px;
+}
+
+.vp-doc hr {
+  margin: var(--hx-4) 0;
+  border: 0;
+  border-top: 1px solid var(--hx-line);
+}
+
+/* --------------------------------------------------------------------------
+   Code
+   -------------------------------------------------------------------------- */
+
+.vp-doc div[class*="language-"] {
+  border: 1px solid var(--hx-line);
+  border-radius: var(--hx-radius);
+  background: var(--hx-panel);
+}
+
+.vp-doc :not(pre) > code {
+  background: var(--hx-panel-2);
+  border: 1px solid var(--hx-line);
+  border-radius: var(--hx-radius);
+  color: var(--hx-orange-2);
+  font-size: 0.86em;
+  padding: 1px 6px;
+}
+
+/* Wide content scrolls inside itself so the page body never does. */
+.vp-doc pre,
+.vp-doc table {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.vp-doc table {
+  display: block;
+  border-collapse: collapse;
+}
+
+.vp-doc th {
+  font-family: var(--hx-font-ui);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  color: var(--hx-ink-3);
+}
+
+.vp-doc th,
+.vp-doc td {
+  border: 1px solid var(--hx-line);
+  background: transparent;
+}
+
+.vp-doc tr {
+  background: transparent;
+  border-top: 1px solid var(--hx-line);
+}
+
+/* --------------------------------------------------------------------------
+   Headings that exist only to structure the sidebar outline
+   --------------------------------------------------------------------------
+   These were positioned at `left: -9999px`, an old off-screen technique that
+   still occupies the layout and can be reached by screen readers in odd ways.
+   The standard clip-based visually-hidden pattern is correct and is already
+   used by .hx-sr-only.
+   -------------------------------------------------------------------------- */
+
+.vp-doc .outline-only {
+  position: relative !important;
+  left: auto;
+  top: auto;
+  display: block;
+  width: 100%;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: auto;
+  clip-path: none;
+  white-space: normal;
+  border: 0;
+  font-size: 0;
+  line-height: 0;
+  color: transparent;
+  scroll-margin-top: calc(var(--vp-nav-height, 64px) + var(--hx-3));
+}
+
+.vp-doc .outline-only::after {
+  display: none;
+}
+
+/* Centred group titles between panel clusters. */
+.vp-doc .section-title-center {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: var(--hx-3);
+  margin-bottom: var(--hx-3);
+  text-align: center;
+  font-family: var(--hx-font-display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hx-ink);
+}
+
+.vp-doc .section-title-center::after {
+  margin-inline: auto;
+}
+
+/* These are structural dividers, so moving them with the global scroll-reveal
+   transform is unsafe: transforms do not reserve layout space. At the compact
+   doc breakpoint the translated glyphs could therefore paint underneath the
+   following panel after a resize. Keep them fixed in normal flow. */
+:root.hx-reveal-on .vp-doc .section-title-center[data-hx-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* The display face has tall glyphs that can extend beyond its line box when a
+   desktop browser is narrowed or displayed at non-native scaling. The first
+   panel in each group follows a zero-height outline-only heading, so give that
+   panel an explicit offset in the compact case-page layout. This moves the
+   actual panel box and cannot be defeated by font metrics or transforms. */
+@media (max-width: 1559px) {
+  .vp-doc h1.page-title-center,
+  .vp-doc h1.section-title-center {
+    line-height: 1.12;
+  }
+
+  .vp-doc h1.section-title-center {
+    margin-block: var(--hx-4);
+    padding-bottom: var(--hx-2);
+  }
+
+  .vp-doc h1.section-title-center + h2.outline-only + .hx-panel {
+    margin-top: var(--hx-5);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   VitePress chrome on doc pages
+   -------------------------------------------------------------------------- */
+
+/* `custom.css` previously put 2rem side margins on a width: 100% VPDoc. That
+   made the document wider than its viewport and shifted its real centre 32px
+   to the right. Let the VitePress shell own the outer width again. */
+.VPContent .VPDoc {
+  margin-inline: 0;
+}
+
+/* VitePress normally centres the combined 784px article + 256px outline.
+   Consequently the ARTICLE itself sits 128px left of centre, while a large
+   unused gutter remains beyond the outline. At desktop widths, reserve an
+   equal 256px lane on the left: article in the middle, outline on the right.
+   The wide-screen project fact rail occupies that matching left lane below. */
+@media (min-width: 1440px) {
+  .VPContent .VPDoc.has-aside > .container {
+    display: grid;
+    grid-template-columns: 256px minmax(0, 784px) 256px;
+    justify-content: center;
+    max-width: 1296px;
+  }
+
+  .VPContent .VPDoc.has-aside > .container > .content {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+  }
+
+  .VPContent .VPDoc.has-aside > .container > .aside {
+    grid-column: 3;
+    grid-row: 1;
+    width: 256px;
+  }
+}
+
+.VPDocOutlineItem a,
+.VPDocAsideOutline .outline-link {
+  font-family: var(--hx-font-ui);
+  letter-spacing: 0.02em;
+}
+
+.VPDocAsideOutline .outline-link:hover,
+.VPDocAsideOutline .outline-link.active {
+  color: var(--hx-orange-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-doc a { transition: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Very narrow viewports
+   --------------------------------------------------------------------------
+   VitePress sets `body { min-width: 320px }`. On a 320px-wide window with a
+   classic 15px scrollbar the viewport is only 305px, so the body is 15px wider
+   than the page and everything scrolls sideways. Releasing the floor below
+   340px costs nothing (the layout is fluid well under that) and removes the
+   horizontal scrollbar on the narrowest phones and split-screen windows.
+   -------------------------------------------------------------------------- */
+@media (max-width: 340px) {
+  body { min-width: 0; }
+}
+
+/* Code-block text inherits the page ink so comments and punctuation stay above
+   the 4.5:1 threshold on the panel ground, rather than relying on whatever the
+   highlighter theme happens to pick for low-emphasis tokens. */
+.vp-doc div[class*="language-"] code {
+  color: var(--hx-ink-2);
+}
+
+/* --------------------------------------------------------------------------
+   Centred page title
+   --------------------------------------------------------------------------
+   `.page-title-center` is applied in every case-study markdown file but was
+   never actually defined in CSS, so the class did nothing.
+   -------------------------------------------------------------------------- */
+
+.vp-doc h1.page-title-center {
+  text-align: center;
+}
+
+.vp-doc h1.page-title-center::after {
+  content: "";
+  display: block;
+  width: 140px;
+  height: 2px;
+  margin: var(--hx-3) auto 0;
+  background: var(--hx-rule);
+}
+
+/* Two commission pages use an h3 as the centred subtitle below the page h1.
+   Treat it as a subtitle instead of the standard dash-led document h3. */
+.vp-doc h3.page-title-center {
+  display: block;
+  margin-top: var(--hx-2);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.vp-doc h3.page-title-center::before {
+  content: none;
+}
+
+/* --------------------------------------------------------------------------
+   Fact strip as a left rail on wide screens
+   --------------------------------------------------------------------------
+   VitePress centres the doc column and leaves ~320px of dead space on the left
+   (the outline occupies the right). On wide viewports the project fact strip
+   moves into that space and sticks while you read, so the project's status,
+   stack and focus stay visible instead of scrolling away after two screens.
+
+   Below 1400px it returns to the normal stacked flow.
+   -------------------------------------------------------------------------- */
+
+/* 1560px, not 1400: the pull below is a FIXED distance while the gutter shrinks
+   with the viewport, so at 1400 the rail landed at x=-22 — off-screen left.
+   Measured, the gutter only clears the pull from about 1500px up; 1560 leaves
+   real breathing room. */
+@media (min-width: 1560px) {
+  .vp-doc > div {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    column-gap: var(--hx-6);
+    align-items: start;
+    /* Reclaim the empty gutter without moving the prose column. */
+    margin-left: -274px;
+  }
+
+  /* Everything stays in the reading column ... */
+  .vp-doc > div > * {
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  /* ... except the fact strip, which takes the rail.
+     The OUTER element becomes an invisible full-height track and the existing
+     inner .project-info-left carries the panel and the sticky.
+
+     Why not just make this element sticky: with `align-self: start` the grid
+     item's own box is short, and sticky then has no room to travel inside its
+     area — measured, it scrolled away 1:1. Stretching the item to fill the tall
+     area and sticking a child inside it does work (verified). */
+  .vp-doc > div > .project-info-row {
+    grid-column: 1;
+    grid-row: 1 / span 400;
+    align-self: stretch;
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    clip-path: none;
+  }
+
+  .vp-doc > div > .project-info-row .project-info-left {
+    position: sticky;
+    top: calc(var(--vp-nav-height, 64px) + 24px);
+    display: grid;
+    gap: var(--hx-2);
+    padding: var(--hx-4);
+    border: 1px solid var(--hx-line);
+    border-radius: var(--hx-radius);
+    background: var(--hx-panel);
+    clip-path: polygon(
+      0 0, calc(100% - var(--hx-notch)) 0, 100% var(--hx-notch),
+      100% 100%, var(--hx-notch) 100%, 0 calc(100% - var(--hx-notch))
+    );
+  }
+
+  /* Stacked label-over-value in the narrow rail. */
+  .vp-doc > div > .project-info-row .info-line {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Re-enable position: sticky
+   --------------------------------------------------------------------------
+   VitePress sets `overflow: hidden auto` on .VPContent. `hidden` makes it a
+   SCROLL CONTAINER, so every sticky element inside positions against that
+   container's scrollport — which never scrolls, because the page scrolls on
+   <html>. The result is that position: sticky silently does nothing anywhere
+   in the content area. Verified with a bare test element: it moved 1:1 with
+   the scroll.
+
+   `clip` clips exactly the same way but does NOT create a scroll container,
+   so sticky works again. overflow-x: clip with overflow-y: visible is a legal
+   pair (hidden + visible would compute back to auto and reintroduce the bug).
+   -------------------------------------------------------------------------- */
+
+.VPContent {
+  overflow-x: clip;
+  overflow-y: visible;
+}

@@ -33,108 +33,19 @@ description: Production-ready FPS framework with modular systems for weapon/ammo
 </p>
 
 <!-- HERO MEDIA CAROUSEL (fps-hero-*) -->
-<div class="media-carousel">
-  <!-- radios -->
-  <input type="radio" name="fps-hero-media" id="fps-hero-1" checked>
-  <input type="radio" name="fps-hero-media" id="fps-hero-2">
-  <input type="radio" name="fps-hero-media" id="fps-hero-3">
-  <!-- slides -->
-  <div class="media-slides">
-    <figure><video
-        muted
-        playsinline
-        controls
-        preload="none" poster="/posters/ue5-fps/fps-showcase-1.jpg" data-lazy-video>
-        <source src="/videos/ue5-fps/fps-showcase-1.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-  <div class="media-captions">
-    <div class="media-caption">
-      <p>Main gameplay loop with: </p>
-      <h> <strong> - Weapon + HUD  </strong>feedback (Score, HP and Loadout)</h>
-      <p> <strong> - Checkpoint + Respawn</strong> mechanics </p>
-      <h> <strong> - Turret AI combat</strong></h>
-    </div>
-  </div>
-</div>
+<MediaCarousel data-hx-reveal id="fps-hero-media" :slides="[
+  { src: '/videos/ue5-fps/fps-showcase-1.mp4', caption: 'Main gameplay loop with: - Weapon + HUD feedback (Score, HP and Loadout) - Checkpoint + Respawn mechanics - Turret AI combat' }
+]" />
 
-<style>
-  /* HERO CAROUSEL (fps-hero-*) */
-  #fps-hero-1:checked ~ .media-slides figure:nth-child(1),
-  #fps-hero-2:checked ~ .media-slides figure:nth-child(2),
-  #fps-hero-3:checked ~ .media-slides figure:nth-child(3) {
-    display: block;
-  }
 
-  #fps-hero-1:checked ~ .media-dots label:nth-child(1),
-  #fps-hero-2:checked ~ .media-dots label:nth-child(2),
-  #fps-hero-3:checked ~ .media-dots label:nth-child(3) {
-    background: #38bdf8;
-    transform: scale(1.2);
-  }
-
-  /* arrow container */
-  .media-arrows {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-    padding: 0 0.6rem;
-  }
-
-  .media-arrow-btn {
-    pointer-events: auto;
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 999px;
-    border: 2.5px solid rgba(148, 163, 184, 0.55);
-    background: rgba(61, 61, 61, 0.58);
-    color: #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1.4rem;
-    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
-  }
-
-  .media-arrow-btn:hover {
-    background: #38bdf8;
-    border-color: #38bdf8;
-    color: #020617;
-  }
-
-  /* hide all arrows by default */
-  .media-arrows .media-arrow-btn {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* show only the pair for the active slide */
-  #fps-hero-1:checked ~ .media-arrows .arrow-prev-1,
-  #fps-hero-2:checked ~ .media-arrows .arrow-prev-2,
-  #fps-hero-3:checked ~ .media-arrows .arrow-prev-3,
-  #fps-hero-1:checked ~ .media-arrows .arrow-next-1,
-  #fps-hero-2:checked ~ .media-arrows .arrow-next-2,
-  #fps-hero-3:checked ~ .media-arrows .arrow-next-3{
-    opacity: 1;
-    pointer-events: auto;
-  }
-</style>
 
 ---
 
-# 𓆩General𓆪 {.section-title-center}
+# General {.section-title-center data-hx-reveal="true"}
 
 ## Quick Overview {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">☑︎ Quick Summary for Recruiters</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Quick Summary for Recruiters">
 
   <div class="project-text">
     <ul>
@@ -149,15 +60,11 @@ description: Production-ready FPS framework with modular systems for weapon/ammo
     </ul>
   </div>
 
-</details>
+</ProjectPanel>
 
 ## Core Philosophy {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Core Philosophy</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="💡" title="Core Philosophy">
 
 <div class="project-text">
 
@@ -174,21 +81,17 @@ Every system is built to answer: *"How do we make systems that multiple people c
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ---
 
-## - - - --->Features<--- - - - {.outline-only}
+## Features{.outline-only}
 
-# Highlight Features 𓆪 {.section-title-center}
+# Highlight Features {.section-title-center data-hx-reveal="true"}
 
 ## 1. Weapon & Ammo System {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Data-Driven Weapon Framework</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🏗️" title="Data-Driven Weapon Framework">
 
 
 
@@ -198,11 +101,7 @@ Every system is built to answer: *"How do we make systems that multiple people c
 
 **The Solution:** All weapon properties live in configurable data assets:
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"><strong>UWeaponDataAsset (example)</strong></span>
-    <span class="mini-panel-icon">▾</span>
-  </summary>
+<ProjectPanel variant="mini" title="UWeaponDataAsset (example)">
 
 <div class="mini-panel-body">
 
@@ -230,16 +129,12 @@ public:
 ```
 
 </div>
-</details>
+</ProjectPanel>
 
 **Result:** Designers modify weapon properties in Unreal Editor—no code recompile needed. Add new weapons in minutes (duplicate asset, tweak values, done). Multiple weapons coexist without conflicts.
 
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"><strong>Ammo Management & Auto-Reload</strong></span>
-    <span class="mini-panel-icon">▾</span>
-  </summary>
+<ProjectPanel variant="mini" title="Ammo Management &amp; Auto-Reload">
 
 <div class="mini-panel-body">
 
@@ -282,43 +177,22 @@ void UWeaponComponent::Reload()
 
 </div>
 
-</details>
+</ProjectPanel>
 
 </div>
 
 
 
-</details>
+</ProjectPanel>
 
 ## 2. Checkpoint & Persistence {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Checkpoint Respawn & Game State</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="💾" title="Checkpoint Respawn &amp; Game State">
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
-<div class="media-carousel">
-  <input type="radio" name="fm-checkpoint-media" id="fm-checkpoint-1" checked>
-  <input type="radio" name="fm-checkpoint-media" id="fm-checkpoint-2">
-
-  <div class="media-slides">
-    <figure><video
-        muted
-        loop
-        playsinline
-        controls
-        preload="none" poster="/posters/ue5-fps/fps-checkpoint.jpg" data-lazy-video>
-        <source src="/videos/ue5-fps/fps-checkpoint.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-    <div class="media-captions">
-        <div class="media-caption">
-        Checkpoint & Respawn mechanics showcase.
-        </div>
-    </div>
-</div>
+<MediaCarousel data-hx-reveal id="fm-checkpoint-media" :slides="[
+  { src: '/videos/ue5-fps/fps-checkpoint.mp4', caption: 'Checkpoint & Respawn mechanics showcase.' }
+]" />
 
 <div class="project-text">
 
@@ -331,11 +205,7 @@ void UWeaponComponent::Reload()
 **Result:** Clean, reusable respawn pattern. Multiple checkpoints supported (last touched is "current").
 
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"><strong>Checkpoint Actor Implementation</strong></span>
-    <span class="mini-panel-icon">▾</span>
-  </summary>
+<ProjectPanel variant="mini" title="Checkpoint Actor Implementation">
 
   <div class="mini-panel-body">
 
@@ -364,13 +234,9 @@ void UWeaponComponent::Reload()
     ```
   </div>
 
-</details>
+</ProjectPanel>
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"><strong>Death & Respawn Flow</strong></span>
-    <span class="mini-panel-icon">▾</span>
-  </summary>
+<ProjectPanel variant="mini" title="Death &amp; Respawn Flow">
 
 <div class="mini-panel-body">
 
@@ -403,49 +269,22 @@ void APlayerController::OnRespawnClicked()
 
 </div>
 
-</details>
+</ProjectPanel>
 </div>
 
-<style>
-  #fm-checkpoint-1:checked ~ .media-slides figure:nth-child(1),
-  #fm-checkpoint-2:checked ~ .media-slides figure:nth-child(2) {
-    display: block;
-  }
 
-</style>
 
-</details>
+</ProjectPanel>
 
 ## 3. Turret AI & Performance {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Enemy AI & Projectile Pooling</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎮" title="Enemy AI &amp; Projectile Pooling">
 
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
-<div class="media-carousel">
-  <input type="radio" name="fm-ai-media" id="fm-ai-1" checked>
-  <input type="radio" name="fm-ai-media" id="fm-ai-2">
-
-  <div class="media-slides">
-    <figure><video
-        muted
-        loop
-        playsinline
-        controls
-        preload="none" poster="/posters/ue5-fps/fps-ai.jpg" data-lazy-video>
-        <source src="/videos/ue5-fps/fps-ai.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-    <div class="media-captions">
-        <div class="media-caption">
-        Showcase of different types of Turret AI.
-        </div>
-    </div>
-</div>
+<MediaCarousel data-hx-reveal id="fm-ai-media" :slides="[
+  { src: '/videos/ue5-fps/fps-ai.mp4', caption: 'Showcase of different types of Turret AI.' }
+]" />
 
 
 <div class="project-text">
@@ -455,11 +294,7 @@ void APlayerController::OnRespawnClicked()
 **Projectile Pooling:** Pre-allocate pool → recycle objects instead of spawn/destroy every frame. Result: 50+ enemies firing simultaneously without frame rate dips.
 
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"><strong>Turret AI Behavior</strong></span>
-    <span class="mini-panel-icon">▾</span>
-  </summary>
+<ProjectPanel variant="mini" title="Turret AI Behavior">
 
 <div class="mini-panel-body">
 
@@ -491,13 +326,9 @@ void AEnemyTurret::Tick(float DeltaTime)
 
 </div>
 
-</details>
+</ProjectPanel>
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"><strong>Object Pool Pattern</strong></span>
-    <span class="mini-panel-icon">▾</span>
-  </summary>
+<ProjectPanel variant="mini" title="Object Pool Pattern">
 
 <div class="mini-panel-body">
 
@@ -531,49 +362,22 @@ AProjectileBase* AProjectilePool::GetProjectile()
 
 </div>
 
-</details>
+</ProjectPanel>
 </div>
 
-<style>
-  #fm-ai-1:checked ~ .media-slides figure:nth-child(1),
-  #fm-ai-2:checked ~ .media-slides figure:nth-child(2) {
-    display: block;
-  }
 
-</style>
 
-</details>
+</ProjectPanel>
 
 ## 4. Score & Persistence {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Score Tracking & High Score Persistence</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="💾" title="Score Tracking &amp; High Score Persistence">
 
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
-<div class="media-carousel">
-  <input type="radio" name="fm-score-media" id="fm-score-1" checked>
-  <input type="radio" name="fm-score-media" id="fm-score-2">
-
-  <div class="media-slides">
-    <figure><video
-        muted
-        loop
-        playsinline
-        controls
-        preload="none" poster="/posters/ue5-fps/fps-score.jpg" data-lazy-video>
-        <source src="/videos/ue5-fps/fps-score.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-    <div class="media-captions">
-        <div class="media-caption">
-        Showcase of different ways to gain score.
-        </div>
-    </div>
-</div>
+<MediaCarousel data-hx-reveal id="fm-score-media" :slides="[
+  { src: '/videos/ue5-fps/fps-score.mp4', caption: 'Showcase of different ways to gain score.' }
+]" />
 
 
 
@@ -586,11 +390,7 @@ AProjectileBase* AProjectilePool::GetProjectile()
 **High Score Persistence:** Serialized to disk using UE5 SaveGame API. Score persists across play sessions—players are motivated to beat their high score.
 
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"><strong>Score System Implementation</strong></span>
-    <span class="mini-panel-icon">▾</span>
-  </summary>
+<ProjectPanel variant="mini" title="Score System Implementation">
 
 <div class="mini-panel-body">
 
@@ -629,50 +429,21 @@ void AGameManager::AddScore(int32 Amount)
 
 </div>
 
-</details>
+</ProjectPanel>
 </div>
 
-<style>
-  #fm-score-1:checked ~ .media-slides figure:nth-child(1),
-  #fm-score-2:checked ~ .media-slides figure:nth-child(2) {
-    display: block;
-  }
 
-</style>
-</details>
+</ProjectPanel>
 
 ## 5. Pickup & Buff System {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Pickup & Buff System</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎮" title="Pickup &amp; Buff System">
 
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
-<div class="media-carousel">
-  <input type="radio" name="fm-pu-media" id="fm-pu-1" checked>
-  <input type="radio" name="fm-pu-media" id="fm-pu-2">
-
-  <div class="media-slides">
-    <figure><video
-        muted
-        loop
-        playsinline
-        controls
-        preload="none" poster="/posters/ue5-fps/fps-pickup.jpg" data-lazy-video>
-        <source src="/videos/ue5-fps/fps-pickup.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-    <div class="media-captions">
-        <div class="media-caption">
-        <h>- Health regeneration pickups</h>
-        <p>- Movement speed buff pickups</p>
-        <h>- Combined effects (e.g. -HP and speed boost)</h>
-        </div>
-    </div>
-</div>
+<MediaCarousel data-hx-reveal id="fm-pu-media" :slides="[
+  { src: '/videos/ue5-fps/fps-pickup.mp4', caption: '- Health regeneration pickups - Movement speed buff pickups - Combined effects (e.g. -HP and speed boost)' }
+]" />
 
 
 
@@ -682,11 +453,7 @@ Uses the same **PickupComponent + BuffBaseComponent** pattern, adding new pickup
 
 **Data-driven pickups with configurable buffs:**
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title">UPickupDataAsset (example)</span>
-    <span class="mini-panel-icon">▾</span>
-  </summary>
+<ProjectPanel variant="mini" title="UPickupDataAsset (example)">
 
 <div class="mini-panel-body">
 
@@ -731,37 +498,27 @@ void UPickupComponent::HandlePickup(APickupBase* PickupActor, UPickupDataAsset* 
 }
 ```
 </div>
-</details>
+</ProjectPanel>
 
 **Result:** Add new pickup types in minutes—create data asset, configure buffs, place in level. Same extensibility pattern as weapons: new designers can iterate without touching gameplay code.
 
 </div>
 
-<style>
-  #fm-pu-1:checked ~ .media-slides figure:nth-child(1),
-  #fm-pu-2:checked ~ .media-slides figure:nth-child(2) {
-    display: block;
-  }
 
-</style>
 
-</details>
+</ProjectPanel>
 
 ---
 
 
 
-## - - - --->Technical<--- - - - {.outline-only}
+## Technical{.outline-only}
 
-# 𓆩Technical Deep Dive 𓆪 {.section-title-center}
+# Technical Deep Dive {.section-title-center data-hx-reveal="true"}
 
 ## Architecture Overview {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Architecture Overview & Design Patterns</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Architecture Overview &amp; Design Patterns">
 
 <div class="project-text">
 
@@ -809,11 +566,7 @@ void UPickupComponent::HandlePickup(APickupBase* PickupActor, UPickupDataAsset* 
 - ✅ Change HUD? Update UIToolkit widget, gameplay unaffected
 
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"><strong>Health Component (Reusable)</strong></span>
-    <span class="mini-panel-icon">▾</span>
-  </summary>
+<ProjectPanel variant="mini" title="Health Component (Reusable)">
 
 <div class="mini-panel-body">
 
@@ -858,13 +611,9 @@ void UHealthComponent::TakeDamage(float Damage, AActor* DamageInstigator)
 
 </div>
 
-</details>
+</ProjectPanel>
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"><strong>Design Patterns Used</strong></span>
-    <span class="mini-panel-icon">▾</span>
-  </summary>
+<ProjectPanel variant="mini" title="Design Patterns Used">
 
 <div class="mini-panel-body">
 
@@ -877,24 +626,20 @@ Component-based pickup/buff system using data assets
 
 </div>
 
-</details>
+</ProjectPanel>
 </div>
 
-</details>
+</ProjectPanel>
 
 ---
 
-## - - - --->Extras<--- - - - {.outline-only}
+## Extras{.outline-only}
 
-# 𓆩Extra Notes 𓆪 {.section-title-center}
+# Extra Notes {.section-title-center data-hx-reveal="true"}
 
 ## Core Competencies {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Core Competencies</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Core Competencies">
 
 <div class="project-text">
 
@@ -919,15 +664,11 @@ Component-based pickup/buff system using data assets
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ## Use Cases & Extensibility {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Use Cases & Extensibility</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎮" title="Use Cases &amp; Extensibility">
 
 <div class="project-text">
 
@@ -946,15 +687,11 @@ Component-based pickup/buff system using data assets
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ## Technologies & Stack {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Technologies & Stack</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="⚙️" title="Technologies &amp; Stack">
 
 <div class="project-text">
 
@@ -976,16 +713,12 @@ Component-based pickup/buff system using data assets
 
 </div>
 
-</details>
+</ProjectPanel>
 
 
 ## Links & Resources {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Links & Resources</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🔗" title="Links &amp; Resources">
 
 <div class="project-text">
 
@@ -995,6 +728,6 @@ Component-based pickup/buff system using data assets
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ---

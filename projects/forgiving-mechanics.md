@@ -31,133 +31,22 @@ description: A reusable character movement controller with forgiving input mecha
   A <strong>production-ready character movement controller</strong> for side-scroller games, built on <strong>forgiving mechanics principles</strong> (jump buffer, coyote time, variable gravity). Designed as a <strong>reusable framework</strong> that ships in weeks, not months—enabling rapid prototyping and team collaboration through <strong>parameter-driven architecture</strong>.
 </p>
 <!-- HERO MEDIA CAROUSEL (fm-hero-*) -->
-    <div class="media-carousel">
-      <!-- radios -->
-      <input type="radio" name="fm-hero-media" id="fm-hero-1" checked>
-      <input type="radio" name="fm-hero-media" id="fm-hero-2">
-      <input type="radio" name="fm-hero-media" id="fm-hero-3">
-      <!-- slides -->
-      <div class="media-slides">
-        <figure><video
-            muted
-            loop
-            playsinline
-            controls
-            preload="none" poster="/posters/forgiving-mechanics/fm-showcase-1.jpg" data-lazy-video>
-            <source src="/videos/forgiving-mechanics/fm-showcase-1.mp4" type="video/mp4" />
-        </video></figure>
-        <figure><video
-            muted
-            loop
-            playsinline
-            controls
-            preload="none" poster="/posters/forgiving-mechanics/fm-coyotetime.jpg" data-lazy-video>
-            <source src="/videos/forgiving-mechanics/fm-coyotetime.mp4" type="video/mp4" />
-        </video></figure>
-      </div>
-      <!-- arrows -->
-      <div class="media-arrows">
-        <!-- prev -->
-        <label for="fm-hero-2" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
-        <label for="fm-hero-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
-        <!-- next -->
-        <label for="fm-hero-1" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
-        <label for="fm-hero-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
-      </div>
-      <div class="media-captions">
-        <div class="media-caption">
-          Forgiving jump mechanics showcase.
-        </div>
-        <div class="media-caption">
-          Accurate Ground detection (E.g: coyote time showcase).
-        </div>
-      </div>
-      <!-- dots -->
-      <div class="media-dots">
-        <label for="fm-hero-1"></label>
-        <label for="fm-hero-2"></label>
-      </div>
-    </div>
+    <MediaCarousel data-hx-reveal id="fm-hero-media" :slides="[
+  { src: '/videos/forgiving-mechanics/fm-showcase-1.mp4', caption: 'Forgiving jump mechanics showcase.' },
+  { src: '/videos/forgiving-mechanics/fm-coyotetime.mp4', caption: 'Accurate Ground detection (E.g: coyote time showcase).' }
+]" />
 
     
-<style>
-  /* HERO CAROUSEL (fm-hero-*) */
-  #fm-hero-1:checked ~ .media-slides figure:nth-child(1),
-  #fm-hero-2:checked ~ .media-slides figure:nth-child(2),
-  #fm-hero-3:checked ~ .media-slides figure:nth-child(3) {
-    display: block;
-  }
 
-  #fm-hero-1:checked ~ .media-dots label:nth-child(1),
-  #fm-hero-2:checked ~ .media-dots label:nth-child(2),
-  #fm-hero-3:checked ~ .media-dots label:nth-child(3) {
-    background: #38bdf8;
-    transform: scale(1.2);
-  }
-
-  /* arrow container */
-  .media-arrows {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-    padding: 0 0.6rem;
-  }
-
-  .media-arrow-btn {
-    pointer-events: auto;
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 999px;
-    border: 2.5px solid rgba(148, 163, 184, 0.55);
-    background: rgba(61, 61, 61, 0.58);
-    color: #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1.4rem;
-    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
-  }
-
-  .media-arrow-btn:hover {
-    background: #38bdf8;
-    border-color: #38bdf8;
-    color: #020617;
-  }
-
-  /* hide all arrows by default */
-  .media-arrows .media-arrow-btn {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* show only the pair for the active slide */
-  #fm-hero-1:checked ~ .media-arrows .arrow-prev-1,
-  #fm-hero-2:checked ~ .media-arrows .arrow-prev-2,
-  #fm-hero-3:checked ~ .media-arrows .arrow-prev-3,
-  #fm-hero-1:checked ~ .media-arrows .arrow-next-1,
-  #fm-hero-2:checked ~ .media-arrows .arrow-next-2,
-  #fm-hero-3:checked ~ .media-arrows .arrow-next-3{
-    opacity: 1;
-    pointer-events: auto;
-  }
-</style>
 
 
 ---
 
-# 𓆩General𓆪 {.section-title-center}
+# General {.section-title-center data-hx-reveal="true"}
 
 ## Quick Overview {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">☑︎ Quick Summary for Recruiters</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Quick Summary for Recruiters">
 
   <div class="project-text">
     <ul>
@@ -170,16 +59,12 @@ description: A reusable character movement controller with forgiving input mecha
     </ul>
   </div>
 
-</details>
+</ProjectPanel>
 
 
 ## Core Philosophy {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Core Philosophy</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="💡" title="Core Philosophy">
 
 <div class="project-text">
 
@@ -196,15 +81,11 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ## Technical Highlights {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Technical Highlights</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="⚙️" title="Technical Highlights">
 
 <div class="project-text">
 
@@ -219,75 +100,29 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ---
 
-## - - - --->Features<--- - - -  {.outline-only}
+## Features{.outline-only}
 
-# Highlight Features𓆪 {.section-title-center}
+# Highlight Features {.section-title-center data-hx-reveal="true"}
 
 ## 1. Forgiving Input Mechanics {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ <strong>Input</strong>: Jump Buffer & Coyote Time</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎮" eyebrow="Input" title="Jump Buffer &amp; Coyote Time">
 
 <!-- MOVEMENT MEDIA CAROUSEL (fm-move-*) -->
-<div class="media-carousel">
-  <input type="radio" name="fm-move-media" id="fm-move-1" checked>
-  <input type="radio" name="fm-move-media" id="fm-move-2">
-
-  <div class="media-slides">
-    <figure><video
-        muted
-        loop
-        playsinline
-        controls
-        preload="none" poster="/posters/forgiving-mechanics/fm-jumpbuffer.jpg" data-lazy-video>
-        <source src="/videos/forgiving-mechanics/fm-jumpbuffer.mp4" type="video/mp4" />
-    </video></figure>
-    <figure><video
-        muted
-        loop
-        playsinline
-        controls
-        preload="none" poster="/posters/forgiving-mechanics/fm-coyotetime.jpg" data-lazy-video>
-        <source src="/videos/forgiving-mechanics/fm-coyotetime.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-
-  <div class="media-arrows">
-    <label for="fm-move-2" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
-    <label for="fm-move-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
-    <label for="fm-move-1" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
-    <label for="fm-move-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
-  </div>
-    <div class="media-captions">
-            <div class="media-caption">
-            Jump buffer: pressing jump 0.15s before landing still registers
-            </div>
-            <div class="media-caption">
-            Coyote time: jumping 0.15s after leaving ground still works
-            </div>
-        </div>
-    <div class="media-dots">
-        <label for="fm-move-1"></label>
-        <label for="fm-move-2"></label>
-    </div>
-</div>
+<MediaCarousel data-hx-reveal id="fm-move-media" :slides="[
+  { src: '/videos/forgiving-mechanics/fm-jumpbuffer.mp4', caption: 'Jump buffer: pressing jump 0.15s before landing still registers' },
+  { src: '/videos/forgiving-mechanics/fm-coyotetime.mp4', caption: 'Coyote time: jumping 0.15s after leaving ground still works' }
+]" />
 
 <div class="project-text">
 
 **What you're seeing:** A player who *can't* miss a jump due to bad timing—input windows are large enough to be forgiving, small enough to feel responsive.
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"> <strong>Jump Buffer</strong></span>
-    <span class="mini-panel-icon">▼</span>
-  </summary>
+<ProjectPanel variant="mini" title="Jump Buffer">
 
   <div class="mini-panel-body">
 
@@ -297,13 +132,9 @@ Every system is built to answer: *"How do we make movement feel fair?"*
   - <strong>Result:</strong> No "one-frame miss" frustration, but not exploitable
 
   </div>
-</details>
+</ProjectPanel>
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"> <strong>Coyote Time</strong></span>
-    <span class="mini-panel-icon">▼</span>
-  </summary>
+<ProjectPanel variant="mini" title="Coyote Time">
 
   <div class="mini-panel-body">
 
@@ -313,7 +144,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
   - <strong>Result:</strong> "I jumped too late" moments become successes
 
   </div>
-</details>
+</ProjectPanel>
 
 
 **Why Both Exist (Not One or the Other):**
@@ -321,11 +152,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 - Coyote **alone**: Punishes predictive players (feels cheap)
 - **Together**: Both playstyles work, game feels fair
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"> <strong>Implementation</strong></span>
-    <span class="mini-panel-icon">▼</span>
-  </summary>
+<ProjectPanel variant="mini" title="Implementation">
 
   <div class="mini-panel-body">
 
@@ -342,67 +169,24 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 
   </div>
-</details>
+</ProjectPanel>
 
 
 </div>
 
-<style>
-  #fm-move-1:checked ~ .media-slides figure:nth-child(1),
-  #fm-move-2:checked ~ .media-slides figure:nth-child(2) {
-    display: block;
-  }
 
-  #fm-move-1:checked ~ .media-dots label:nth-child(1),
-  #fm-move-2:checked ~ .media-dots label:nth-child(2) {
-    background: #38bdf8;
-    transform: scale(1.2);
-  }
 
-  #fm-move-1:checked ~ .media-arrows .arrow-prev-1,
-  #fm-move-2:checked ~ .media-arrows .arrow-prev-2,
-  #fm-move-1:checked ~ .media-arrows .arrow-next-1,
-  #fm-move-2:checked ~ .media-arrows .arrow-next-2 {
-    opacity: 1;
-    pointer-events: auto;
-  }
-</style>
-
-</details>
+</ProjectPanel>
 
 
 ## 2. Ground Detection {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ <strong>Physics</strong>: Reliable Ground Detection</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎮" eyebrow="Physics" title="Reliable Ground Detection">
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
-<div class="media-carousel">
-  <input type="radio" name="fm-ground-media" id="fm-ground-1" checked>
-  <input type="radio" name="fm-ground-media" id="fm-ground-2">
-
-  <div class="media-slides">
-    <figure><video
-        muted
-        loop
-        playsinline
-        controls
-        preload="none" poster="/posters/forgiving-mechanics/fm-grounddetection.jpg" data-lazy-video>
-        <source src="/videos/forgiving-mechanics/fm-grounddetection.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-    <div class="media-captions">
-            <div class="media-caption">
-            Capsule raycasts detect ground reliably on flat and angled surfaces
-            </div>
-        </div>
-    <div class="media-dots">
-        <label for="fm-ground-1"></label>
-    </div>
-</div>
+<MediaCarousel data-hx-reveal id="fm-ground-media" :slides="[
+  { src: '/videos/forgiving-mechanics/fm-grounddetection.mp4', caption: 'Capsule raycasts detect ground reliably on flat and angled surfaces' }
+]" />
 
 <div class="project-text">
 
@@ -410,11 +194,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 **The Solution: Capsule Raycasting**
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"> <strong>Implementation</strong></span>
-    <span class="mini-panel-icon">▼</span>
-  </summary>
+<ProjectPanel variant="mini" title="Implementation">
 
   <div class="mini-panel-body">
 
@@ -436,65 +216,25 @@ Every system is built to answer: *"How do we make movement feel fair?"*
   - ✅ Works at any frame rate (raycast is frame-time independent)
   - ✅ No rigidbody collision jitter (runs in FixedUpdate separately)
   </div>
-</details>
+</ProjectPanel>
 
 
 
 </div>
 
-<style>
-  #fm-ground-1:checked ~ .media-slides figure:nth-child(1),
-  #fm-ground-2:checked ~ .media-slides figure:nth-child(2) {
-    display: block;
-  }
 
-  #fm-ground-1:checked ~ .media-dots label:nth-child(1),
-  #fm-ground-2:checked ~ .media-dots label:nth-child(2) {
-    background: #38bdf8;
-    transform: scale(1.2);
-  }
 
-  #fm-ground-1:checked ~ .media-arrows .arrow-prev-1,
-  #fm-ground-2:checked ~ .media-arrows .arrow-prev-2,
-  #fm-ground-1:checked ~ .media-arrows .arrow-next-1,
-  #fm-ground-2:checked ~ .media-arrows .arrow-next-2 {
-    opacity: 1;
-    pointer-events: auto;
-  }
-</style>
-
-</details>
+</ProjectPanel>
 
 ## 3. Physics Tuning {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ <strong>Physics</strong>: Variable Gravity & Acceleration</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎮" eyebrow="Physics" title="Variable Gravity &amp; Acceleration">
 
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
-<div class="media-carousel">
-  <input type="radio" name="fm-gravity-media" id="fm-gravity-1" checked>
-  <input type="radio" name="fm-gravity-media" id="fm-gravity-2">
-
-  <div class="media-slides">
-    <figure><video
-        muted
-        loop
-        playsinline
-        controls
-        preload="none" poster="/posters/forgiving-mechanics/fm-vjh.jpg" data-lazy-video>
-        <source src="/videos/forgiving-mechanics/fm-vjh.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-    <div class="media-captions">
-            <div class="media-caption">
-            Variable Jump Gravity (Hang Time Effect) + Acceleration curves showcase.
-            </div>
-        </div>
-</div>
+<MediaCarousel data-hx-reveal id="fm-gravity-media" :slides="[
+  { src: '/videos/forgiving-mechanics/fm-vjh.mp4', caption: 'Variable Jump Gravity (Hang Time Effect) + Acceleration curves showcase.' }
+]" />
 
 <div class="project-text">
 
@@ -502,11 +242,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"> <strong>Implementation</strong></span>
-    <span class="mini-panel-icon">▼</span>
-  </summary>
+<ProjectPanel variant="mini" title="Implementation">
 
   <div class="mini-panel-body">
 
@@ -526,17 +262,13 @@ Every system is built to answer: *"How do we make movement feel fair?"*
   - Separates arc feel from trajectory (arc *is* the game feel)
 
   </div>
-</details>
+</ProjectPanel>
 
 
 **Acceleration Curves (Smooth Ramp-Up):**
 
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"> <strong>Implementation</strong></span>
-    <span class="mini-panel-icon">▼</span>
-  </summary>
+<ProjectPanel variant="mini" title="Implementation">
 
   <div class="mini-panel-body">
 
@@ -553,17 +285,13 @@ Every system is built to answer: *"How do we make movement feel fair?"*
   - Asymmetric accel/decel curves possible (faster stop = more control)
 
   </div>
-</details>
+</ProjectPanel>
 
 
 **Parameter-Driven:**
 
 
-<details class="mini-panel">
-  <summary class="mini-panel-header">
-    <span class="mini-panel-title"> <strong>Implementation</strong></span>
-    <span class="mini-panel-icon">▼</span>
-  </summary>
+<ProjectPanel variant="mini" title="Implementation">
 
   <div class="mini-panel-body">
 
@@ -579,47 +307,24 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
   
   </div>
-</details>
+</ProjectPanel>
 
 
 
-<style>
-  #fm-gravity-1:checked ~ .media-slides figure:nth-child(1),
-  #fm-gravity-2:checked ~ .media-slides figure:nth-child(2) {
-    display: block;
-  }
 
-  #fm-gravity-1:checked ~ .media-dots label:nth-child(1),
-  #fm-gravity-2:checked ~ .media-dots label:nth-child(2) {
-    background: #38bdf8;
-    transform: scale(1.2);
-  }
-
-  #fm-gravity-1:checked ~ .media-arrows .arrow-prev-1,
-  #fm-gravity-2:checked ~ .media-arrows .arrow-prev-2,
-  #fm-gravity-1:checked ~ .media-arrows .arrow-next-1,
-  #fm-gravity-2:checked ~ .media-arrows .arrow-next-2 {
-    opacity: 1;
-    pointer-events: auto;
-  }
-</style>
 </div>
 
-</details>
+</ProjectPanel>
 
 ---
 
-## - - - --->Technical<--- - - -  {.outline-only}
+## Technical{.outline-only}
 
-# 𓆩Technical Deep Dive𓆪 {.section-title-center}
+# Technical Deep Dive {.section-title-center data-hx-reveal="true"}
 
 ## Architecture Overview {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Architecture Overview - Modular Component System</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Architecture Overview - Modular Component System">
 
 <div class="project-text">
 
@@ -665,15 +370,11 @@ Linear, clear, testable.
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ## 1. Movement Core {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ System 1: Character Movement</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🏗️" title="System 1: Character Movement">
 
 <div class="project-text">
 
@@ -739,15 +440,11 @@ Tiny. Effective. Tunable.
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ## 2. Ground Detection {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ System 2: Ground Detection</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🏗️" title="System 2: Ground Detection">
 
 <div class="project-text">
 
@@ -799,15 +496,11 @@ Slopes feel natural, don't stick where they shouldn't.
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ## 3. Input Handling {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ System 3: Side-Scroller Controller</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🏗️" title="System 3: Side-Scroller Controller">
 
 <div class="project-text">
 
@@ -845,21 +538,17 @@ if (moveInput != 0)
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ---
 
-## - - - --->Extras<--- - - -  {.outline-only}
+## Extras{.outline-only}
 
-# 𓆩Extra Notes𓆪 {.section-title-center}
+# Extra Notes {.section-title-center data-hx-reveal="true"}
 
 ## When to Use This Framework {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ When to Use This Framework</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎮" title="When to Use This Framework">
 
 <div class="project-text">
 
@@ -876,15 +565,11 @@ if (moveInput != 0)
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ## Framework Implementation {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Framework vs. Game-Specific Implementation</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🏗️" title="Framework vs. Game-Specific Implementation">
 
 <div class="project-text">
 
@@ -912,15 +597,11 @@ The framework handles the *foundation*. You handle the *flavor*.
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ## Technologies & Stack {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Technologies & Stack</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="⚙️" title="Technologies &amp; Stack">
 
 <div class="project-text">
 
@@ -934,15 +615,11 @@ The framework handles the *foundation*. You handle the *flavor*.
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ## Links & Resources {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Links & Resources</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🔗" title="Links &amp; Resources">
 
 <div class="project-text">
 
@@ -953,6 +630,6 @@ The framework handles the *foundation*. You handle the *flavor*.
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ---

@@ -26,45 +26,24 @@ description: Marvel Rivals character mod. 10M+ views. Professional audio design 
 # Marvel Rivals Mod (Star Platinum) {.page-title-center}
 
 <p class="project-text">
-  A viral community character replacement mod with <strong>10-15 million cross&nbsp;platform impressions.</strong> I are the <strong>lead sound designer</strong> responsible for all 154 custom sound effects—sourced, edited, and integrated from JoJo games and anime. 
-
-  <p>The mod was featured by major gaming influencers with 200K+ followers.</p>
-
+  A viral community character replacement mod with <strong>10-15 million cross&nbsp;platform impressions.</strong> I am the <strong>lead sound designer</strong> responsible for all 154 custom sound effects—sourced, edited, and integrated from JoJo games and anime.
+</p>
+<p class="project-text">
+  The mod was featured by major gaming influencers with 200K+ followers.
 </p>
 
 <!-- HERO MEDIA CAROUSEL (fps-hero-*) -->
-<div class="media-carousel">
-  <!-- radios -->
-  <input type="radio" name="sp-hero-media" id="sp-hero-1" checked>
-  <!-- slides -->
-  <div class="media-slides">
-    <figure>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/SWXnNbu2BJ0?si=Jqh_NG8ErLeliD8W&amp;start=66" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </figure>
-  </div>
-  <div class="media-captions">
-    <div class="media-caption">
-      <p>Main gameplay mod showcase.</p>
-    </div>
-  </div>
-</div>
+<MediaCarousel data-hx-reveal id="sp-hero-media" :slides="[
+  { src: 'https://www.youtube.com/embed/SWXnNbu2BJ0?si=Jqh_NG8ErLeliD8W&start=66', type: 'embed', caption: 'Main gameplay mod showcase.' }
+]" />
 
-<style>
-  /* HERO CAROUSEL (fm-hero-*) */
-  #sp-hero-1:checked ~ .media-slides figure:nth-child(1) {
-    display: block;
-  }
-</style>
+
 ---
 
 ## Quick Summary {.outline-only}
 
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Quick Summary</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Quick Summary">
 
 <div class="project-text">
 
@@ -80,17 +59,13 @@ description: Marvel Rivals character mod. 10M+ views. Professional audio design 
 
 </div>
 
-</details>
+</ProjectPanel>
 
 
 ## Achievements {.outline-only}
 
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Achievements </span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Achievements">
 
 <div class="project-text">
 
@@ -103,16 +78,12 @@ description: Marvel Rivals character mod. 10M+ views. Professional audio design 
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ## Implementation {.outline-only}
 
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Implementation & Optimization </span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="⚙️" title="Implementation &amp; Optimization">
 
 <div class="project-text">
 
@@ -139,16 +110,12 @@ Different sound categories require different loudness profiles for immersion:
 
 </div>
 
-</details>
+</ProjectPanel>
 
 
 ## Links & Resources {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Links & Resources</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🔗" title="Links &amp; Resources">
 
 <div class="project-text">
 
@@ -157,6 +124,6 @@ Different sound categories require different loudness profiles for immersion:
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ---

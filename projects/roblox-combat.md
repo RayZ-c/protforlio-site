@@ -27,45 +27,17 @@ description: Reusable 5-hit combo + blocking framework for Roblox. Sold to multi
 ### Reusable 5-Hit Combo + Blocking System {.page-title-center}
 
 
-<div class="media-carousel">
-  <input type="radio" name="rcf-hero-media" id="rcf-hero-1" checked>
-  
-  <div class="media-slides">
-    <figure>
-        <video
-            muted
-            playsinline
-            controls
-            preload="none" poster="/posters/roblox-combat/rc-showcase-1.jpg" data-lazy-video>
-            <source src="/videos/roblox-combat/rc-showcase-1.mp4" type="video/mp4" />
-        </video>
-    </figure>
-  </div>
-  
-  <div class="media-captions">
-    <div class="media-caption">
-      Complete combat system: 5-hit combos, knockback, blocking, block breaks, heavy attacks
-    </div>
-  </div>
-</div>
+<MediaCarousel data-hx-reveal id="rcf-hero-media" :slides="[
+  { src: '/videos/roblox-combat/rc-showcase-1.mp4', caption: 'Complete combat system: 5-hit combos, knockback, blocking, block breaks, heavy attacks' }
+]" />
 
 
-<style>
-  /* HERO CAROUSEL (rcf-hero-*) */
-  #rcf-hero-1:checked ~ .media-slides figure:nth-child(1) {
-    display: block;
-  }
-</style>
 
-##
+
 
 ## Overview {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Overview</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Overview">
 
 <div class="project-text">
 
@@ -79,17 +51,13 @@ Production combat framework designed for reusability across multiple Roblox game
 - **Impact Feedback:** Synchronized particle + animation reactions on both attack and block
 
 </div>
-</details>
+</ProjectPanel>
 
 
 
 ## Implementation {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Technical Implementation</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="⚙️" title="Technical Implementation">
 
 <div class="project-text">
 
@@ -104,16 +72,12 @@ Production combat framework designed for reusability across multiple Roblox game
 | **Modular Design** | Parameter-driven balance (damage, knockback, cooldowns all configurable) |
 
 </div>
-</details>
+</ProjectPanel>
 
 
 ## Why It's Reusable {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Reusability & Result</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="📈" title="Reusability &amp; Result">
 
 <div class="project-text">
 
@@ -126,5 +90,5 @@ Production combat framework designed for reusability across multiple Roblox game
 **Result:** Delivered to 3+ clients with custom balance tuning per game. Framework handles all core combat patterns while remaining lightweight and performant. Clients report minimal integration time and ability to modify mechanics without code changes.
 
 </div>
-</details>
+</ProjectPanel>
 

@@ -1,0 +1,562 @@
+/* ==========================================================================
+   SHARED COMPONENT STYLES
+   --------------------------------------------------------------------------
+   Styles for components whose content comes from a slot (i.e. from markdown).
+
+   Why these are not scoped <style> blocks: slotted content carries the PARENT
+   component's scope id, not the child's, so a scoped rule cannot reach markdown
+   passed into a slot without wrapping every selector in `:deep()`. Plain,
+   prefixed classes are clearer than that, and they keep the cascade legible.
+
+   Everything here consumes tokens.css. No literal colours.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ProjectPanel — collapsible case-study section
+   -------------------------------------------------------------------------- */
+
+.hx-panel {
+  position: relative;
+  margin: 0 0 var(--hx-3);
+  border: 1px solid var(--hx-line);
+  border-left: 3px solid var(--hx-line-strong);
+  background: var(--hx-panel);
+  /* clip-path is avoided here on purpose: it would crop the focus ring and the
+     .hx-glow spotlight, which are both drawn outside the content box. */
+  border-radius: var(--hx-radius);
+  transition: border-color var(--hx-mid) var(--hx-ease);
+}
+
+.hx-panel[open] {
+  border-left-color: var(--hx-orange);
+}
+
+.hx-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hx-3);
+  padding: var(--hx-4);
+  cursor: pointer;
+  user-select: none;
+  list-style: none; /* Firefox */
+  font-family: var(--hx-font-ui);
+  /* These are the primary navigation of a long case study — a reader scans
+     them to decide what to open, so they need to carry like headings rather
+     than like body text. */
+  font-size: 1.3125rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--hx-ink-2);
+  transition: color var(--hx-fast) var(--hx-ease);
+}
+
+/* the default disclosure triangle, in WebKit */
+.hx-panel-head::-webkit-details-marker { display: none; }
+
+.hx-panel-head:hover { color: var(--hx-ink); }
+
+.hx-panel-head:focus-visible {
+  outline: 2px solid var(--hx-orange);
+  outline-offset: -2px;
+}
+
+.hx-panel[open] .hx-panel-head { color: var(--hx-ink); }
+
+.hx-panel-title {
+  display: flex;
+  align-items: center;
+  gap: var(--hx-3);
+  min-width: 0;
+}
+
+.hx-panel-icon {
+  flex: none;
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+.hx-panel-chevron {
+  flex: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--hx-ink-3);
+  transition: transform var(--hx-mid) var(--hx-ease), color var(--hx-fast) var(--hx-ease);
+}
+
+.hx-panel[open] .hx-panel-chevron {
+  transform: rotate(180deg);
+  color: var(--hx-orange);
+}
+
+.hx-panel-body {
+  padding: 0 var(--hx-4) var(--hx-4);
+  border-top: 1px solid var(--hx-line);
+  padding-top: var(--hx-4);
+}
+
+/* Reading measure for prose inside a panel. Media and code stay full width. */
+.hx-panel-body > p,
+.hx-panel-body > ul,
+.hx-panel-body > ol {
+  max-width: 72ch;
+}
+
+.hx-panel-body > :first-child { margin-top: 0; }
+.hx-panel-body > :last-child { margin-bottom: 0; }
+
+/* Wide content must scroll inside itself, never widen the page. */
+.hx-panel-body table,
+.hx-panel-body pre {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hx-panel,
+  .hx-panel-head,
+  .hx-panel-chevron { transition: none; }
+}
+
+/* Category label before a panel title (e.g. "Movement" in
+   "Movement: Forgiving Mechanics"). Was inline <strong> in the old markup. */
+.hx-panel-eyebrow {
+  flex: none;
+  padding-right: var(--hx-3);
+  border-right: 1px solid var(--hx-line-strong);
+  color: var(--hx-orange);
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Nested sub-section inside a panel. Quieter than the parent so the hierarchy
+   reads at a glance: no left accent bar, smaller head, flatter ground. */
+.hx-panel--mini {
+  border-left-width: 1px;
+  background: var(--hx-bg-2);
+  margin-bottom: var(--hx-2);
+}
+
+.hx-panel--mini[open] {
+  border-left-color: var(--hx-line-strong);
+}
+
+.hx-panel--mini .hx-panel-head {
+  padding: var(--hx-3);
+  font-size: 1.0625rem;
+}
+
+.hx-panel--mini .hx-panel-chevron { font-size: 1.05rem; }
+
+.hx-panel--mini .hx-panel-body {
+  padding: var(--hx-3);
+  padding-top: var(--hx-3);
+}
+
+
+/* --------------------------------------------------------------------------
+   MediaCarousel
+   --------------------------------------------------------------------------
+   Position-based selection. The old hand-written carousels each needed their
+   own generated stylesheet because they selected by unique id
+   (`#fm-hero-1:checked ~ …`). Selecting by :nth-of-type / :nth-child instead
+   means these rules are written ONCE and serve every carousel on the site.
+
+   Supports up to 8 slides; the most any page uses is 6.
+   -------------------------------------------------------------------------- */
+
+.hx-carousel {
+  position: relative;
+  margin: var(--hx-4) 0;
+}
+
+/* Visually hidden but still focusable — that is what keeps native radio-group
+   arrow-key navigation working. `display: none` would remove it from the
+   tab order and break keyboard use entirely. */
+.hx-carousel-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hx-carousel-stage {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--hx-line);
+  background: #000;
+}
+
+.hx-carousel-arrow {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 5vw, 50px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid rgba(255, 180, 94, 0.58);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--hx-panel) 62%, transparent);
+  box-shadow: 0 0 0 1px rgba(4, 8, 16, 0.35),
+              0 8px 26px rgba(0, 0, 0, 0.32);
+  color: var(--hx-orange-2);
+  opacity: 0.64;
+  cursor: pointer;
+  transform: translateY(-50%);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  transition: opacity var(--hx-fast) var(--hx-ease),
+              color var(--hx-fast) var(--hx-ease),
+              border-color var(--hx-fast) var(--hx-ease),
+              background var(--hx-fast) var(--hx-ease),
+              box-shadow var(--hx-fast) var(--hx-ease),
+              transform var(--hx-fast) var(--hx-ease);
+}
+
+.hx-carousel-arrow--previous { left: clamp(8px, 1.8vw, 18px); }
+.hx-carousel-arrow--next { right: clamp(8px, 1.8vw, 18px); }
+
+.hx-carousel-arrow svg {
+  width: 54%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  animation: hx-carousel-arrow-idle 2.8s var(--hx-ease) infinite;
+}
+
+.hx-carousel-arrow:hover {
+  opacity: 1;
+  color: var(--hx-ink);
+  border-color: var(--hx-orange);
+  background: color-mix(in srgb, var(--hx-panel-2) 82%, transparent);
+  box-shadow: 0 0 0 1px rgba(255, 140, 26, 0.24),
+              0 0 24px rgba(255, 140, 26, 0.25),
+              0 10px 30px rgba(0, 0, 0, 0.42);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.hx-carousel-arrow:active {
+  opacity: 0.9;
+  transform: translateY(-50%) scale(0.92);
+}
+
+.hx-carousel-arrow:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--hx-blue-2);
+  outline-offset: 3px;
+}
+
+@keyframes hx-carousel-arrow-idle {
+  0%, 100% { transform: scale(0.94); opacity: 0.72; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+.hx-carousel-slide {
+  display: none;
+  margin: 0;
+}
+
+.hx-carousel-slide img,
+.hx-carousel-slide video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Fallback when no radio is checked (and the no-JS/no-CSS case): show the
+   first slide rather than an empty box. */
+.hx-carousel-slide:first-child { display: block; }
+
+.hx-carousel-radio:nth-of-type(1):checked ~ .hx-carousel-stage > .hx-carousel-slide:nth-child(1),
+.hx-carousel-radio:nth-of-type(1):checked ~ .hx-carousel-captions > .hx-carousel-caption:nth-child(1) {
+  display: block;
+}
+
+.hx-carousel-radio:nth-of-type(1):checked ~ .hx-carousel-stage > .hx-carousel-slide:not(:nth-child(1)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(1):checked ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(1) {
+  color: #170a00;
+  background: var(--hx-orange);
+  border-color: var(--hx-orange);
+}
+
+.hx-carousel-radio:nth-of-type(1):focus-visible ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(1) {
+  outline: 2px solid var(--hx-blue-2);
+  outline-offset: 2px;
+}
+
+.hx-carousel-radio:nth-of-type(2):checked ~ .hx-carousel-stage > .hx-carousel-slide:nth-child(2),
+.hx-carousel-radio:nth-of-type(2):checked ~ .hx-carousel-captions > .hx-carousel-caption:nth-child(2) {
+  display: block;
+}
+
+.hx-carousel-radio:nth-of-type(2):checked ~ .hx-carousel-stage > .hx-carousel-slide:not(:nth-child(2)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(2):checked ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(2) {
+  color: #170a00;
+  background: var(--hx-orange);
+  border-color: var(--hx-orange);
+}
+
+.hx-carousel-radio:nth-of-type(2):focus-visible ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(2) {
+  outline: 2px solid var(--hx-blue-2);
+  outline-offset: 2px;
+}
+
+.hx-carousel-radio:nth-of-type(3):checked ~ .hx-carousel-stage > .hx-carousel-slide:nth-child(3),
+.hx-carousel-radio:nth-of-type(3):checked ~ .hx-carousel-captions > .hx-carousel-caption:nth-child(3) {
+  display: block;
+}
+
+.hx-carousel-radio:nth-of-type(3):checked ~ .hx-carousel-stage > .hx-carousel-slide:not(:nth-child(3)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(3):checked ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(3) {
+  color: #170a00;
+  background: var(--hx-orange);
+  border-color: var(--hx-orange);
+}
+
+.hx-carousel-radio:nth-of-type(3):focus-visible ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(3) {
+  outline: 2px solid var(--hx-blue-2);
+  outline-offset: 2px;
+}
+
+.hx-carousel-radio:nth-of-type(4):checked ~ .hx-carousel-stage > .hx-carousel-slide:nth-child(4),
+.hx-carousel-radio:nth-of-type(4):checked ~ .hx-carousel-captions > .hx-carousel-caption:nth-child(4) {
+  display: block;
+}
+
+.hx-carousel-radio:nth-of-type(4):checked ~ .hx-carousel-stage > .hx-carousel-slide:not(:nth-child(4)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(4):checked ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(4) {
+  color: #170a00;
+  background: var(--hx-orange);
+  border-color: var(--hx-orange);
+}
+
+.hx-carousel-radio:nth-of-type(4):focus-visible ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(4) {
+  outline: 2px solid var(--hx-blue-2);
+  outline-offset: 2px;
+}
+
+.hx-carousel-radio:nth-of-type(5):checked ~ .hx-carousel-stage > .hx-carousel-slide:nth-child(5),
+.hx-carousel-radio:nth-of-type(5):checked ~ .hx-carousel-captions > .hx-carousel-caption:nth-child(5) {
+  display: block;
+}
+
+.hx-carousel-radio:nth-of-type(5):checked ~ .hx-carousel-stage > .hx-carousel-slide:not(:nth-child(5)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(5):checked ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(5) {
+  color: #170a00;
+  background: var(--hx-orange);
+  border-color: var(--hx-orange);
+}
+
+.hx-carousel-radio:nth-of-type(5):focus-visible ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(5) {
+  outline: 2px solid var(--hx-blue-2);
+  outline-offset: 2px;
+}
+
+.hx-carousel-radio:nth-of-type(6):checked ~ .hx-carousel-stage > .hx-carousel-slide:nth-child(6),
+.hx-carousel-radio:nth-of-type(6):checked ~ .hx-carousel-captions > .hx-carousel-caption:nth-child(6) {
+  display: block;
+}
+
+.hx-carousel-radio:nth-of-type(6):checked ~ .hx-carousel-stage > .hx-carousel-slide:not(:nth-child(6)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(6):checked ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(6) {
+  color: #170a00;
+  background: var(--hx-orange);
+  border-color: var(--hx-orange);
+}
+
+.hx-carousel-radio:nth-of-type(6):focus-visible ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(6) {
+  outline: 2px solid var(--hx-blue-2);
+  outline-offset: 2px;
+}
+
+.hx-carousel-radio:nth-of-type(7):checked ~ .hx-carousel-stage > .hx-carousel-slide:nth-child(7),
+.hx-carousel-radio:nth-of-type(7):checked ~ .hx-carousel-captions > .hx-carousel-caption:nth-child(7) {
+  display: block;
+}
+
+.hx-carousel-radio:nth-of-type(7):checked ~ .hx-carousel-stage > .hx-carousel-slide:not(:nth-child(7)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(7):checked ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(7) {
+  color: #170a00;
+  background: var(--hx-orange);
+  border-color: var(--hx-orange);
+}
+
+.hx-carousel-radio:nth-of-type(7):focus-visible ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(7) {
+  outline: 2px solid var(--hx-blue-2);
+  outline-offset: 2px;
+}
+
+.hx-carousel-radio:nth-of-type(8):checked ~ .hx-carousel-stage > .hx-carousel-slide:nth-child(8),
+.hx-carousel-radio:nth-of-type(8):checked ~ .hx-carousel-captions > .hx-carousel-caption:nth-child(8) {
+  display: block;
+}
+
+.hx-carousel-radio:nth-of-type(8):checked ~ .hx-carousel-stage > .hx-carousel-slide:not(:nth-child(8)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(8):checked ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(8) {
+  color: #170a00;
+  background: var(--hx-orange);
+  border-color: var(--hx-orange);
+}
+
+.hx-carousel-radio:nth-of-type(8):focus-visible ~ .hx-carousel-tabs > .hx-carousel-tab:nth-child(8) {
+  outline: 2px solid var(--hx-blue-2);
+  outline-offset: 2px;
+}
+
+.hx-carousel-radio:nth-of-type(1):checked ~ .hx-carousel-captions > .hx-carousel-caption:not(:nth-child(1)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(2):checked ~ .hx-carousel-captions > .hx-carousel-caption:not(:nth-child(2)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(3):checked ~ .hx-carousel-captions > .hx-carousel-caption:not(:nth-child(3)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(4):checked ~ .hx-carousel-captions > .hx-carousel-caption:not(:nth-child(4)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(5):checked ~ .hx-carousel-captions > .hx-carousel-caption:not(:nth-child(5)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(6):checked ~ .hx-carousel-captions > .hx-carousel-caption:not(:nth-child(6)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(7):checked ~ .hx-carousel-captions > .hx-carousel-caption:not(:nth-child(7)) {
+  display: none;
+}
+
+.hx-carousel-radio:nth-of-type(8):checked ~ .hx-carousel-captions > .hx-carousel-caption:not(:nth-child(8)) {
+  display: none;
+}
+
+/* Tabs — the angular "hook" shape adapted from the `lucky-bobcat-25` radio
+   group by Ali-Tahmazi on uiverse.io (MIT), recoloured to the site palette.
+   The glitch animation from the original is deliberately left out: these sit
+   under gameplay footage and a second moving element would fight it. */
+.hx-carousel-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hx-2);
+  margin-top: var(--hx-3);
+}
+
+.hx-carousel-tab {
+  --hook: 9px;
+  position: relative;
+  padding: 5px 15px;
+  border: 1px solid var(--hx-line-strong);
+  background: var(--hx-panel);
+  clip-path: polygon(
+    var(--hook) 0, 100% 0,
+    100% calc(100% - var(--hook)), calc(100% - var(--hook)) 100%,
+    0 100%, 0 var(--hook)
+  );
+  color: var(--hx-ink-3);
+  font-family: var(--hx-font-ui);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+  transition: color var(--hx-fast) var(--hx-ease),
+              border-color var(--hx-fast) var(--hx-ease),
+              background var(--hx-fast) var(--hx-ease);
+}
+
+.hx-carousel-tab:hover {
+  color: var(--hx-ink);
+  border-color: var(--hx-orange);
+}
+
+.hx-carousel-captions {
+  margin-top: var(--hx-3);
+}
+
+.hx-carousel-caption {
+  display: none;
+  margin: 0;
+  max-width: 72ch;
+  color: var(--hx-ink-3);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.hx-carousel-caption:first-child { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hx-carousel-tab,
+  .hx-carousel-arrow { transition: none; }
+  .hx-carousel-arrow svg { animation: none; }
+}
+
+/* YouTube embeds inside a carousel. 16:9 without the padding-top hack. */
+.hx-carousel-embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   TagRow
+   --------------------------------------------------------------------------
+   The .hx-tag base and its --warm/--cool variants live in home-experiment.css
+   (plain class selectors, so they already apply site-wide). Only the list
+   layout is needed here.
+   -------------------------------------------------------------------------- */
+
+.hx-tagrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hx-tagrow .hx-tag {
+  font-size: 0.6875rem;
+  padding: 3px 9px;
+  letter-spacing: 0.1em;
+}

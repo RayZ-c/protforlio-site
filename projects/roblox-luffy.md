@@ -27,39 +27,17 @@ description: Custom 4-ability + transformation system for Roblox client. All vis
 ### Client Commission: 4 Abilities + Transformation {.page-title-center}
 
 
-<div class="media-carousel">
-  <input type="radio" name="rl-hero-media" id="rl-hero-1" checked>
-  
-  <div class="media-slides">
-    <figure>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/79QGymAW9uE?si=bbwLB3-aUYcUDnBk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </figure>
-  </div>
-  
-  <div class="media-captions">
-    <div class="media-caption">
-      Complete moveset showcase: 4 abilities + transformation system
-    </div>
-  </div>
-</div>
+<MediaCarousel data-hx-reveal id="rl-hero-media" :slides="[
+  { src: 'https://www.youtube.com/embed/79QGymAW9uE?si=bbwLB3-aUYcUDnBk', type: 'embed', caption: 'Complete moveset showcase: 4 abilities + transformation system' }
+]" />
 
 
-<style>
-  /* HERO CAROUSEL (fm-hero-*) */
-  #rl-hero-1:checked ~ .media-slides figure:nth-child(1) {
-    display: block;
-  }
-</style>
 
-##
+
 
 ## Overview {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Overview</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Overview">
 
 <div class="project-text">
 
@@ -73,17 +51,13 @@ description: Custom 4-ability + transformation system for Roblox client. All vis
   - **Scripting:** Pure Lua backend (input handling, ability sequencing, cooldown management)
 
 </div>
-</details>
+</ProjectPanel>
 
 
 
 ## Implementation {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Technical Implementation</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="⚙️" title="Technical Implementation">
 
 <div class="project-text">
 
@@ -97,16 +71,12 @@ description: Custom 4-ability + transformation system for Roblox client. All vis
 | **Polish** | Particle timing synced to animation, audio cues for feedback, visual combo feedback |
 
 </div>
-</details>
+</ProjectPanel>
 
 
 ## Links & Resources {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Links & Resources</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🔗" title="Links &amp; Resources">
 
 <div class="project-text">
 
@@ -115,7 +85,7 @@ description: Custom 4-ability + transformation system for Roblox client. All vis
 
 </div>
 
-</details>
+</ProjectPanel>
 
 
 ---

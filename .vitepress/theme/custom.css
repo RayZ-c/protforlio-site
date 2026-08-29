@@ -1,29 +1,84 @@
 
 
-.featured-projects {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.75rem;
-  margin-top: 1.5rem;
-}
+/* PROJECT CARD
+   ---------------------------------------------------------------------------
+   One definition. The previous version mixed a rounded radial-gradient card
+   (old design) with a clipped hairline card (new), which is why the hover read
+   as two different treatments fighting.
 
+   The border is drawn by a pseudo-element rather than the element's own
+   `border`, because the card is clipped with clip-path for its notched corner
+   and a real border gets sliced by the clip. The pseudo-element sits inside the
+   clip and can fade all four edges together. */
 .project-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.647), rgba(12, 12, 12, 0.784));
-  border-radius: 18px;
+  isolation: isolate;
+  background: var(--hx-panel);
+  border: 0;
+  border-radius: var(--hx-radius);
+  clip-path: polygon(
+    0 0, calc(100% - var(--hx-notch)) 0, 100% var(--hx-notch),
+    100% 100%, var(--hx-notch) 100%, 0 calc(100% - var(--hx-notch))
+  );
   padding: 1rem;
-  border: 2px solid rgba(119, 119, 119, 0.67);
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
-  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+  transform-origin: center;
+  transition: transform var(--hx-mid) var(--hx-ease),
+              background var(--hx-mid) var(--hx-ease);
 }
 
-.project-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.7);
+/* All four edges, fading together. */
+.project-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border: 1px solid var(--hx-line);
+  border-radius: var(--hx-radius);
+  transition: border-color var(--hx-mid) var(--hx-ease),
+              box-shadow var(--hx-mid) var(--hx-ease);
+}
+
+.project-card:hover::after,
+.project-card:focus-visible::after {
+  border-color: rgba(255, 140, 26, 0.6);
+  box-shadow: inset 0 0 22px rgba(255, 140, 26, 0.12);
+}
+
+.project-card:hover,
+.project-card:focus-visible {
+  transform: translateY(-5px) scale(1.02);
+  background: var(--hx-panel-2);
+}
+
+.project-card:focus-visible {
+  outline: 2px solid var(--hx-orange);
+  outline-offset: 3px;
+}
+
+/* Push the tag row to the bottom of the card so every card's tags line up,
+   regardless of how long its description runs. */
+.project-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.project-body .hx-tagrow {
+  margin-top: auto;
+  padding-top: var(--hx-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card,
+  .project-card::after { transition: none; }
+  .project-card:hover,
+  .project-card:focus-visible { transform: none; }
 }
 
 .project-media {
@@ -70,18 +125,31 @@
   position: absolute;
   top: 0.6rem;
   right: 0.6rem;
-  color: #ffffff;
-  background: linear-gradient(135deg, #a855ff, #ec4899);
+  color: #170a00;
+  background: var(--hx-orange);
   border-color: transparent;
 }
 
 /* card text */
 
+/* One definition. There used to be a second rule further down setting 0.95rem,
+   which silently won — so the card title rendered smaller than intended.
+   It is the card's title, so it should carry like one. */
 .project-body h3 {
-  color: #ffffff;
-  margin: 0 0 0.4rem;
-  font-size: 1.05rem;
+  margin: 0 0 var(--hx-3);
+  font-family: var(--hx-font-ui);
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: var(--hx-ink);
   text-decoration: none;
+  text-wrap: balance;
+  transition: color var(--hx-fast) var(--hx-ease);
+}
+
+.project-card:hover .project-body h3 {
+  color: var(--hx-orange-2);
 }
 
 .project-body p {
@@ -90,29 +158,10 @@
   opacity: 0.9;
 }
 
+/* The colour shift plus the sweep bar already signal the hover; a browser
+   default underline on top of that looked like a third, unrelated effect. */
 .project-card:hover h3 {
-  text-decoration: underline;
-}
-
-/* per-card hover colors */
-.card-DB-plat:hover h3 {
-  color: #ffa860;
-}
-
-.card-unreal-fps:hover h3 {
-  color: #a1f2ff;
-}
-
-.project-card:hover p {
   text-decoration: none;
-}
-
-.card-DB-plat:hover p {
-  color: #ff7300;
-}
-
-.card-unreal-fps:hover p {
-  color: #44e9ff;
 }
 
 /* ------- tags ------- */
@@ -196,32 +245,10 @@
   border-color: rgba(249, 249, 249, 0.8);
 }
 
-.project-card:hover .project-tags .tag {
-  border: 3px solid rgb(165, 112, 235);
-}
-
-/* view all button */
-
-.view-all-wrapper {
-  margin-top: 2.75rem;
-  display:flex;
-  justify-content: center;
-}
-
-.view-all-button {
-  padding-right: 15.85rem;
-  padding-left: 15.85rem;
-  padding-bottom: 1.55rem ;
-  padding-top: 1.55rem ;
-
-  border-radius: 20px;
-  background: #4349508d;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 1.9rem;
-  border: 2.5px solid rgba(0, 0, 0, 0.252);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.5);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+/* The tags carry their own semantic colour (TagRow); a card hover must not
+   repaint them all purple, which is what the old rule did. */
+.project-card:hover .hx-tag {
+  border-color: currentColor;
 }
 
 .view-all-button:hover {
@@ -325,11 +352,7 @@
 }
 
 
-.project-body h3 {
-  font-size: 0.95rem;
-  margin-top: -1.5rem;
-  margin-bottom: 1rem;
-}
+
 
 .project-body p {
   font-weight: 300;
@@ -340,8 +363,7 @@
 }
 
 .project-card:hover p {
-  color:#dbeaf4;
-  
+  color: var(--hx-ink);
 }
 
 /* Reduce vertical gap between rows */
@@ -436,22 +458,6 @@
   box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.25);
 }
 
-/* Header row */
-.section-header {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.15rem 2.1rem;                           /* your original padding */
-  cursor: pointer;
-  user-select: none;
-  font-size: 1.25rem;
-  font-weight: 250;
-  color: #ffffffa0;
-  background: transparent;
-  transition: background 0.15s ease, color 0.15s ease, transform 0.08s ease;
-}
-
 .section-header::-webkit-details-marker {
   display: none;
 }
@@ -473,12 +479,6 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-}
-
-.section-icon {
-  font-size: 2.9rem;
-  opacity: 0.8;
-  transition: transform 0.15s ease;
 }
 
 /* Rotate arrow when open */
@@ -537,34 +537,6 @@ h2.outline-only {
   display: block;
 }
 
-
-.project-hero {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-/* Left column: text */
-.project-hero-text {
-  flex: 1 1 55%;
-}
-
-/* Right column: media viewer */
-.project-hero-media {
-  flex: 1 1 45%;
-  display: flex;
-  justify-content: center;
-}
-
-.media-carousel {
-  position: relative;
-  width: 80%;
-  max-width: 1040px;
-  margin: 1.5rem auto;   /* auto horizontally centers it */
-
-
-}
-
 .media-carousel input[type="radio"] {
   display: none;
 }
@@ -590,13 +562,6 @@ h2.outline-only {
   display: block;
 }
 
-.media-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-}
-
 .media-dots label {
   width: 0.55rem;
   height: 0.55rem;
@@ -607,127 +572,89 @@ h2.outline-only {
   
 }
 
-
-.media-carousel {
-  position: relative;
-  
-}
-
-.media-arrow-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2.6rem;
-  height: 2.6rem;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.55);
-  background: rgba(15, 23, 42, 0.9);
-  color: #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 5;
-  font-size: 1.4rem;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
-}
-
-.media-arrow-prev { left: 0.4rem; }
-.media-arrow-next { right: 0.4rem; }
-
-.media-arrow-btn:hover {
-  background: #38bdf8;
-  border-color: #38bdf8;
-  color: #020617;
-  transform: translateY(-50%) translateY(-1px);
-}
-
-
-.project-hero {
-  margin-bottom: 1.5rem;
-}
-
 /* New row: stats on left, media on right */
+/* PROJECT FACT STRIP
+   ---------------------------------------------------------------------------
+   The status/type/focus block at the top of every case study. Previously this
+   mixed a rounded, heavy-shadowed panel (old design) with tokenised type and an
+   orange accent rail (new), which read as two designs stacked.
+
+   Committed to the site's language: notched panel, hairline border, condensed
+   uppercase labels, and one accent rail per row that lights on hover so the
+   block responds to the reader rather than sitting inert. */
 .project-info-row {
   display: flex;
-  gap: 1.5rem;
+  gap: var(--hx-4);
   align-items: flex-start;
-  margin: 0.5rem .5rem 1rem .5rem ;
-  padding: 0.5rem 2.5rem 0.5rem 2.5rem;
-  border: 2px solid rgba(69, 69, 69, 0.542);
-  border-radius: 9px;
-  background: #0206179d;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+  margin: 0 0 var(--hx-6);
+  padding: var(--hx-4) var(--hx-5);
+  border: 1px solid var(--hx-line);
+  border-radius: var(--hx-radius);
+  background: var(--hx-panel);
+  clip-path: polygon(
+    0 0, calc(100% - var(--hx-notch)) 0, 100% var(--hx-notch),
+    100% 100%, var(--hx-notch) 100%, 0 calc(100% - var(--hx-notch))
+  );
+  transition: border-color var(--hx-mid) var(--hx-ease);
+}
+
+.project-info-row:hover {
+  border-color: var(--hx-line-strong);
 }
 
 .project-info-left {
-  flex: 1 1 45%;
-  font-size: 0.98rem;
-}
-
-.project-info-left p {
-  margin: 0.1rem 0;
-}
-
-.project-info-right {
-  flex: 1 1 55%;
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* Keep carousel from getting too huge */
-.project-info-right .media-carousel {
+  display: grid;
+  gap: var(--hx-2);
   width: 100%;
-  max-width: 540px;
 }
 
-/* Mobile: stack vertically */
-@media (max-width: 900px) {
-  .project-info-row {
-    flex-direction: column;
-  }
-
-  .project-info-right {
-    justify-content: flex-start;
-  }
-}
-
-
-/* Centered section titles */
-.page-title-center {
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.section-title-center {
-  text-align: center;
-  margin: 2rem 0 0.75rem;
-}
-
-
-/* Gradient values for project info (only the part after the colon) */
+/* `.vp-doc` prefix required: these rows are <p> elements, and VitePress's own
+   `.vp-doc p { margin: 16px 0 }` (0-1-1) outranks a bare `.info-line` (0-1-0),
+   which left 85px between rows instead of the intended 8px. */
+.vp-doc .info-line,
 .info-line {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(8.5rem, max-content) 1fr;
   align-items: baseline;
-  gap: 0rem;
+  gap: var(--hx-4);
+  margin: 0;
+  padding: var(--hx-2) 0 var(--hx-2) var(--hx-4);
+  border-left: 2px solid var(--hx-line);
+  transition: border-color var(--hx-mid) var(--hx-ease),
+              background var(--hx-mid) var(--hx-ease);
+}
+
+.info-line:hover {
+  border-left-color: var(--hx-orange);
+  background: rgba(255, 140, 26, 0.05);
 }
 
 .info-line-label {
-  font-weight: 150;
-  min-width: 9rem;  /* adjust until the alignment looks right */
+  font-family: var(--hx-font-ui);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hx-ink-3);
+  transition: color var(--hx-mid) var(--hx-ease);
+}
 
+.info-line:hover .info-line-label {
+  color: var(--hx-ink-2);
 }
 
 .info-line-value {
-  font-weight: 500;
-  background: linear-gradient(120deg, #6538f8, #f75555, #25f916);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: infoGradient 1s ease-in-out infinite alternate;
-  
+  font-family: var(--hx-font-ui);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--hx-orange-2);
+}
 
+@media (prefers-reduced-motion: reduce) {
+  .project-info-row,
+  .info-line,
+  .info-line-label { transition: none; }
 }
 
 @keyframes infoGradient {
@@ -737,25 +664,23 @@ h2.outline-only {
 
 
 .project-text {
-  font-size: 1.02rem;          /* keep or tweak size */
-  line-height: 1.4;
-  max-width: 68rem;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  /* 68rem is ~1088px — far past a comfortable measure. Characters, not rems,
+     so the limit tracks the font size. */
+  max-width: 74ch;
   margin: 0 auto 1.6rem;
-  
-  font-weight: 175;            /* thickness control: 300–800 */
-}
-
-/* Optional: extra “ink” look if your font supports it */
-.project-text-strong {
-  font-weight: 350;
-  line-height: 1.4;
-
+  /* Was font-weight: 175. Inter at 175 is lighter than Thin: on a near-black
+     ground it renders washed out and picks up a blue cast from the ink token,
+     which reads as a colour bug but is really a weight problem. 400 is the
+     lightest weight that stays legible here. */
+  font-weight: 400;
 }
 
 
 .back-home-button {
   position: absolute;
-  top: -3.5rem;
+  top: -3rem;
   left: -1rem;
   padding: 0.15rem 0.65rem;
   border-radius: 999px;
@@ -813,66 +738,9 @@ h2.outline-only {
   text-decoration: none;
 }
 
-
-.about-card {
-  max-width: 75rem;
-  margin: 0.5rem auto 1.5rem;
-  padding: 1.5rem 0.44rem;
-  border-radius: 0.9rem;
-    text-align: center;              /* center everything inside */
-
-  background: rgba(13, 18, 22, 0.589);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.5);
-  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-}
-
-.about-card:hover {
-  border: 1.5px solid rgba(148, 163, 184, 0.45);
-  border-color: #8de6ff;
-  box-shadow: 0 26px 45px rgba(0, 0, 0, 0.5);
-  background: rgba(15, 23, 42, 0.9);
-  
-}
-
-.about-text {
-  font-size: 0.8rem;
-  font-weight: 220;
-  text-align: left;
-  color: #e5e7eb;
-  text-align: center;              /* center everything inside */
-
-  /* kill default paragraph spacing */
-  margin-top: 0.2rem;
-  margin-bottom: 0.15rem;
-  line-height: 1.35;
-
-}
-
 .about-text strong {
   font-weight: 450;
   color: #f9fafb;
-}
-
-/* Force tight spacing inside About Me card */
-.about-card p.about-text {
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
-  line-height: 2.35;
-  font-size: 0.85rem;
-  
-}
-
-.about-text strong2 {
-  font-weight: 450;
-  color: #f9fafb;
-
-  background: linear-gradient(120deg, #6538f8, #f75555, #25f916);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: infoGradient 1s ease-in-out infinite alternate;
-
 }
 
 @keyframes aboutGradient {
@@ -880,69 +748,8 @@ h2.outline-only {
   100% { background-position: 100% 50%; }
 }
 
-
-
-
-
-.experience-card {
-  max-width: 70rem;
-  margin: 0.75rem auto 1.25rem;
-  padding: 0.75rem 1.4rem 0.9rem;
-  border-radius: 0.9rem;
-  border: 2px solid rgba(118, 59, 169, 0.65);
-  background: rgba(12, 14, 22, 0.9);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
-  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 2.18s ease;
-}
-
-.experience-card:hover {
-  border-color: #e879f9;
-  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.8);
-  background: radial-gradient(circle at top left,
-                rgba(34, 11, 50, 0.86),
-                rgba(10, 16, 30, 0.95));
-  
-}
-
-.experience-meta {
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #e5e7eb;
-  margin-bottom: 0.15rem;
-}
-
-.experience-title {
-  margin: 0.1rem 0 0.1rem;
-  font-size: 1.02rem;
-  color: #e879f9;
-}
-
-.experience-subtitle {
-  margin: 0 0 0.4rem;
-  font-size: 0.8rem;
-  color: #9ca3af;
-}
-
-.experience-list {
-  margin: 0.1rem 0 0.45rem 1rem;
-  padding: 0;
-  list-style: disc;
-  font-size: 0.82rem;
-  line-height: 1.45;
-  color: #e5e7eb;
-}
-
 .experience-list li {
   margin-bottom: 0.18rem;
-}
-
-.experience-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-  margin-top: 0.1rem;
 }
 
 .experience-tags .pill {
@@ -951,21 +758,6 @@ h2.outline-only {
   border-radius: 999px;
   border: 1px solid rgba(196, 181, 253, 0.8);
   background: rgba(30, 64, 175, 0.25);
-}
-
-
-
-
-/* ---- Education section overrides ---- */
-
-.education-section {
-  margin-top: 0.5rem;
-}
-
-.education-card {
-  border-color: rgba(80, 133, 146, 0.7);  
-  background: rgba(12, 14, 22, 0.9);
-
 }
 
 .education-card:hover {
@@ -989,188 +781,12 @@ h2.outline-only {
 }
 
 
-.education-title {
-  margin: 0.1rem 0 0.1rem;
-  font-size: 1.02rem;
-  color: #79d7f9;
-}
 
-/* Normal text weight inside education cards */
-.education-card,
-.education-card .experience-list,
-.education-card .experience-list li,
-.experience-card,
-.experience-card .experience-subtitle,
-.experience-card .experience-list,
-.experience-card .experience-list li {
-  font-weight: 260; /* tweak between ~200–350 to taste */
-}
-
-.education-card .experience-subtitle{
-    color: #4b93e4;
-}
-
-
-/* ---- Contact section ---- */
-
-.contact-section {
-  margin-top: 1.5rem;
-}
-
-.contact-card {
-  border-color: rgba(196, 181, 253, 0.8);
-  background: radial-gradient(circle at top right,
-              rgba(70, 32, 38, 0.629),
-              rgba(15, 23, 42, 0.96));
-}
-
-.contact-card:hover {
-  border-color: #f97316;
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.9);
-}
-
-.contact-card strong {
-  font-weight: 600;
-}
-
-.contact-card .experience-tags .pill {
-  border-color: rgba(196, 181, 253, 0.9);
-  background: rgba(88, 28, 135, 0.55);
-}
-
-
-
-/* ---- Scroll up/down controls ---- */
-
-.scroll-controls {
-  position: fixed;
-  right: 1.6rem;
-  bottom: 1.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  z-index: 40;
-}
-
-.scroll-btn {
-  text-decoration: none !important;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  background: radial-gradient(circle at top,
-              rgba(129, 141, 248, 0.359),
-              rgba(15, 23, 42, 0.95));
-  color: #f7f6fd !important;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.75);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-
-.scroll-btn:hover {
-  transform: translateY(-1px);
-  border-color: #a855f7;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
-}
-
-.scroll-btn:active {
-  transform: translateY(1px) scale(0.97);
-}
 
 
 
 html {
   scroll-behavior: smooth;
-}
-
-
-/* ---- Footer ---- */
-
-.site-footer {
-  margin-top: 3rem;
-  padding: 0.2rem 1.5rem 1.4rem;
-  border-top: 1px solid rgba(148, 163, 184, 0.25);
-  background: linear-gradient(to top, #131313, #333333a3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.88rem;
-  color: #9ca3af;
-    border-radius: 15px;
-
-}
-
-.footer-social {
-  display: flex;
-  gap: 0.55rem;
-  align-items: center;
-  justify-content: center;
-
-}
-
-.footer-icon {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  background: radial-gradient(circle at top,
-              rgba(49, 54, 101, 0.71),
-              rgba(15, 23, 42, 0.358));
-  color: #e5e7eb !important;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-}
-
-.footer-icon:hover {
-  transform: translateY(-1px);
-  border-color: #a855f7;
-  color: #c4b5fd;
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.85);
-}
-
-.footer-copy {
-  text-align: center;
-  opacity: 0.8;
-}
-
-
-
-
-
-
-.social-icons {
-    margin: 0 auto;
-    /* You just need to change the width and height
-    of your div here.
-    The size of the images will adapt automatically.
-    Make sure that the width is 5 times the height
-    for better results.*/
-    width: 340px;
-    height: 68px;
-    position: relative;
-}
-
-
-.social-icons .social-icons-image {
-    display: inline-block;
-    position: absolute;
-    width: 33%;
-    height: auto;
-    z-index: 2;
-    opacity: 1;
-    transition: all .5s;
-    padding: 2%;
-    box-sizing: border-box;
 }
 
 .social-icons .social-icons-image a {
@@ -1265,35 +881,12 @@ html {
     opacity: 1;
 }
 
-
-/* Base caption styling (you already have this) */
-.media-caption {
-  margin-top: .2rem;
-  padding: .8rem;
-  background: var(--color-secondary);
-  border-radius: 9px;
-  border: .6px solid rgba(148, 163, 184, 0.7);
-  font-size: 0.85rem;
-  line-height: 1.2;
-  color: var(--color-text-secondary);
-}
-
 .media-caption p {
   margin: 0;
 }
 
 .media-caption strong {
   color: var(--color-text);
-}
-
-/* Layout for captions under each carousel */
-.media-captions {
-  margin-top: 0.75rem;
-}
-
-/* Hide all captions by default inside carousels */
-.media-carousel .media-captions .media-caption {
-  display: none;
 }
 
 /* When 1st radio in this carousel is checked → show 1st caption */
@@ -1350,15 +943,6 @@ html {
   gap: 2.5rem;
 }
 
-/* Put the video in the second column, aligned with the hero */
-.hero-video-wrapper {
-  margin-top: -28.5rem;
-  margin-bottom: 1.5rem;
-  padding: 0 -.5rem;       /* matches page padding */
-  grid-column: 2;
-  justify-self: center;
-}
-
 .hero-video-wrapper video {
   max-width: 98rem; /* or 60rem/960px – tweak to taste */
   max-height: 58rem; /* or 60rem/960px – tweak to taste */
@@ -1380,36 +964,8 @@ html {
   border-color: rgba(56, 189, 248, 0.7);
 }
 
-.mini-panel-header {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: -0.5rem 0.1rem;
-  cursor: pointer;
-  user-select: none;
-  font-size: 0.98rem;
-  font-weight: 260;
-  color: #e5e7eb;
-  background: transparent;
-}
-
 .mini-panel-header::-webkit-details-marker {
   display: none;
-}
-
-.mini-panel-title {
-  display: inline-flex;
-  align-items: center;
-  padding: 0rem 1.1rem;
-  gap: 0.15rem;
-}
-
-.mini-panel-icon {
-  font-size: 1.1rem;
-  opacity: 0.8;
-  padding: 0rem 1.1rem;
-  transition: transform 0.15s ease;
 }
 
 .mini-panel[open] .mini-panel-icon {
@@ -1425,4 +981,3 @@ html {
 .mini-panel-body ul {
   margin: 0rem 1rem 0.5rem;
 }
-

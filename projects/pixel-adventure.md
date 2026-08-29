@@ -30,171 +30,28 @@ description: A pixel-art top-down action game with two unique boss encounters an
 
 
   <div class="project-info-right">
-    <div class="media-carousel">
-      <!-- radios -->
-      <input type="radio" name="pa-media" id="pa-1" checked>
-      <input type="radio" name="pa-media" id="pa-2">
-      <input type="radio" name="pa-media" id="pa-3">
-      <input type="radio" name="pa-media" id="pa-4">
-      <input type="radio" name="pa-media" id="pa-5">
-      <input type="radio" name="pa-media" id="pa-6">
-      <!-- slides -->
-      <div class="media-slides">
-        <figure><img src="/images/PixelAdventure/pa-1.png" alt="Pixel Adventure screenshot 1"></figure>
-        <figure><video src="/videos/PixelAdventure/pa-2.mp4" muted loop playsinline preload="none" poster="/posters/PixelAdventure/pa-2.jpg" data-lazy-video></video></figure>
-        <figure><video src="/videos/PixelAdventure/pa-3.mp4" muted loop playsinline preload="none" poster="/posters/PixelAdventure/pa-3.jpg" data-lazy-video></video></figure>
-        <figure><img src="/images/PixelAdventure/pa-4.png" alt="Pixel Adventure screenshot 4"></figure>
-        <figure><img src="/images/PixelAdventure/pa-5.png" alt="Pixel Adventure screenshot 5"></figure>
-        <figure><img src="/images/PixelAdventure/pa-6.png" alt="Pixel Adventure screenshot 6"></figure>
-      </div>
-      <!-- arrows -->
-      <div class="media-arrows">
-        <!-- prev -->
-        <label for="pa-6" class="media-arrow-btn media-arrow-prev arrow-prev-1">‹</label>
-        <label for="pa-1" class="media-arrow-btn media-arrow-prev arrow-prev-2">‹</label>
-        <label for="pa-2" class="media-arrow-btn media-arrow-prev arrow-prev-3">‹</label>
-        <label for="pa-3" class="media-arrow-btn media-arrow-prev arrow-prev-4">‹</label>
-        <label for="pa-4" class="media-arrow-btn media-arrow-prev arrow-prev-5">‹</label>
-        <label for="pa-5" class="media-arrow-btn media-arrow-prev arrow-prev-6">‹</label>
-        <!-- next -->
-        <label for="pa-2" class="media-arrow-btn media-arrow-next arrow-next-1">›</label>
-        <label for="pa-3" class="media-arrow-btn media-arrow-next arrow-next-2">›</label>
-        <label for="pa-4" class="media-arrow-btn media-arrow-next arrow-next-3">›</label>
-        <label for="pa-5" class="media-arrow-btn media-arrow-next arrow-next-4">›</label>
-        <label for="pa-6" class="media-arrow-btn media-arrow-next arrow-next-5">›</label>
-        <label for="pa-1" class="media-arrow-btn media-arrow-next arrow-next-6">›</label>
-      </div>
-      <!-- dots -->
-      <div class="media-dots">
-        <label for="pa-1"></label>
-        <label for="pa-2"></label>
-        <label for="pa-3"></label>
-        <label for="pa-4"></label>
-        <label for="pa-5"></label>
-        <label for="pa-6"></label>
-      </div>
-      <div class="media-captions">
-        <div class="media-caption">
-          Showcase of collecting the Final Gem.
-        </div>
-        <div class="media-caption">
-          Showcase of face paced Robot Boss fight.
-        </div>
-        <div class="media-caption">
-          Showcase of tactical Necromancer Boss fight.
-        </div>
-        <div class="media-caption">
-          Showcase of Necromancer Boss Room.
-        </div>
-        <div class="media-caption">
-          Showcase of Robot Boss Room.
-        </div>
-        <div class="media-caption">
-          A picture of the Gem in the story.
-        </div>
-      </div>
-    </div>
+    <MediaCarousel data-hx-reveal id="pa-media" :slides="[
+  { src: '/images/PixelAdventure/pa-1.png', type: 'image', alt: 'Pixel Adventure screenshot 1', caption: 'Showcase of collecting the Final Gem.' },
+  { src: '/videos/PixelAdventure/pa-2.mp4', caption: 'Showcase of face paced Robot Boss fight.' },
+  { src: '/videos/PixelAdventure/pa-3.mp4', caption: 'Showcase of tactical Necromancer Boss fight.' },
+  { src: '/images/PixelAdventure/pa-4.png', type: 'image', alt: 'Pixel Adventure screenshot 4', caption: 'Showcase of Necromancer Boss Room.' },
+  { src: '/images/PixelAdventure/pa-5.png', type: 'image', alt: 'Pixel Adventure screenshot 5', caption: 'Showcase of Robot Boss Room.' },
+  { src: '/images/PixelAdventure/pa-6.png', type: 'image', alt: 'Pixel Adventure screenshot 6', caption: 'A picture of the Gem in the story.' }
+]" />
   </div>
 
 
-<style>
-  /* show slides */
-  #pa-1:checked ~ .media-slides figure:nth-child(1),
-  #pa-2:checked ~ .media-slides figure:nth-child(2),
-  #pa-3:checked ~ .media-slides figure:nth-child(3),
-  #pa-4:checked ~ .media-slides figure:nth-child(4),
-  #pa-5:checked ~ .media-slides figure:nth-child(5),
-  #pa-6:checked ~ .media-slides figure:nth-child(6) {
-    display: block;
-  }
 
-
-  /* active dot */
-  #pa-1:checked ~ .media-dots label:nth-child(1),
-  #pa-2:checked ~ .media-dots label:nth-child(2),
-  #pa-3:checked ~ .media-dots label:nth-child(3),
-  #pa-4:checked ~ .media-dots label:nth-child(4),
-  #pa-5:checked ~ .media-dots label:nth-child(5),
-  #pa-6:checked ~ .media-dots label:nth-child(6) {
-    background: #38bdf8;
-    transform: scale(1.2);
-  }
-
-
-  /* arrow container */
-  .media-arrows {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-    padding: 0 0.6rem;
-  }
-
-
-  .media-arrow-btn {
-    pointer-events: auto;
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 999px;
-    border: 2.5px solid rgba(148, 163, 184, 0.55);
-    background: rgba(61, 61, 61, 0.58);
-    color: #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1.4rem;
-    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
-  }
-
-
-  .media-arrow-btn:hover {
-    background: #38bdf8;
-    border-color: #38bdf8;
-    color: #020617;
-  }
-
-
-  /* hide all arrows by default */
-  .media-arrows .media-arrow-btn {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-
-  /* show only the pair for the active slide */
-  #pa-1:checked ~ .media-arrows .arrow-prev-1,
-  #pa-2:checked ~ .media-arrows .arrow-prev-2,
-  #pa-3:checked ~ .media-arrows .arrow-prev-3,
-  #pa-4:checked ~ .media-arrows .arrow-prev-4,
-  #pa-5:checked ~ .media-arrows .arrow-prev-5,
-  #pa-6:checked ~ .media-arrows .arrow-prev-6,
-  #pa-1:checked ~ .media-arrows .arrow-next-1,
-  #pa-2:checked ~ .media-arrows .arrow-next-2,
-  #pa-3:checked ~ .media-arrows .arrow-next-3,
-  #pa-4:checked ~ .media-arrows .arrow-next-4,
-  #pa-5:checked ~ .media-arrows .arrow-next-5,
-  #pa-6:checked ~ .media-arrows .arrow-next-6 {
-    opacity: 1;
-    pointer-events: auto;
-  }
-</style>
 
 
 ---
-# 𓆩General𓆪 {.section-title-center}
+# General {.section-title-center data-hx-reveal="true"}
 
 
 ## Quick Summary for Recruiters {.outline-only}
 
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title"> ☑︎ Quick Summary for Recruiters</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Quick Summary for Recruiters">
 
   <div class="project-text">
     <ul>
@@ -205,15 +62,11 @@ description: A pixel-art top-down action game with two unique boss encounters an
     </ul>
   </div>
 
-</details>
+</ProjectPanel>
 
 
 ## Game Overview & Gameplay {.outline-only}
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title"> ⚔︎ Game Overview & Gameplay</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Game Overview &amp; Gameplay">
 
   <p class="project-text">
     Players follow a mysterious gem into a cave system and must defeat two distinct bosses to collect gems to unlock progression. 
@@ -250,21 +103,17 @@ description: A pixel-art top-down action game with two unique boss encounters an
     </ul>
   </div>
 
-</details>
+</ProjectPanel>
 
 
 
 ---
-# 𓆩Highlights𓆪 {.section-title-center} 
+# Highlights {.section-title-center data-hx-reveal="true"}
 
 
 
-## Architecture & Design Patterns  {.outline-only}
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title"> ✮ Architecture & Design Patterns </span>
-    <span class="section-icon">▾</span>
-  </summary>
+## Architecture & Design Patterns {.outline-only}
+<ProjectPanel icon="🏗️" title="Architecture &amp; Design Patterns">
 
   <div class="project-text">
     <ul>
@@ -275,16 +124,12 @@ description: A pixel-art top-down action game with two unique boss encounters an
     </ul>
   </div>
 
-</details>
+</ProjectPanel>
 
 
 
 ## Systems Implemented {.outline-only}
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title"> ✮ Systems Implemented</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🏗️" title="Systems Implemented">
 
   <div class="project-text">
     <ul>
@@ -296,7 +141,6 @@ description: A pixel-art top-down action game with two unique boss encounters an
     </ul>
   </div>
 
-</details>
+</ProjectPanel>
 
 
-##

@@ -34,45 +34,20 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 </p>
 
 <!-- HERO MEDIA CAROUSEL (fps-hero-*) -->
-<div class="media-carousel">
-  <!-- radios -->
-  <input type="radio" name="ee-hero-media" id="ee-hero-1" checked>
-  <!-- slides -->
-  <div class="media-slides">
-    <figure><video
-        muted
-        playsinline
-        controls
-        preload="none" poster="/posters/elder-escape/ee-showcase-1.jpg" data-lazy-video>
-        <source src="/videos/elder-escape/ee-showcase-1.mp4" type="video/mp4" />
-    </video></figure>
-  </div>
-  <div class="media-captions">
-    <div class="media-caption">
-      <p>Main gameplay loop overview. (<strong>Power-up at Score 35!</strong>)</p>
-    </div>
-  </div>
-</div>
+<MediaCarousel data-hx-reveal id="ee-hero-media" :slides="[
+  { src: '/videos/elder-escape/ee-showcase-1.mp4', caption: 'Main gameplay loop overview. (Power-up at Score 35!)' }
+]" />
 
-<style>
-  /* HERO CAROUSEL (fm-hero-*) */
-  #ee-hero-1:checked ~ .media-slides figure:nth-child(1) {
-    display: block;
-  }
-</style>
+
 
 ---
 
-# General {.section-title-center}
+# General {.section-title-center data-hx-reveal="true"}
 
 
 
 ## Quick Overview {.outline-only}
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">☑︎ Quick Summary for Recruiters</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎯" title="Quick Summary for Recruiters">
 
 
   <div class="project-text">
@@ -92,15 +67,11 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
   </div>
 
-</details>
+</ProjectPanel>
 
 
 ## Team Structure {.outline-only}
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">☑︎ Team Structure</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🏗️" title="Team Structure">
 
 
   <div class="project-text">
@@ -115,23 +86,19 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
   </div>
 
-</details>
+</ProjectPanel>
 
 ---
 
 
 
-## - - - --->Features<--- - - -  {.outline-only}
+## Features{.outline-only}
 
-# Core Systems {.section-title-center}
+# Core Systems {.section-title-center data-hx-reveal="true"}
 
-## 1. Player Movement & Input  {.outline-only}
+## 1. Player Movement & Input {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">🎮 Lane System & Controls</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🎮" title="Lane System &amp; Controls">
 
 <div class="project-text">
 
@@ -149,15 +116,11 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </div>
 
-</details>
+</ProjectPanel>
 
-## 2. Difficulty Progression  {.outline-only}
+## 2. Difficulty Progression {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">📈 Progressive Difficulty Curve</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="📈" title="Progressive Difficulty Curve">
 
 <div class="project-text">
 
@@ -175,15 +138,11 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </div>
 
-</details>
+</ProjectPanel>
 
-## 3. Procedural Level Generation  {.outline-only}
+## 3. Procedural Level Generation {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">🏗️ Infinite Level Architecture</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🏗️" title="Infinite Level Architecture">
 
 <div class="project-text">
 
@@ -205,15 +164,11 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </div>
 
-</details>
+</ProjectPanel>
 
-## 4. Scoring System  {.outline-only}
+## 4. Scoring System {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">💾 Score System & Persistence</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🏗️" title="Score System &amp; Persistence">
 
 <div class="project-text">
 
@@ -233,15 +188,11 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </div>
 
-</details>
+</ProjectPanel>
 
-## 5. Audio & Visual Design  {.outline-only}
+## 5. Audio & Visual Design {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">🔊 Sound Effects & Chaser AI</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🔊" title="Sound Effects &amp; Chaser AI">
 
 <div class="project-text">
 
@@ -258,20 +209,16 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ---
-## - - - --->Technical<--- - - -  {.outline-only}
+## Technical{.outline-only}
 
-# Technical Architecture {.section-title-center}
+# Technical Architecture {.section-title-center data-hx-reveal="true"}
 
 
-## Blueprint Design Patterns  {.outline-only}
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">🏗️ Blueprint Design Patterns </span>
-    <span class="section-icon">▾</span>
-  </summary>
+## Blueprint Design Patterns {.outline-only}
+<ProjectPanel icon="🏗️" title="Blueprint Design Patterns">
 
 <div class="project-text">
 
@@ -296,15 +243,11 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </div>
 
-</details>
+</ProjectPanel>
 
-## Blueprints Breakdown  {.outline-only}
+## Blueprints Breakdown {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">📋 Core Blueprints Breakdown</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🏗️" title="Core Blueprints Breakdown">
 
 <div class="project-text">
 
@@ -324,19 +267,15 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ---
-## - - - --->Extras<--- - - -  {.outline-only}
+## Extras{.outline-only}
 
-# Extra Notes {.section-title-center}
+# Extra Notes {.section-title-center data-hx-reveal="true"}
 
-## Design Decisions  {.outline-only}
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">🎯 Why These Design Choices?</span>
-    <span class="section-icon">▾</span>
-  </summary>
+## Design Decisions {.outline-only}
+<ProjectPanel icon="💡" title="Why These Design Choices?">
 
 <div class="project-text">
 
@@ -363,16 +302,12 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </div>
 
-</details>
+</ProjectPanel>
 
 
-## Technologies & Stack  {.outline-only}
+## Technologies & Stack {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">⚙️ Tools & Technologies</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="⚙️" title="Tools &amp; Technologies">
 
 <div class="project-text">
 
@@ -388,17 +323,13 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </div>
 
-</details>
+</ProjectPanel>
 
 
 
 ## Links & Resources {.outline-only}
 
-<details class="section-panel">
-  <summary class="section-header">
-    <span class="section-title">✮ Links & Resources</span>
-    <span class="section-icon">▾</span>
-  </summary>
+<ProjectPanel icon="🔗" title="Links &amp; Resources">
 
 <div class="project-text">
 
@@ -408,7 +339,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 </div>
 
-</details>
+</ProjectPanel>
 
 ---
 

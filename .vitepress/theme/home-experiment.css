@@ -16,71 +16,13 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. DESIGN TOKENS — every tuneable visual value lives here
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS
+   --------------------------------------------------------------------------
+   Moved to ./tokens.css and promoted to :root so the rest of the site can use
+   them too. The names are unchanged, so everything below still resolves.
    -------------------------------------------------------------------------- */
 
-.hx-root {
-  /* Surfaces: deep near-black navy, three elevations only. */
-  --hx-bg: #05070d;
-  --hx-bg-2: #080b14;
-  --hx-panel: #0b1019;
-  --hx-panel-2: #101725;
-
-  /* Hairlines */
-  --hx-line: rgba(150, 180, 230, 0.12);
-  --hx-line-strong: rgba(150, 180, 230, 0.24);
-
-  /* Ink */
-  --hx-ink: #eef2f9;
-  --hx-ink-2: #aeb9cd;
-  --hx-ink-3: #7d8aa1;
-
-  /* Two accents only: warm energy + cool energy. No third hue. */
-  --hx-orange: #ff8c1a;
-  --hx-orange-2: #ffb45e;
-  --hx-orange-soft: rgba(255, 140, 26, 0.13);
-  --hx-blue: #2e62d9;
-  --hx-blue-2: #9fc2ff;
-  --hx-blue-soft: rgba(87, 151, 255, 0.13);
-
-  /* The signature energy rule, reused across the whole page. */
-  --hx-rule: linear-gradient(90deg, transparent, var(--hx-orange), var(--hx-blue), #c9d6e8, transparent);
-
-  /* Type */
-  --hx-font-display: "Bebas Neue", "Barlow Condensed", Impact, sans-serif;
-  /* Heavier face reserved for the hero name so it holds up over footage. */
-  --hx-font-name: "Archivo Black", "Anton", Impact, sans-serif;
-  --hx-font-ui: "Barlow Condensed", "Bebas Neue", system-ui, sans-serif;
-  --hx-font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-
-  /* Spacing scale */
-  --hx-1: 4px;
-  --hx-2: 8px;
-  --hx-3: 12px;
-  --hx-4: 16px;
-  --hx-5: 24px;
-  --hx-6: 32px;
-  --hx-7: 48px;
-  --hx-8: 64px;
-  --hx-9: 96px;
-  --hx-10: 128px;
-
-  /* Geometry: sharp, with a single clipped corner language. */
-  --hx-notch: 14px;
-  --hx-notch-sm: 8px;
-  --hx-radius: 2px;
-
-  /* Motion */
-  --hx-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --hx-fast: 0.18s;
-  --hx-mid: 0.3s;
-  --hx-slow: 0.6s;
-
-  /* Layout */
-  --hx-container: 1200px;
-  --hx-gutter: clamp(20px, 5vw, 64px);
-  --hx-section-y: clamp(64px, 9vw, 128px);
-}
 
 /* --------------------------------------------------------------------------
    2. PAGE SHELL
@@ -187,38 +129,9 @@
   box-shadow: 0 1px 0 rgba(150, 180, 230, 0.14);
 }
 
-:root.hx-home .VPNavBar .VPNavBarMenuLink,
-:root.hx-home .VPNavBar .VPNavBarMenuGroup .button {
-  font-family: "Barlow Condensed", system-ui, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
 :root.hx-home .VPNavBar .VPNavBarMenuLink:hover,
 :root.hx-home .VPNavBar .VPNavBarMenuLink.active {
   color: #ffb45e;
-}
-
-/* Barlow Condensed, not Bebas Neue: Bebas has no lowercase glyphs at all, so
-   it rendered the title as "RAYZC - GAME DEVELOPER". This keeps the real
-   casing while staying in the same condensed family as the rest of the UI. */
-:root.hx-home .VPNavBarTitle .title {
-  font-family: "Barlow Condensed", system-ui, sans-serif;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  min-width: 0;
-}
-
-/* At 24px the enlarged title plus the hamburger no longer fits a 320px
-   screen, so it steps back down on the narrowest phones. */
-@media (max-width: 480px) {
-  :root.hx-home .VPNavBarTitle .title {
-    font-size: 17px;
-    letter-spacing: 0.01em;
-  }
 }
 
 :root.hx-home .VPNavBarTitle .logo {
@@ -1401,20 +1314,20 @@ a.hx-channel:hover {
 /* The hidden state is only applied once HomeExperiment.vue has confirmed it
    can actually reveal things again (`.hx-reveal-on`). Without JS, without an
    IntersectionObserver, or when printing, every section stays visible. */
-.hx-root.hx-reveal-on [data-hx-reveal] {
+:root.hx-reveal-on [data-hx-reveal] {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity var(--hx-slow) var(--hx-ease), transform var(--hx-slow) var(--hx-ease);
   transition-delay: var(--hx-delay, 0ms);
 }
 
-.hx-root.hx-reveal-on [data-hx-reveal].is-in {
+:root.hx-reveal-on [data-hx-reveal].is-in {
   opacity: 1;
   transform: none;
 }
 
 @media print {
-  .hx-root.hx-reveal-on [data-hx-reveal] {
+  :root.hx-reveal-on [data-hx-reveal] {
     opacity: 1;
     transform: none;
   }
@@ -1541,7 +1454,7 @@ a.hx-channel:hover {
     scroll-behavior: auto !important;
   }
 
-  .hx-root.hx-reveal-on [data-hx-reveal] {
+  :root.hx-reveal-on [data-hx-reveal] {
     opacity: 1;
     transform: none;
   }

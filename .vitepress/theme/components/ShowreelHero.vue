@@ -904,7 +904,10 @@ onBeforeUnmount(() => cleanup())
   font-weight: 700;
   letter-spacing: 0.16em;
   font-variant-numeric: tabular-nums;
-  color: rgba(255, 255, 255, 0.4);
+  /* Was rgba(255,255,255,.4) -> 3.72:1 over the hero scrim, under the 4.5
+     needed for small text. .62 measures 4.9:1 and still reads as secondary
+     next to the active chapter. */
+  color: rgba(255, 255, 255, 0.62);
   transition: color 0.25s ease;
 }
 

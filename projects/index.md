@@ -150,6 +150,24 @@ const shownCount = computed(() => filtered.value.length) // NEW
 
 const hoveredId = ref(null)
 
+/** Poster frames mirror the video tree: /videos/x/y.mp4 -> /posters/x/y.jpg */
+const posterFor = (src) => {
+  if (!src || !src.endsWith('.mp4') || !src.includes('/videos/')) return undefined
+  return src.replace('/videos/', '/posters/').replace(/\.mp4$/, '.jpg')
+}
+
+/**
+ * Restart from the top on hover so the visitor always sees the clip from the
+ * beginning rather than joining it mid-loop.
+ */
+const replay = (event) => {
+  const v = event.currentTarget
+  if (!v) return
+  try { v.currentTime = 0 } catch {}
+  const p = v.play()
+  if (p && typeof p.catch === 'function') p.catch(() => {})
+}
+
 </script>
 
 
@@ -214,23 +232,22 @@ const hoveredId = ref(null)
     @mouseenter="hoveredId = project.id"
     @mouseleave="hoveredId = null"
   >
+    <span class="hx-card-spot" aria-hidden="true"></span>
     <div class="project-media">
-      <!-- NOT hovered: show image (or idle loop) -->
+      <!-- ONE element, never swapped. image and hoverVideo are the same file,
+           so the old v-if/v-else pair tore down a playing video and built an
+           identical one that started from nothing at preload="none" — which is
+           why the card went black on hover. Now hovering just restarts it. -->
       <video
-        v-if="hoveredId !== project.id"
-        :src="project.image"
+        :src="project.hoverVideo || project.image"
+        :poster="posterFor(project.hoverVideo || project.image)"
         muted
         loop
         playsinline
-        preload="none" data-lazy-video></video>
-      <!-- Hovered: show hover video -->
-      <video
-        v-else
-        :src="project.hoverVideo"
-        muted
-        loop
-        playsinline
-        preload="none" data-lazy-video></video>
+        preload="none"
+        data-lazy-video
+        @mouseenter="replay"
+      ></video>
       <div class="project-pill-row">
         <span class="pill">{{ project.date || 'TBD' }}</span>
       </div>
@@ -242,39 +259,12 @@ const hoveredId = ref(null)
     <div class="project-body">
       <h3>{{ project.title }}</h3>
       <p>{{ project.summary }}</p>
-      <div class="project-tags">
-        <span
-          v-for="tag in project.tags"
-          :key="tag"
-          class="tag"
-          :class="[
-            tag === 'Unity' ? 'tag-unity' : '',
-            tag === 'C#' ? 'tag-csharp' : '',
-            tag === '2D' ? 'tag-2d' : '',
-            tag === '3D' ? 'tag-3d' : '',
-            tag === 'Unreal' ? 'tag-unreal' : '',
-            tag === 'C++' ? 'tag-cpp' : '',
-            tag === 'Blueprints' ? 'tag-cpp' : '',
-            tag === 'Top-Down' ? 'tag-topdown' : '',
-            tag === 'Side-Scroller' ? 'tag-sidescroll' : '',
-            tag === 'Action' ? 'tag-action' : '',
-            tag === 'Movement' ? 'tag-movement' : '',
-            tag === 'FPS' ? 'tag-fps' : '',
-            tag === 'AI' ? 'tag-ai' : '',
-            tag === 'Prototype' ? 'tag-prototype' : '',
-            tag === 'Game Jam' ? 'tag-gamejam' : ''
-          ]"
-        >
-          {{ tag }}
-        </span>
-      </div>
+      <TagRow :tags="project.tags" />
     </div>
   </a>
 </div>
 
 
-
-##
 
 # Other Projects (For Sale & Sold)
 
@@ -292,21 +282,18 @@ const hoveredId = ref(null)
     @mouseenter="hoveredId = project.id"
     @mouseleave="hoveredId = null"
   >
+    <span class="hx-card-spot" aria-hidden="true"></span>
     <div class="project-media">
       <video
-        v-if="hoveredId !== project.id"
-        :src="project.image"
+        :src="project.hoverVideo || project.image"
+        :poster="posterFor(project.hoverVideo || project.image)"
         muted
         loop
         playsinline
-        preload="none" loading="lazy" data-lazy-video></video>
-      <video
-        v-else
-        :src="project.hoverVideo"
-        muted
-        loop
-        playsinline
-        preload="none" loading="lazy" data-lazy-video></video>
+        preload="none"
+        data-lazy-video
+        @mouseenter="replay"
+      ></video>
       <div class="project-pill-row">
         <span class="pill">{{ project.date || 'TBD' }}</span>
       </div>
@@ -318,46 +305,13 @@ const hoveredId = ref(null)
     <div class="project-body">
       <h3>{{ project.title }}</h3>
       <p>{{ project.summary }}</p>
-      <div class="project-tags">
-        <span
-          v-for="tag in project.tags"
-          :key="tag"
-          class="tag"
-          :class="[
-            tag === 'For Sale' ? 'tag-forsale' : '',
-            tag === 'Lua' ? 'tag-lua' : '',
-            tag === 'Roblox' ? 'tag-roblox' : '',
-            tag === 'Unity' ? 'tag-unity' : '',
-            tag === 'C#' ? 'tag-csharp' : '',
-            tag === '2D' ? 'tag-2d' : '',
-            tag === '3D' ? 'tag-3d' : '',
-            tag === 'Unreal' ? 'tag-unreal' : '',
-            tag === 'C++' ? 'tag-cpp' : '',
-            tag === 'Blueprints' ? 'tag-cpp' : '',
-            tag === 'Top-Down' ? 'tag-topdown' : '',
-            tag === 'Side-Scroller' ? 'tag-sidescroll' : '',
-            tag === 'Action' ? 'tag-action' : '',
-            tag === 'Movement' ? 'tag-movement' : '',
-            tag === 'FPS' ? 'tag-fps' : '',
-            tag === 'AI' ? 'tag-ai' : '',
-            tag === 'Prototype' ? 'tag-prototype' : '',
-            tag === 'Game Jam' ? 'tag-gamejam' : ''
-          ]"
-        >
-          {{ tag }}
-        </span>
-      </div>
+      <TagRow :tags="project.tags" />
     </div>
   </a>
 </div>
 
 
 
-<div class="scroll-controls">
-  <button class="scroll-btn scroll-up" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Scroll to top">
-    ↑
-  </button>
-  <a class="scroll-btn scroll-down" href="#bottom" aria-label="Scroll to bottom">↓</a>
-</div>
+<ScrollControls />
 
 <a id="bottom"></a>
