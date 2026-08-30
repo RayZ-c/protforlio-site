@@ -780,3 +780,25 @@ horizontal overflow, correct carousel accessible label, correct Chinese
 tooltip values, desktop `banner.mp4` selection at 1440×720, readyState 4, and
 smooth chapter changes once buffered. `ffprobe` verified both installed and
 built video assets. Everything remains uncommitted; Raymond owns commits.
+
+### Follow-up — compact panel spacing — 31 August 2026
+
+Raymond found that consecutive `ProjectPanel` bars looked joined when a desktop
+browser was narrowed. The first attempted fix targeted direct adjacent panels
+below 960 px; it was wrong because the rendered main-panel sequence is actually
+`details.hx-panel → h2.outline-only → details.hx-panel`, and the defect begins
+at intermediate widths too.
+
+The real cause was an obsolete rule in `custom.css` that applied
+`margin-bottom: -2.5rem !important` to every hidden outline heading. That
+negative 40 px margin physically pulled the next panel upward; narrower layouts
+made the overlap increasingly obvious. The legacy rule is removed. `doc.css`
+already owns the correct zero-height outline-heading pattern.
+
+`components.css` now spaces the actual main-panel sequence with
+`.hx-panel + .outline-only + .hx-panel` at 12 px at every width; genuinely
+adjacent panels use the same rhythm, while adjacent mini-panels remain 8 px.
+At an actual 864×1367 Chrome viewport, all 11 main transitions measured exactly
+12 px, the mini transition measured 8.0001 px, no transition overlapped, and
+the page had no horizontal overflow. The compiled CSS was also checked to
+confirm the `-2.5rem !important` rule is absent.

@@ -461,15 +461,6 @@
 
 
 
-/* Hide the h2s that only exist to feed the outline */
-.outline-only {
-  position: absolute;
-  
-  margin-top: 0.5rem;
-  margin-bottom: -2.5rem !important;
-  left: -9999px;
-}
-
 /* Panel styling for project detail sections */
 .section-panel {
   border-radius: 0.85rem;

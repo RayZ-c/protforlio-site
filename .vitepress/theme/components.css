@@ -17,7 +17,7 @@
 
 .hx-panel {
   position: relative;
-  margin: 0 0 var(--hx-3);
+  margin: 0;
   border: 1px solid var(--hx-line);
   border-left: 3px solid var(--hx-line-strong);
   background: var(--hx-panel);
@@ -29,6 +29,21 @@
 
 .hx-panel[open] {
   border-left-color: var(--hx-orange);
+}
+
+/* Put spacing on the relationship between consecutive panels, not on an
+   individual panel's outer edge. Main panels have a zero-height outline-only
+   <h2> between them, while nested mini-panels are genuinely adjacent. Both
+   rendered sequences need an explicit gap at every content-column width. */
+.vp-doc .hx-panel + .outline-only + .hx-panel,
+.vp-doc .hx-panel + .hx-panel {
+  margin-top: var(--hx-3);
+}
+
+/* Nested supporting panels stay slightly tighter so their hierarchy remains
+   visually subordinate to the main case-study navigation. */
+.vp-doc .hx-panel--mini + .hx-panel--mini {
+  margin-top: var(--hx-2);
 }
 
 .hx-panel-head {
@@ -120,7 +135,6 @@
 .hx-panel--mini {
   border-left-width: 1px;
   background: var(--hx-bg-2);
-  margin-bottom: var(--hx-2);
 }
 
 .hx-panel--mini[open] {
