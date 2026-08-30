@@ -116,11 +116,11 @@ onBeforeUnmount(() => cleanup())
 
 <template>
   <div ref="root" class="hx-scroll-controls" :class="{ 'is-visible': visible }">
-    <button class="hx-scroll-btn" type="button" data-label="Back to top" @click="toTop">
+    <button class="hx-scroll-btn" type="button" :data-label="t('Back to top')" @click="toTop">
       <span class="hx-scroll-arrow" aria-hidden="true">↑</span>
       <span class="hx-sr-only">{{ t('Back to top') }}</span>
     </button>
-    <button class="hx-scroll-btn" type="button" data-label="Jump to end" @click="toBottom">
+    <button class="hx-scroll-btn" type="button" :data-label="t('Jump to end')" @click="toBottom">
       <span class="hx-scroll-arrow" aria-hidden="true">↓</span>
       <span class="hx-sr-only">{{ t('Jump to end') }}</span>
     </button>

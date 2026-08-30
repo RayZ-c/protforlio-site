@@ -726,6 +726,34 @@ html {
   border-color: var(--hx-orange);
 }
 
+/* The CV control belongs to the primary navigation, so its trigger uses the
+   same open, condensed, uppercase treatment as Home / Projects / About. The
+   document icon and caret preserve the dropdown affordance without wrapping
+   the label in a visually unrelated pill. */
+.hx-flyout--cv .hx-flyout-btn {
+  height: auto;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--hx-ink);
+}
+
+.hx-flyout--cv .hx-flyout-btn:hover,
+.hx-flyout--cv.is-open .hx-flyout-btn {
+  color: var(--hx-orange);
+}
+
+.hx-flyout--cv .hx-flyout-icon {
+  width: 14px;
+  height: 14px;
+  opacity: 0.82;
+}
+
 .hx-flyout-btn:focus-visible {
   outline: 2px solid var(--hx-blue-2);
   outline-offset: 2px;
@@ -881,6 +909,4 @@ html {
   .hx-flyout-menu {
     min-width: 132px;
   }
-}
-
 }

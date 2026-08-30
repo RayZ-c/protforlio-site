@@ -28,7 +28,7 @@ import { ref } from 'vue'
 import { withBase } from 'vitepress'
 import { useI18n } from '../i18n.js'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const props = defineProps({
   /** Unique on the page. Becomes the radio group name. */
@@ -129,7 +129,7 @@ const posterFor = (s) => {
         v-if="slides.length > 1"
         class="hx-carousel-arrow hx-carousel-arrow--previous"
         type="button"
-        :aria-label="`${t('Previous media in')}${groupLabel()}`"
+        :aria-label="`${t('Previous media in')}${locale === 'en' ? ' ' : ''}${groupLabel()}`"
         @click="selectPrevious"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24">
@@ -141,7 +141,7 @@ const posterFor = (s) => {
         v-if="slides.length > 1"
         class="hx-carousel-arrow hx-carousel-arrow--next"
         type="button"
-        :aria-label="`${t('Next media in')}${groupLabel()}`"
+        :aria-label="`${t('Next media in')}${locale === 'en' ? ' ' : ''}${groupLabel()}`"
         @click="selectNext"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24">

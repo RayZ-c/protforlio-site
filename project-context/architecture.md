@@ -228,6 +228,14 @@ drift between the SSR pass (one process renders many pages) and the client
 - Clips are `preload="none"` and play on scroll into view (`theme/lazy-video.js`).
   Do not add `autoplay`: the browser begins fetching the instant the element
   parses, and no script can win that race.
+- The **homepage showreel is the deliberate exception** to those case-study
+  rules because it is the above-the-fold product, not supporting media.
+  `ShowreelHero.vue` uses `preload="auto"` and two H.264 High-profile,
+  `yuv420p`, `+faststart` sources: `banner.mp4` at 1440×720 / 30 fps and
+  `banner-mobile.mp4` at 960×480 / 30 fps, selected with a `<source media>`
+  query. Both have a two-second GOP plus forced keyframes at every chapter
+  boundary so chapter selection does not decode through a long GOP. Keep the
+  two encodes in sync whenever the reel is recut.
 
 ## Routing and deployment
 

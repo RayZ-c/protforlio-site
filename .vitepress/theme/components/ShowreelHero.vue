@@ -28,6 +28,7 @@ const { t, localePath } = useI18n()
 
 const SHOWREEL_CONFIG = {
   video: '/videos/banner.mp4',
+  videoMobile: '/videos/banner-mobile.mp4',
   poster: '/banner-cover.jpg',
 
   // Seconds of a chapter to play before auto-advancing to the next one.
@@ -180,6 +181,7 @@ const onEngineLeave = () => {
 }
 
 let cleanup = () => {}
+let previewTimer = null
 
 const chapterEnd = (index) => {
   const next = chapters[index + 1]
@@ -213,8 +215,15 @@ const seekTo = (index, offset = 0) => {
   nextTick(() => revealChapter(index))
   if (!el) return
   const go = () => {
+    const target = chapters[index].start + offset
+    if (Math.abs(el.currentTime - target) < 0.08) return
     try {
-      el.currentTime = chapters[index].start + offset
+      // fastSeek is allowed to choose the nearest keyframe. The web encodes
+      // carry keyframes at every chapter boundary, so this avoids decoding a
+      // long GOP without sacrificing the selected start frame. Safari falls
+      // back to an exact currentTime assignment.
+      if (typeof el.fastSeek === 'function') el.fastSeek(target)
+      else el.currentTime = target
     } catch {
       /* metadata not ready yet — the loadedmetadata handler retries */
     }
@@ -223,15 +232,33 @@ const seekTo = (index, offset = 0) => {
   else el.addEventListener('loadedmetadata', go, { once: true })
 }
 
+const cancelPreview = () => {
+  clearTimeout(previewTimer)
+  previewTimer = null
+}
+
 const pick = (index) => {
+  cancelPreview()
   pinnedIndex.value = index
   seekTo(index)
   if (!reducedMotion.value) video.value?.play?.().catch(() => {})
 }
 
 const preview = (index) => {
-  if (reducedMotion.value || pinnedIndex.value !== null) return
-  seekTo(index, SHOWREEL_CONFIG.previewOffsetSeconds)
+  if (
+    reducedMotion.value ||
+    pinnedIndex.value !== null ||
+    index === activeIndex.value
+  ) return
+
+  // Pointer travel across the rail used to fire an immediate media seek for
+  // every label it crossed. A short intent delay prevents accidental seeks;
+  // clicking still selects immediately.
+  cancelPreview()
+  previewTimer = setTimeout(() => {
+    seekTo(index, SHOWREEL_CONFIG.previewOffsetSeconds)
+    previewTimer = null
+  }, 160)
 }
 
 const unpin = () => {
@@ -320,6 +347,7 @@ onMounted(() => {
   }
 
   cleanup = () => {
+    cancelPreview()
     stopWords()
     stopEngines()
     el?.removeEventListener('timeupdate', onTimeUpdate)
@@ -338,12 +366,17 @@ onBeforeUnmount(() => cleanup())
       class="sr-video"
       muted
       playsinline
-      preload="metadata"
+      preload="auto"
       disablepictureinpicture
       :poster="withBase(SHOWREEL_CONFIG.poster)"
       aria-hidden="true"
       tabindex="-1"
     >
+      <source
+        :src="withBase(SHOWREEL_CONFIG.videoMobile)"
+        type="video/mp4"
+        media="(max-width: 767px)"
+      >
       <source :src="withBase(SHOWREEL_CONFIG.video)" type="video/mp4">
     </video>
 
@@ -412,7 +445,7 @@ onBeforeUnmount(() => cleanup())
         class="sr-rail"
         role="radiogroup"
         :aria-label="t('Showreel chapter')"
-        @mouseleave="preview(pinnedIndex ?? activeIndex)"
+        @mouseleave="cancelPreview"
       >
         <div
           v-for="(chapter, index) in chapters"
@@ -430,7 +463,6 @@ onBeforeUnmount(() => cleanup())
             :tabindex="index === activeIndex ? 0 : -1"
             @click="index === pinnedIndex ? unpin() : pick(index)"
             @mouseenter="preview(index)"
-            @focus="preview(index)"
             @keydown="onRailKey($event, index)"
           >
             <span class="sr-chapter-index" aria-hidden="true">{{ String(index + 1).padStart(2, '0') }}</span>

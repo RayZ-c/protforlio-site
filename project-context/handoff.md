@@ -699,3 +699,84 @@ audit, Chrome interaction test, clean Chrome console, the two standard checks,
 and a production build. VitePress itself still emits a CSS-hidden duplicate
 translation menu on the notices page with theoretical locale paths; users
 cannot see or activate it, while the visible custom menu is verified safe.
+
+## Codex handoff — production UI and showreel performance — 30 August 2026
+
+### What changed
+
+- `ScrollControls.vue`: the tooltip `data-label` attributes now pass through
+  `t()`. Verified production DOM values are `回到顶部 / 跳到底部` for Simplified
+  Chinese and `回到頂部 / 跳到底部` for Traditional Chinese.
+- `effects.css`: the CV dropdown trigger now uses the same typography and open
+  visual treatment as the main nav while retaining its document icon, caret,
+  focus state, and dropdown. Production computed values match the nav at
+  16 px, weight 600, uppercase, 1.44 px tracking, transparent background, and
+  no pill border.
+- `MediaCarousel.vue`: fixed the English accessible arrow labels from
+  `Previous media inMedia gallery` to `Previous media in Media gallery` while
+  preserving the no-space Chinese colon construction.
+
+### The GitHub-Pages-only giant panel bug
+
+The giant icons and wrapped panel titles were not a responsive-layout defect.
+`effects.css` ended with an unmatched extra `}`. Vite dev served `icons.css`
+as a separate stylesheet, hiding the problem locally; the production build
+concatenated the files, so Chrome discarded the following `.hx-icon` sizing
+rules. This is why the live deployment measured the first icon at roughly
+126×126 px while local measured 24.15×24.15 px.
+
+The extra brace is removed. In the rebuilt production CSS, `.hx-icon` resolves
+to 24.15×24.15 px and the first panel title resolves to 21 px on one line.
+This is the second reminder not to trust only the dev server for stylesheet
+bugs: inspect the emitted `dist/assets/style.*.css` and run `docs:preview`.
+
+### Homepage showreel optimisation
+
+The original `banner.mp4` was 1440×720 H.264 at 60 fps, 12.69 MB, with uneven
+keyframe gaps approaching four seconds. The MP4 already had its `moov` atom at
+the front, so `faststart` was not the missing fix. The expensive decode rate,
+long random-seek distance, metadata-only preload, and multiple rapid seeks from
+mouseenter + focus + click were the material problems.
+
+The new pipeline is:
+
+- `banner.mp4`: 1440×720, H.264 High, yuv420p, 30 fps, 53.33 s, 13.95 MB,
+  ~2.09 Mbps.
+- `banner-mobile.mp4`: 960×480, same codec/profile/pixel format, 30 fps,
+  53.33 s, 8.20 MB, ~1.23 Mbps.
+- Both use `+faststart`, a two-second GOP, and explicit keyframes at every
+  `SHOWREEL_CONFIG.chapters[].start` value. Audio was removed because the hero
+  is muted and the old track contained no useful audio.
+- Desktop SSIM against a 30 fps conversion of the source measured 0.994069.
+  This deliberately spends a little more desktop bandwidth to keep the
+  front-page showcase crisp while cutting decode work in half; mobile saves
+  about 35% versus the old one-size source.
+- `ShowreelHero.vue` now selects the mobile source with
+  `media="(max-width: 767px)"`, uses `preload="auto"`, tries `fastSeek()` with
+  an exact `currentTime` fallback, ignores redundant seeks, debounces hover
+  intent by 160 ms, cancels pending previews, and no longer seeks on focus.
+  Keyboard selection still goes through the existing arrow-key handler.
+
+Do not replace the responsive sources with a `<link rel="preload" as="video">`:
+current browser support is not reliable enough and this reel is far above the
+small-file size where that technique is recommended. H.264 was kept for broad
+hardware decoding; a WebM/VP9 variant should only be added after testing
+`MediaCapabilities.decodingInfo()` on representative devices.
+
+### Verification and state
+
+After all edits:
+
+```text
+npm run check       — All clean (8 case studies + projects index)
+npm run check:zh    — All clean (20 Chinese files)
+npm run docs:build  — production build completed
+git diff --check    — clean
+```
+
+Chrome production-preview checks at 1440×1000 confirmed the fixed panel
+dimensions, matching CV/nav typography, working CV dropdown, no page-level
+horizontal overflow, correct carousel accessible label, correct Chinese
+tooltip values, desktop `banner.mp4` selection at 1440×720, readyState 4, and
+smooth chapter changes once buffered. `ffprobe` verified both installed and
+built video assets. Everything remains uncommitted; Raymond owns commits.
