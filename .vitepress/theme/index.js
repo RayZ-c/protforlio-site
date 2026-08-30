@@ -30,6 +30,8 @@ import HeroNameEnergy from './components/HeroNameEnergy.vue'
 import PageTransition from './components/PageTransition.vue'
 import BackgroundField from './components/BackgroundField.vue'
 import BeamsBackground from './components/BeamsBackground.vue'
+import LanguageSwitcher from './components/LanguageSwitcher.vue'
+import CvMenu from './components/CvMenu.vue'
 // Alternative hero, kept available: swap <ShowreelHero /> for <PortfolioReveal />
 // in index.md to go back to the cursor-brush reveal banner.
 import PortfolioReveal from './components/PortfolioReveal.vue'
@@ -55,7 +57,13 @@ export default {
       // Order matters: the field paints behind the page, the transition over it.
       // Two backgrounds, each of which decides for itself whether this route
       // is its route: beams on the homepage, the signal field everywhere else.
-      'layout-top': () => [h(BeamsBackground), h(BackgroundField), h(PageTransition)]
+      'layout-top': () => [h(BeamsBackground), h(BackgroundField), h(PageTransition)],
+      // The CV menu and language switcher are rendered here rather than as
+      // plain nav links, because both are per-language choices. VitePress's
+      // own translations dropdown is disabled in effects.css: it collapses
+      // into the mobile hamburger, and someone who cannot read the current
+      // language must not have to find a hidden menu.
+      'nav-bar-content-after': () => [h(CvMenu), h(LanguageSwitcher)]
     })
   },
   enhanceApp({ app, router, siteData }) {

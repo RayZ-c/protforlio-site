@@ -20,8 +20,11 @@
  * values were read off the actual footage; if banner.mp4 is ever re-cut, this
  * object is the only thing that needs updating.
  */
-import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { withBase } from 'vitepress'
+import { useI18n } from '../i18n.js'
+
+const { t, localePath } = useI18n()
 
 const SHOWREEL_CONFIG = {
   video: '/videos/banner.mp4',
@@ -119,7 +122,9 @@ const reducedMotion = ref(false)
 const words = SHOWREEL_CONFIG.rotatingWords
 const wordIndex = ref(0)
 // Sizes the rotator to its longest word so the line never reflows mid-cycle.
-const longestWord = words.reduce((a, w) => (w.length > a.length ? w : a), '')
+const longestWord = computed(() =>
+  words.map((w) => t(w)).reduce((a, w) => (w.length > a.length ? w : a), '')
+)
 let wordTimer = null
 
 const startWords = () => {
@@ -346,7 +351,7 @@ onBeforeUnmount(() => cleanup())
 
     <p class="sr-status">
       <span class="hx-dot" aria-hidden="true" />
-      Open to roles &amp; internships
+      {{ t('Open to roles & internships') }}
     </p>
 
     <div class="sr-copy hx-shell">
@@ -355,7 +360,7 @@ onBeforeUnmount(() => cleanup())
         <span class="sr-line" data-t="Cheng">Cheng</span>
       </h1>
       <p class="sr-role">
-        <span class="sr-role-title">Gameplay Programmer</span>
+        <span class="sr-role-title">{{ t('Gameplay Programmer') }}</span>
         <span class="sr-role-sep" aria-hidden="true"></span>
         <span class="sr-rotator">
           <!-- invisible sizer keeps the line from reflowing as words swap -->
@@ -366,7 +371,7 @@ onBeforeUnmount(() => cleanup())
             class="sr-rotator-word"
             :class="{ 'is-current': i === wordIndex }"
             :aria-hidden="i !== wordIndex"
-          >{{ word }}</span>
+          >{{ t(word) }}</span>
         </span>
       </p>
       <ul class="sr-engines">
@@ -384,10 +389,10 @@ onBeforeUnmount(() => cleanup())
       <div class="sr-actions">
         <a
           class="hx-btn sr-magnet"
-          :href="withBase('/projects/')"
+          :href="withBase(localePath('/projects/'))"
           @pointermove="onMagnet"
           @pointerleave="clearMagnet"
-        ><span class="sr-magnet-label">View projects</span></a>
+        ><span class="sr-magnet-label">{{ t('View projects') }}</span></a>
         <a
           class="hx-btn hx-btn--ghost sr-magnet"
           :href="withBase('/cv_v2.pdf')"
@@ -395,7 +400,7 @@ onBeforeUnmount(() => cleanup())
           rel="noopener"
           @pointermove="onMagnet"
           @pointerleave="clearMagnet"
-        ><span class="sr-magnet-label">Read my CV</span></a>
+        ><span class="sr-magnet-label">{{ t('Read my CV') }}</span></a>
       </div>
     </div>
 
@@ -406,7 +411,7 @@ onBeforeUnmount(() => cleanup())
         ref="rail"
         class="sr-rail"
         role="radiogroup"
-        aria-label="Showreel chapter"
+        :aria-label="t('Showreel chapter')"
         @mouseleave="preview(pinnedIndex ?? activeIndex)"
       >
         <div
@@ -421,7 +426,7 @@ onBeforeUnmount(() => cleanup())
             type="button"
             role="radio"
             :aria-checked="index === activeIndex"
-            :aria-label="`${chapter.title} — ${chapter.kind}`"
+            :aria-label="`${t(chapter.title)} — ${t(chapter.kind)}`"
             :tabindex="index === activeIndex ? 0 : -1"
             @click="index === pinnedIndex ? unpin() : pick(index)"
             @mouseenter="preview(index)"
@@ -429,13 +434,13 @@ onBeforeUnmount(() => cleanup())
             @keydown="onRailKey($event, index)"
           >
             <span class="sr-chapter-index" aria-hidden="true">{{ String(index + 1).padStart(2, '0') }}</span>
-            <span class="sr-chapter-label">{{ chapter.label }}</span>
+            <span class="sr-chapter-label">{{ t(chapter.label) }}</span>
           </button>
 
           <div v-if="index === activeIndex" class="sr-chapter-detail">
-            <span class="sr-chapter-stack">{{ chapter.stack }}</span>
-            <a class="sr-chapter-link" :href="withBase(`${chapter.href}.html`)">
-              Open case study <span class="hx-arrow" aria-hidden="true">→</span>
+            <span class="sr-chapter-stack">{{ t(chapter.stack) }}</span>
+            <a class="sr-chapter-link" :href="withBase(localePath(`${chapter.href}.html`))">
+              {{ t('Open case study') }} <span class="hx-arrow" aria-hidden="true">→</span>
             </a>
           </div>
 

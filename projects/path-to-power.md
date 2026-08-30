@@ -51,7 +51,7 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
 
   <div class="project-text">
     <ul>
-      <li>4-week solo action platformer built on a <a href="/protforlio-site/projects/forgiving-mechanics"><strong>reusable movement framework</strong></a></li>
+      <li>4-week solo action platformer built on a <a href="./forgiving-mechanics"><strong>reusable movement framework</strong></a></li>
       <li>Responsive movement with <strong>forgiving mechanics</strong> (jump buffer, coyote time, variable gravity)</li>
       <li><strong>Multi-layer combat feedback</strong> (VFX + SFX + Camera + Physics + Hit-Stop + UI synchronized)</li>
       <li>Pure <strong>C# UIToolkit HUD</strong> (no UXML, declarative, designer-friendly)</li>
@@ -676,4 +676,3 @@ Every tunable value defined in structures:
 </ProjectPanel>
 
 ---
-

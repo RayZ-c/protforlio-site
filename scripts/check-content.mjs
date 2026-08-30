@@ -42,10 +42,20 @@ const warn = (file, msg) => warnings.push(`${file}: ${msg}`)
 const KNOWN_TAGS = new Set([
   'Unity', 'Unreal', 'Unreal Engine 5', 'Roblox', 'C#', 'C++', 'Lua', 'Blueprints',
   '2D', '3D', 'FPS', 'Top-Down', 'Side-Scroller', 'Action', 'Movement', 'AI',
-  'Combat', 'VFX', 'UI', 'For Sale', 'Game Jam'
+  'Combat', 'VFX', 'SFX', 'UI', 'For Sale', 'Game Jam'
 ])
 
 const EMOJI = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{13000}-\u{1342F}]/u
+
+/**
+ * Locale directories. English is the root locale, so its pages live in
+ * `projects/`; the Chinese locales mirror that tree under their own prefix.
+ */
+const LOCALES = [
+  { key: 'en', dir: 'projects', base: '/protforlio-site/projects/' },
+  { key: 'zh', dir: 'zh/projects', base: '/protforlio-site/zh/projects/' },
+  { key: 'zh-Hant', dir: 'zh-Hant/projects', base: '/protforlio-site/zh-Hant/projects/' }
+]
 
 const projectsDir = 'projects'
 const files = (await readdir(projectsDir)).filter((f) => f.endsWith('.md'))
@@ -190,6 +200,115 @@ for (const [, media] of index.matchAll(/\b(?:image|hoverVideo):\s*'([^']+)'/g)) 
 
 if (index.includes('TODO')) {
   warn(indexRel, `${(index.match(/TODO/g) || []).length} unfilled TODO(s) in allProjects`)
+}
+
+/* ── locale parity ───────────────────────────────────────────────────────── */
+
+/**
+ * A translated page must stay STRUCTURALLY identical to its English source.
+ * Prose changes; markup must not. Without this, a translation silently drifts
+ * — a media path gets mistyped, a panel is dropped, a carousel id is renamed —
+ * and the Chinese page quietly loses content that the English one has. None of
+ * that produces a build error, so nothing else would catch it.
+ */
+const structureOf = (src) => ({
+  panels: (src.match(/<ProjectPanel\b/g) || []).length,
+  panelsClosed: (src.match(/<\/ProjectPanel>/g) || []).length,
+  carousels: (src.match(/<MediaCarousel\b/g) || []).length,
+  carouselIds: [...src.matchAll(/<MediaCarousel[^>]*\bid="([^"]*)"/g)].map((m) => m[1]).sort(),
+  media: [...src.matchAll(/\bsrc:\s*'([^']+)'/g)].map((m) => m[1]).sort(),
+  icons: [...src.matchAll(/<ProjectPanel[^>]*\bicon="([^"]*)"/g)].map((m) => m[1]).sort()
+})
+
+const sameList = (a, b) => a.length === b.length && a.every((v, i) => v === b[i])
+
+const cardMediaOf = (src) => new Map(
+  [...src.matchAll(/\{\s*\n\s*id:\s*'([^']+)',([\s\S]*?)\n\s*\}/g)].map(([, id, body]) => {
+    const field = (name) => body.match(new RegExp(`\\b${name}:\\s*'([^']*)'`))?.[1] ?? null
+    return [id, { image: field('image'), hoverVideo: field('hoverVideo') }]
+  })
+)
+
+const englishCardMedia = cardMediaOf(index)
+
+for (const locale of LOCALES.slice(1)) {
+  let localeFiles
+  try {
+    localeFiles = (await readdir(locale.dir)).filter((f) => f.endsWith('.md'))
+  } catch {
+    warn(locale.dir, `locale directory missing entirely — ${locale.key} is not translated yet`)
+    continue
+  }
+
+  for (const file of caseStudies) {
+    const enPath = path.join(projectsDir, file)
+    const loPath = path.join(locale.dir, file)
+
+    if (!localeFiles.includes(file)) {
+      err(loPath, `missing — ${file} exists in English but not in ${locale.key}`)
+      continue
+    }
+
+    const en = structureOf(await readFile(enPath, 'utf8'))
+    const lo = structureOf(await readFile(loPath, 'utf8'))
+
+    if (lo.panels !== lo.panelsClosed) {
+      err(loPath, `unbalanced panels: ${lo.panels} <ProjectPanel> vs ${lo.panelsClosed} closing tags`)
+    }
+    if (en.panels !== lo.panels) {
+      err(loPath, `panel count differs from English: ${lo.panels} vs ${en.panels}`)
+    }
+    if (en.carousels !== lo.carousels) {
+      err(loPath, `carousel count differs from English: ${lo.carousels} vs ${en.carousels}`)
+    }
+    if (!sameList(en.carouselIds, lo.carouselIds)) {
+      err(loPath, 'MediaCarousel ids differ from English — the two pages would style differently')
+    }
+    if (!sameList(en.media, lo.media)) {
+      err(loPath, 'media paths differ from English — a clip is missing, renamed or mistyped')
+    }
+    if (!sameList(en.icons, lo.icons)) {
+      warn(loPath, 'panel icons differ from English — intentional only if a section was re-ordered')
+    }
+  }
+
+  // The localised index must point at its OWN locale, or every card sends a
+  // Chinese reader back into the English site.
+  const loIndex = path.join(locale.dir, 'index.md')
+  try {
+    const src = await readFile(loIndex, 'utf8')
+    for (const [, link] of src.matchAll(/\blink:\s*'(\/protforlio-site\/[^']+)'/g)) {
+      if (!link.startsWith(locale.base)) {
+        err(loIndex, `card link "${link}" leaves the ${locale.key} locale`)
+      }
+    }
+
+    // A translated card must use the exact same preview media as its English
+    // source. Existence alone is not enough: an alternate valid clip is still
+    // silent content drift and makes the locale versions present a different
+    // portfolio.
+    const localeCardMedia = cardMediaOf(src)
+    for (const [id, expected] of englishCardMedia) {
+      const actual = localeCardMedia.get(id)
+      if (!actual) {
+        err(loIndex, `card "${id}" is missing from the ${locale.key} index`)
+      } else if (actual.image !== expected.image || actual.hoverVideo !== expected.hoverVideo) {
+        err(loIndex, `card "${id}" media differs from English`)
+      }
+    }
+    for (const id of localeCardMedia.keys()) {
+      if (!englishCardMedia.has(id)) err(loIndex, `unexpected card "${id}" is not present in English`)
+    }
+
+    // Keep the direct file-existence check too, so a typo introduced in every
+    // locale cannot pass merely because the strings agree.
+    for (const [, media] of src.matchAll(/\b(?:image|hoverVideo):\s*'([^']+)'/g)) {
+      const file = path.join('public', media.replace('/protforlio-site/', '').replace(/^\//, ''))
+      if (!existsSync(file)) err(loIndex, `card media not found: ${media}`)
+    }
+  } catch {
+    err(loIndex, 'projects index missing for this locale')
+  }
 }
 
 /* ── report ──────────────────────────────────────────────────────────────── */

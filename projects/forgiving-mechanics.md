@@ -55,7 +55,7 @@ description: A reusable character movement controller with forgiving input mecha
       <li><strong>Slope handling and ground detection</strong> using reliable raycasting</li>
       <li>Modular architecture with <strong>parameter-driven design</strong> (no magic numbers)</li>
       <li>Drop into any project, configure in inspector, ship in days</li>
-      <li>Used as foundation for <strong><a href="/protforlio-site/projects/path-to-power">Path to Power</a></strong> combat systems</li>
+      <li>Used as foundation for <strong><a href="./path-to-power">Path to Power</a></strong> combat systems</li>
     </ul>
   </div>
 

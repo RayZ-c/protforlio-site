@@ -441,3 +441,261 @@ clipped inside the pill.
   webhook. It is gitignored and must remain local; never copy the credential
   into tracked documentation or a public artifact. Follow that file's Tier 1 /
   Tier 2 rules and include the top-level user mention so Discord actually pings.
+
+
+---
+
+## Codex handoff — 30 August 2026, i18n session (Claude running low on tokens)
+
+Claude is handing off mid-session on Chinese localisation. Everything below is
+uncommitted. Raymond commits himself — do not commit or push without him
+asking. **Read `project-context/i18n-state.md` first** — it is the detailed
+companion to this section and stays up to date independently of this file.
+
+### Verify the starting state before touching anything
+
+```bash
+npm run check       # structure + locale parity   -> must say "No errors"
+npm run check:zh    # Chinese terminology audit    -> must say "All clean"
+npm run docs:build  # -> must be clean
+```
+
+If any of those three fail, something regressed after this handoff was
+written — stop and diagnose before adding new work on top.
+
+### What exists right now
+
+Full trilingual site: `/` English (root locale) · `/zh/` Simplified ·
+`/zh-Hant/` Traditional (Taiwan). All 11 pages (home + projects index + 8 case
+studies) exist in all three locales, ~20,000 words of translation, written
+independently per locale (never auto-converted between Simplified and
+Traditional — see "Why independent, not converted" below).
+
+### New files, and what each one is for
+
+| File | Purpose |
+|---|---|
+| `theme/i18n.js` | UI-string dictionary. `useI18n()` returns `{ t, locale, localePath }`. Keys are English sentences; a missing translation degrades to English rather than to a dotted id. |
+| `theme/routes.js` | `isHomePage()` / `stripLocale()`. The ONE place allowed to compare a route to `'index.md'`. |
+| `theme/components/NavFlyout.vue` | Shared always-visible dropdown (click to open, Escape/outside-click to close). Used by both controls below. |
+| `theme/components/LanguageSwitcher.vue` | Language dropdown. Preserves the current page and `#hash` when switching. |
+| `theme/components/CvMenu.vue` | CV dropdown: `English` (real PDF) / `简体中文` / `繁體中文` (both disabled, show "尚未提供", until the PDFs exist). |
+| `scripts/check-chinese.mjs` (`npm run check:zh`) | Terminology + locale-convention audit for Chinese pages, see below. |
+| `project-context/i18n-glossary.md` | Locked terminology per locale — the reason the translation does not read as machine output. |
+| `project-context/i18n-state.md` | Full current-state doc, more detailed than this section. |
+| `zh/` , `zh-Hant/` | The translated content trees, mirroring `index.md` and `projects/*.md`. |
+
+### Files changed, and why
+
+- **`.vitepress/config.mjs`** — `locales{}` block (root/zh/zh-Hant), per-locale
+  Noto Sans SC/TC font loading, `hreflang` tags. CV entry removed from the
+  plain `nav` array (it is now `CvMenu.vue`, not a flat link).
+- **`theme/effects.css`** — appended, do not scroll past assuming it is only
+  the old content: (1) CJK font-stack overrides under
+  `:root:lang(zh-Hans|zh-Hant)`, Latin faces listed FIRST so mixed-script text
+  keeps its original typography; (2) `.hx-flyout*` styling for both navbar
+  dropdowns, including the mobile short-label / no-caret rules that fix a
+  horizontal-scroll bug (see Traps).
+- **`theme/index.js`** — mounts `LanguageSwitcher` + `CvMenu` via
+  `'nav-bar-content-after'`.
+- **`ShowreelHero.vue`, `ScrollControls.vue`, `MediaCarousel.vue`,
+  `PageTransition.vue`** — wired to `useI18n()`. `PageTransition.vue` also
+  strips the locale prefix before resolving the destination label, or every
+  Chinese route flashed its English name during the transition.
+- **`TagRow.vue`** — Chinese tag vocabulary (战斗/戰鬥 etc.) added to
+  the existing ENGINE/DISCIPLINE sets so Chinese tag chips get the right
+  orange/blue colour instead of falling through to grey.
+- **`scripts/check-content.mjs`** — now also validates locale card media
+  (`image`/`hoverVideo` paths in `zh/projects/index.md` and
+  `zh-Hant/projects/index.md`), because that gap let a real bug through once
+  (see "Real bugs found" below).
+- **`BackgroundField.vue`, `BeamsBackground.vue`** — route check switched from
+  `relativePath === 'index.md'` to `isHomePage()`. This predates the i18n
+  session but is part of the same correctness fix and is mentioned here so it
+  is not mistaken for unrelated drift.
+
+### Why independent translation, not conversion
+
+Simplified → Traditional character conversion is detectable by any native
+reader, and for a programmer's portfolio it is glaring, because the CORE
+VOCABULARY differs — not the characters, the words:
+
+| English | 简体 (CN) | 繁體 (TW) |
+|---|---|---|
+| program/code | 程序 | 程式 |
+| software | 软件 | 軟體 |
+| project | 项目 | 專案 |
+| object | 对象 | 物件 |
+| interface | 接口 | 介面 |
+
+Both `zh/` and `zh-Hant/` were written from the English source independently,
+governed by `project-context/i18n-glossary.md`. **Never machine-convert one
+Chinese locale from the other** — it will reintroduce exactly this defect.
+
+### The Chinese QA tool — how it works and its known limits
+
+`npm run check:zh` covers 2 of the 7 MQM (Multidimensional Quality Metrics,
+the standard translation-QA framework) dimensions — the two a script can
+actually decide:
+
+1. **Character-set leakage** — a hand-verified list of ~250 character pairs
+   that exist in ONLY one script (e.g. 這/这, 個/个). Flags a Simplified
+   character in a Traditional file or vice versa.
+2. **Terminology leakage** — ~25 word pairs from the glossary
+   (程序/程式, 软件/軟體, 项目/專案…). Flags a valid Chinese
+   word used in the WRONG market — the defect a spell-checker cannot see.
+
+**Known false-positive traps already handled, do not re-add them:**
+- `台`/`臺`, `秘`/`祕`, `著`/`着` are context-dependent, not
+  script-dependent (Taiwan writes 平台 with 台; 臺 is only for place
+  names). They were removed from the character table after producing false
+  positives on every page.
+- `程序化生成` ("PROCEDURAL generation") is correct Taiwanese —
+  `程序` there means "procedure", not "code". `TERM_PAIRS` has an explicit
+  `except` list for this; if you add new terminology pairs, check whether the
+  "wrong" string is also a legitimate different word in some compound before
+  assuming it is an error.
+
+The tool does NOT check accuracy, style, audience appropriateness, linguistic
+convention or markup (the other 5 MQM dimensions) — those need a human native
+reader. The `zh-review` HTML comments in the translated files mark the
+judgement calls most worth that reviewer's attention; `grep -r "zh-review"
+zh/ zh-Hant/` finds all of them.
+
+### Real bugs found and fixed this session — read before assuming something is fine
+
+1. **Fabricated media paths.** Both Chinese `projects/index.md` files had
+   invented video paths for the `twin-sync` card; the English source has empty
+   strings (that card genuinely has no media). Fixed, and
+   `check-content.mjs` now checks locale card media so this class of error
+   fails the build instead of only showing as a browser console 404.
+2. **Mobile navbar overflow.** The language switcher + CV menu + hamburger did
+   not fit inside a 390px viewport, causing horizontal scroll. Fixed with a
+   short-code label (`EN`/`简`/`繁`) and no caret below 768px — verified
+   `scrollWidth` 375 ≤ 390 after the fix. If you touch `.hx-flyout` CSS, re-run
+   this check at 390px width.
+3. **Route-transition label leaked English.** The overlay resolved the page
+   name from the slug BEFORE stripping the locale prefix, so every Chinese
+   route showed its English name for the duration of the transition. Fixed in
+   `PageTransition.vue`; translations are `route:<slug>` keys in `i18n.js`.
+4. **CJK fonts.** None of Bebas Neue / Barlow Condensed / Archivo Black /
+   Inter contain CJK glyphs — every Chinese heading would silently fall back
+   to an arbitrary system font. Fixed with Noto Sans SC/TC loaded PER LOCALE
+   (verified: English pages load 0 CJK stylesheets). If you add a new Latin
+   display font anywhere, check whether Chinese pages need a matching
+   fallback added to the `:lang()` blocks in `effects.css`.
+
+### Sensible next steps
+
+1. **Nothing is currently broken** as far as Claude's testing found (the three
+   validators above all pass). Re-verify anyway before building on top — several
+   fixes this session turned out to have a second hidden layer on first pass.
+2. **Two Chinese CV PDFs are the main open item.** Raymond needs to produce
+   them; enabling one in `CvMenu.vue` is a one-line change (`file: null` →
+   the path) once it exists in `public/`.
+3. If Raymond reports something not translated, check whether the string
+   lives in `theme/i18n.js` (UI chrome) or in the markdown itself (page
+   content) before assuming which file needs editing.
+4. The technical/recruiter editorial review is now complete; see the Codex
+   handoff below. A later native-speaker pass is optional preference tuning,
+   not a correctness blocker.
+
+## Codex handoff — Chinese localisation editorial QA — 30 August 2026
+
+### Scope and outcome
+
+Codex completed the second, human-oriented review requested by Raymond. All 20
+translated Markdown pages (10 Simplified Chinese and 10 Taiwan Traditional
+Chinese) were compared with the English source for technical meaning,
+recruiter readability, locale conventions, and consistent product vocabulary.
+No Chinese CV was created or enabled; Raymond explicitly deferred both PDFs.
+
+The detailed editorial record is `project-context/i18n-review.md`. The locked
+term table is `project-context/i18n-glossary.md`. Read both before changing
+Chinese copy; this pass deliberately did not use Simplified/Traditional
+character conversion as a translation method.
+
+### Important terminology decisions
+
+- Program, source code, and script are separate concepts:
+  `程序 / 代码 / 脚本` (CN), `程式 / 程式碼 / 腳本` (TW).
+- The recruiter-facing role is `游戏玩法程序员` in CN and
+  `遊戲程式設計師` in Taiwan Traditional.
+- Keep the searchable English term on first use and add a short explanation:
+  `Coyote Time（跳跃宽限／跳躍寬限）` and
+  `Hit Stop（命中停顿／命中停頓）`. Later uses may use the Chinese short form.
+- `UI Toolkit` is Unity's product name. Unreal case studies now use generic
+  `Widget UI` / `UI Widget`; do not reintroduce `UIToolkit Widget`, and do not
+  claim UMG unless the source proves that technology was used.
+- Mechanical calques such as `生产级`, `正式級`, `性能自觉`, and `效能自覺`
+  were replaced with recruiter-natural claims such as `可投入正式项目／專案`
+  and `注重性能／效能`.
+- Media counters use `项／項`, not the image-only classifiers `张／張`, because
+  a carousel can contain images, video, or embeds.
+
+### Safeguards changed
+
+`scripts/check-chinese.mjs` now distinguishes program/code/script and audits
+additional market-specific pairs such as class, quality, and repository. It
+also rejects the known bad phrases `顿帧／頓幀`, `土狼时间／土狼時間`, the
+machine-like production/performance calques, and `UIToolkit Widget`.
+
+Do not collapse those rows back into one program/code mapping. Also preserve
+the existing exceptions for legitimate compounds such as Taiwan
+`程序化生成` (procedural generation).
+
+### Live Chrome verification
+
+- Language switching preserved the active case-study route from Simplified to
+  Traditional Chinese.
+- `lang`, Noto Sans SC/TC font resolution, revised terminology inside collapsed
+  panels, projects search UI, and formal-project wording were inspected in the
+  rendered DOM.
+- Home, projects index, and Path to Power were checked at desktop width and at
+  390 × 844. There was no page-level horizontal overflow; compact locale labels
+  rendered as `简` / `繁` on mobile.
+- Screenshots were visually inspected. Chrome logged no warnings or errors.
+
+### State for the next agent
+
+Everything remains uncommitted; Raymond commits. The only intentionally open
+localisation deliverables are the two Chinese CV PDFs. An optional native-
+speaker preference pass may adjust personal tone, but the terminology and
+recruiter-comprehension review is complete and documented. Re-run the commands
+below before changing this state:
+
+```bash
+npm run check
+npm run check:zh
+npm run docs:build
+```
+
+Final results on 30 August 2026:
+
+- `npm run check` — passed with no errors. Its three existing warnings are the
+  two intentional raw-HTML base paths and the pre-existing grey `SFX` tag.
+- `npm run check:zh` — all 20 Chinese files clean.
+- `npm run docs:build` — production build completed successfully.
+
+### Additional pre-read audit
+
+Raymond asked whether anything mechanical remained before his own reading. The
+extra audit found and fixed three items:
+
+1. The Simplified and Traditional project indexes used valid but different
+   preview clips from English for `forgiving-mechanics` and `elder-escape`.
+   Both now match English. `check-content.mjs` compares `image` and
+   `hoverVideo` by card id, so existence alone can no longer hide this drift.
+2. `4 年+` on both home pages was changed to the natural `4 年以上`.
+3. On English-only utility pages such as `THIRD_PARTY_NOTICES`, the custom
+   language switcher previously manufactured nonexistent Chinese paths. It now
+   falls back to the chosen locale's home page; real translated pages still
+   preserve their exact route. `routes.js` owns this decision through
+   `hasLocaleVariant()`.
+
+Additional checks passed: English/locale URL and media parity, rendered-prose
+leakage and punctuation scan, 32-page `lang`/description/alt/duplicate-id
+audit, Chrome interaction test, clean Chrome console, the two standard checks,
+and a production build. VitePress itself still emits a CSS-hidden duplicate
+translation menu on the notices page with theoretical locale paths; users
+cannot see or activate it, while the visible custom menu is verified safe.

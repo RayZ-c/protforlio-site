@@ -89,6 +89,69 @@ absolutely positioned `::after`; the positioned anchor contains and clips it.
 Making the anchor static causes the pseudo-element to size against the page and
 paint a large animated orange wedge from the left edge.
 
+### Internationalisation
+
+The site ships in three locales, using VitePress's native directory routing:
+
+| Route | Locale | `lang` |
+|---|---|---|
+| `/` | English | `en` |
+| `/zh/` | Simplified Chinese | `zh-Hans` |
+| `/zh-Hant/` | Traditional Chinese (Taiwan) | `zh-Hant` |
+
+English is the ROOT locale rather than living at `/en/`. GitHub Pages serves a
+static build with no redirect layer, so whatever sits at the site root is what a
+bare link resolves to — and the primary audience is English.
+
+**The language switcher is VitePress's own.** `VPNavBarTranslations` renders an
+always-visible dropdown on the right of the navbar (and
+`VPNavScreenTranslations` inside the mobile menu), and its `langs` composable
+resolves the SAME page in the target locale, preserving the `#hash`. None of
+that is reimplemented here — `effects.css` only restyles it. Each language is
+labelled with its own autonym (`English`, `简体中文`, `繁體中文`) so a reader who
+cannot read the current locale can still find theirs.
+
+**Fonts are the part that would silently break.** Bebas Neue, Barlow Condensed,
+Archivo Black and Inter contain no CJK glyphs at all, so without intervention
+every Chinese heading falls back to an arbitrary system font. `config.mjs`
+attaches Noto Sans SC / TC per locale via `locales[x].head`, so an English
+visitor never downloads a stylesheet they cannot render a glyph from. Google
+Fonts already splits those faces into ~100 `unicode-range` chunks, so a page
+only fetches the characters it actually shows.
+
+The token overrides live at the bottom of `effects.css`, selected on
+`:root:lang(zh-Hans)` / `:root:lang(zh-Hant)`. **Latin faces stay FIRST in every
+stack**: Latin runs inside Chinese text (`Unity`, `C++`, `UIToolkit`, the tag
+chips) keep the original typography and only Han characters fall through to
+Noto. That mixed-script behaviour is deliberate — it is what stops a Chinese
+page reading as a different site.
+
+**Route identity must go through `theme/routes.js`.** Any check of the form
+`relativePath === 'index.md'` is wrong once locales exist, because the Chinese
+home pages are `zh/index.md` and `zh-Hant/index.md`. That bug was live in both
+background canvases: the beams would have vanished on the Chinese homepage and
+the dot field would have appeared over it. `isHomePage()` and `stripLocale()`
+are the single place to be right about this.
+
+UI strings inside Vue components come from `theme/i18n.js` (`useI18n().t()`),
+keyed by English sentence so a missing translation degrades to correct English
+rather than to a dotted id. Page CONTENT is not templated — each locale has its
+own markdown file.
+
+**`npm run check` enforces locale parity.** A translated page must stay
+structurally identical to its English source: same panel count, same carousel
+ids, same case-study media paths, balanced tags, and card links that stay inside
+their own locale. Project-index preview media is compared by card id as well as
+checked for file existence; a different but valid clip is still content drift.
+Prose changes; markup must not. Without that check a translation drifts silently,
+because nothing about it produces a build error.
+
+Terminology is locked in `project-context/i18n-glossary.md`. The two Chinese
+locales are written INDEPENDENTLY from the English, never converted from each
+other — character conversion is detectable by any native reader, and for a
+programmer's portfolio it is especially obvious (CN 程序/软件/项目/对象 vs
+TW 程式/軟體/專案/物件 are different words, not different characters).
+
 ### Section icons
 
 `ProjectPanel`'s `icon` prop takes a **Lucide icon name**, not an emoji. Emoji

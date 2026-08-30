@@ -9,6 +9,7 @@
     "template:dev": "vite test-project --host 127.0.0.1",
     "new:project": "node scripts/new-project.mjs",
     "media": "node scripts/prepare-media.mjs",
-    "check": "node scripts/check-content.mjs"
+    "check": "node scripts/check-content.mjs",
+    "check:zh": "node scripts/check-chinese.mjs"
   }
 }

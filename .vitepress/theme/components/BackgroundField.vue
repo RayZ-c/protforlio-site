@@ -48,12 +48,13 @@
  */
 import { onBeforeUnmount, ref, computed, watch } from 'vue'
 import { useData } from 'vitepress'
+import { isHomePage } from '../routes.js'
 import { mountCanvas } from '../canvas-background.js'
 
 const { page } = useData()
 
 /** The homepage's background is its showreel video; don't stack a field on it. */
-const enabled = computed(() => page.value.relativePath !== 'index.md')
+const enabled = computed(() => !isHomePage(page.value.relativePath))
 
 const canvas = ref(null)
 

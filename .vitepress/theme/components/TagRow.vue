@@ -19,12 +19,27 @@
  */
 const ENGINE = new Set([
   'Unity', 'Unreal', 'Unreal Engine 5', 'Roblox',
-  'C#', 'C++', 'Lua', 'Blueprints'
+  'C#', 'C++', 'Lua', 'Blueprints',
+  // Chinese locales. Engine and language names stay in Latin script, so only
+  // the handful that genuinely localise appear here.
+  '虚幻引擎', '虛幻引擎', '虚幻引擎 5', '虛幻引擎 5',
+  '蓝图', '藍圖'
 ])
 
 const DISCIPLINE = new Set([
   '2D', '3D', 'FPS', 'Top-Down', 'Side-Scroller',
-  'Action', 'Movement', 'AI', 'Combat', 'VFX', 'UI'
+  'Action', 'Movement', 'AI', 'Combat', 'VFX', 'SFX', 'UI',
+  // Chinese genre / discipline tags. Simplified and Traditional are listed
+  // side by side rather than normalised: they are separate strings to the
+  // browser, and a missing one would silently fall through to grey.
+  '动作', '動作',            // action
+  '移动', '移動',            // movement
+  '战斗', '戰鬥',            // combat
+  '手感',                            // game feel (same both)
+  '横版', '橫向捲軸',  // side-scroller
+  '俯视角', '俯視角',  // top-down
+  '特效',                            // VFX (same both)
+  '音效'                             // SFX (same both)
 ])
 
 defineProps({

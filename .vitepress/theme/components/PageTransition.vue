@@ -11,9 +11,11 @@
  */
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useData, useRouter } from 'vitepress'
+import { useI18n } from '../i18n.js'
 
 const router = useRouter()
 const { site } = useData()
+const { t } = useI18n()
 const visible = ref(false)
 const phase = ref('idle')
 const destination = ref('')
@@ -27,19 +29,40 @@ const pageKey = (href) => {
   return `${url.pathname}${url.search}`
 }
 
+/**
+ * The destination label shown during a route change.
+ *
+ * The locale directory is stripped BEFORE the label is resolved, so
+ * `/zh-Hant/projects/ue5-fps` and `/projects/ue5-fps` map to the same key and
+ * get the same translation. Without that every Chinese route fell through to
+ * the slug and the overlay flashed English at a Chinese reader.
+ *
+ * Slugs that have no translation degrade to the humanised slug, which is
+ * correct English rather than a missing-key placeholder.
+ */
 const pageName = (href) => {
   const url = new URL(href, window.location.href)
   const base = site.value.base
-  const path = decodeURIComponent(url.pathname)
+  let path = decodeURIComponent(url.pathname)
     .replace(base, '/')
     .replace(/(?:index)?\.html$/, '')
     .replace(/\/$/, '')
 
-  if (!path) return 'HOME'
-  if (path === '/projects') return 'PROJECTS'
+  for (const dir of ['/zh-Hant', '/zh']) {
+    if (path === dir || path.startsWith(`${dir}/`)) {
+      path = path.slice(dir.length)
+      break
+    }
+  }
 
-  const name = path.split('/').filter(Boolean).at(-1) || 'PORTFOLIO'
-  return name.replace(/[-_]+/g, ' ').toUpperCase()
+  if (!path) return t('HOME')
+  if (path === '/projects') return t('PROJECTS')
+
+  const slug = path.split('/').filter(Boolean).at(-1) || 'PORTFOLIO'
+  const translated = t(`route:${slug}`)
+  if (translated !== `route:${slug}`) return translated
+
+  return slug.replace(/[-_]+/g, ' ').toUpperCase()
 }
 
 const wait = (duration) => new Promise(resolve => window.setTimeout(resolve, duration))

@@ -37,12 +37,13 @@
  */
 import { onBeforeUnmount, ref, computed, watch } from 'vue'
 import { useData } from 'vitepress'
+import { isHomePage } from '../routes.js'
 import { mountCanvas } from '../canvas-background.js'
 
 const { page } = useData()
 
-/** Homepage only. Interior pages get the signal dot field instead. */
-const enabled = computed(() => page.value.relativePath === 'index.md')
+/** Homepage only, in every locale. Interior pages get the dot field. */
+const enabled = computed(() => isHomePage(page.value.relativePath))
 
 const canvas = ref(null)
 let teardown = null

@@ -24,7 +24,6 @@
   position: relative;
   isolation: isolate;
 }
-
 /* The card's spotlight needs its own element: ::before is the sweep bar and
    ::after is the animated border, so both pseudo-elements are already taken.
    HomeProjectCard solves it the same way. */
@@ -583,4 +582,305 @@ html {
 @media (prefers-reduced-motion: reduce) {
   /* The single static frame is kept — it is texture, not motion. */
   .hx-beams { opacity: 0.4; }
+}
+
+
+/* ==========================================================================
+   CHINESE LOCALES — typography and the language switcher
+   ==========================================================================
+   The whole design system is built on Bebas Neue, Barlow Condensed, Archivo
+   Black and Inter. NONE of them contain a single CJK glyph, so on a Chinese
+   page every heading would silently fall back to whatever the OS picked and
+   the design would come apart.
+
+   The token values are therefore re-pointed for Chinese pages only, selected
+   off the `lang` attribute VitePress writes onto <html> per locale. The Latin
+   faces stay FIRST in each stack: Latin runs inside Chinese text (Unity, C++,
+   Unreal Engine 5, the tag chips) keep the original typography, and only the
+   Chinese characters fall through to Noto. That mixed-script behaviour is the
+   point — it is what stops the page reading as a different site.
+
+   There is no condensed CJK display face comparable to Bebas, so Chinese
+   headings use heavy-weight Noto and gain a little letter-spacing instead.
+   Trying to fake the condensed look with transform: scaleX() was rejected:
+   it distorts strokes and looks cheap at heading sizes.
+   ========================================================================== */
+
+:root:lang(zh-Hans),
+:root:lang(zh-Hant) {
+  --hx-font-display: "Bebas Neue", "Barlow Condensed", var(--hx-cjk), sans-serif;
+  --hx-font-name: "Archivo Black", "Anton", var(--hx-cjk), sans-serif;
+  --hx-font-ui: "Barlow Condensed", var(--hx-cjk), system-ui, sans-serif;
+  --hx-font-body: "Inter", var(--hx-cjk), system-ui, sans-serif;
+}
+
+:root:lang(zh-Hans) {
+  --hx-cjk: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+}
+
+:root:lang(zh-Hant) {
+  --hx-cjk: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Source Han Sans TC", sans-serif;
+}
+
+/* Chinese has no lowercase, so `text-transform: uppercase` does nothing to it
+   while still applying to the Latin words mixed in — which is what we want.
+   Letter-spacing tuned for Latin is far too loose between Han characters,
+   though, so display type is pulled back in. */
+:root:lang(zh-Hans) .hx-title,
+:root:lang(zh-Hant) .hx-title,
+:root:lang(zh-Hans) .vp-doc h1,
+:root:lang(zh-Hant) .vp-doc h1,
+:root:lang(zh-Hans) .sr-name,
+:root:lang(zh-Hant) .sr-name {
+  letter-spacing: 0.02em;
+}
+
+/* Han characters carry more ink per line than Latin, so the same leading reads
+   as cramped. Prose gets a little more room. */
+:root:lang(zh-Hans) .vp-doc p,
+:root:lang(zh-Hant) .vp-doc p,
+:root:lang(zh-Hans) .vp-doc li,
+:root:lang(zh-Hant) .vp-doc li,
+:root:lang(zh-Hans) .project-text,
+:root:lang(zh-Hant) .project-text {
+  line-height: 1.9;
+}
+
+/* A Chinese reading column measured in `ch` is far too wide, because `ch` is
+   the width of "0" and a Han glyph is roughly twice that. */
+:root:lang(zh-Hans) .hx-panel-body > p,
+:root:lang(zh-Hant) .hx-panel-body > p,
+:root:lang(zh-Hans) .hx-panel-body > ul,
+:root:lang(zh-Hant) .hx-panel-body > ul,
+:root:lang(zh-Hans) .hx-panel-body > ol,
+:root:lang(zh-Hant) .hx-panel-body > ol {
+  max-width: 40em;
+}
+
+/* The per-character title assemble splits on characters, which is right for
+   Latin words but wrong for Han: every glyph is a word, so a long heading
+   staggers for far too long. Compressed rather than disabled, so the effect
+   still reads. */
+:root:lang(zh-Hans) .hx-split.hx-split-in .hx-char,
+:root:lang(zh-Hant) .hx-split.hx-split-in .hx-char {
+  animation-delay: calc(var(--i) * 12ms);
+}
+
+/* --------------------------------------------------------------------------
+   Language switcher
+   --------------------------------------------------------------------------
+   VitePress's default theme already renders this: `VPNavBarTranslations` on
+   desktop (right side of the navbar, always visible) and
+   `VPNavScreenTranslations` inside the mobile menu, and its `langs` composable
+   resolves the SAME page in the target locale rather than dumping the visitor
+   on the locale home page. So none of that is rebuilt here — only restyled to
+   match the rest of the navbar.
+   -------------------------------------------------------------------------- */
+
+/* VitePress's own translations dropdown is switched off entirely — the custom
+   always-visible one replaces it. Hidden rather than removed because it is the
+   default theme's markup, not ours. */
+.VPNavBarTranslations,
+.VPNavScreenTranslations {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Navbar flyouts — language switcher and CV menu
+   --------------------------------------------------------------------------
+   Same dropdown shape as VitePress's own, but rendered by our NavFlyout so it
+   stays visible at EVERY width. VitePress folds its version into the mobile
+   hamburger, which is the wrong trade for a language control: the visitor who
+   needs it most is the one who cannot read the current language.
+   -------------------------------------------------------------------------- */
+
+.hx-flyout {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.hx-flyout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 9px;
+  border: 1px solid var(--hx-line-strong);
+  border-radius: 999px;
+  background: rgba(5, 7, 13, 0.5);
+  font-family: var(--hx-font-ui);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--hx-ink-2);
+  cursor: pointer;
+  transition: color var(--hx-fast) var(--hx-ease),
+              border-color var(--hx-fast) var(--hx-ease);
+}
+
+.hx-flyout-btn:hover,
+.hx-flyout.is-open .hx-flyout-btn {
+  color: var(--hx-orange);
+  border-color: var(--hx-orange);
+}
+
+.hx-flyout-btn:focus-visible {
+  outline: 2px solid var(--hx-blue-2);
+  outline-offset: 2px;
+}
+
+.hx-flyout-icon {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+/* The current language is written in its own script, so it must not be
+   uppercased or letter-spaced the way a Latin UI label would be. */
+.hx-flyout-label {
+  white-space: nowrap;
+}
+
+/* Only one of the two labels is ever shown; the short one takes over on
+   narrow screens. It is aria-hidden, so the accessible name always comes from
+   the button's aria-label rather than from whichever is visible. */
+.hx-flyout-label-short {
+  display: none;
+  white-space: nowrap;
+}
+
+.hx-flyout--lang .hx-flyout-label {
+  letter-spacing: normal;
+}
+
+.hx-flyout-caret {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.7;
+  transition: transform var(--hx-fast) var(--hx-ease);
+}
+
+.hx-flyout.is-open .hx-flyout-caret {
+  transform: rotate(180deg);
+}
+
+.hx-flyout-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 60;
+  min-width: 148px;
+  padding: 5px;
+  border: 1px solid var(--hx-line-strong);
+  border-radius: 10px;
+  background: var(--hx-panel, #0b0f19);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.hx-flyout-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-family: var(--hx-font-body);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  color: var(--hx-ink-2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--hx-fast) var(--hx-ease),
+              background-color var(--hx-fast) var(--hx-ease);
+}
+
+.hx-flyout-link:hover {
+  color: var(--hx-orange);
+  background: var(--hx-orange-soft);
+}
+
+.hx-flyout-link.is-current {
+  color: var(--hx-orange);
+  font-weight: 600;
+}
+
+/* A CV that has not been translated yet is shown but not clickable, so the
+   menu still tells the reader it is planned instead of 404ing. */
+.hx-flyout-link.is-disabled {
+  color: var(--hx-ink-3);
+  cursor: default;
+  opacity: 0.65;
+}
+
+.hx-flyout-link.is-disabled:hover {
+  color: var(--hx-ink-3);
+  background: transparent;
+}
+
+.hx-flyout-hint {
+  font-family: var(--hx-font-ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--hx-ink-3);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile: both controls stay on screen
+   --------------------------------------------------------------------------
+   VitePress hides `.VPNavBarContent`'s children below 768px and folds the nav
+   into a hamburger. The two flyouts are pulled back out and pinned beside the
+   menu button — collapsing them would defeat the point of having them.
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .VPNavBar .content-body { display: flex !important; }
+
+  .VPNavBar .content-body > *:not(.hx-flyout):not(.VPNavBarHamburger) {
+    display: none !important;
+  }
+
+  .hx-flyout { display: flex !important; }
+
+  /* No auto-margin here: `.content-body` already justifies to the end, and
+     forcing one widened `.content` past its own container. */
+  .VPNavBar .content-body { gap: 0; min-width: 0; }
+
+  .hx-flyout-btn {
+    height: 28px;
+    padding: 0 7px;
+    gap: 4px;
+    font-size: 0.75rem;
+  }
+
+  /* Swap to the short code so the pair plus the hamburger fit inside a 390px
+     viewport. The full autonym overflowed and caused horizontal scroll. */
+  .hx-flyout--lang .hx-flyout-label { display: none; }
+  .hx-flyout--lang .hx-flyout-label-short {
+    display: inline;
+    font-size: 0.875rem;
+    letter-spacing: 0;
+  }
+
+  .hx-flyout { margin-left: 5px; }
+  .hx-flyout-icon { width: 14px; height: 14px; }
+
+  /* The caret is dropped rather than shrunk. Both controls plus the hamburger
+     have to fit inside `.VPNavBar .content`, which does not shrink — keeping
+     it pushed the hamburger 38px past the viewport and created horizontal
+     scroll. The icon and short label still read as a tappable control. */
+  .hx-flyout-caret { display: none; }
+
+  .hx-flyout-menu {
+    min-width: 132px;
+  }
+}
+
 }

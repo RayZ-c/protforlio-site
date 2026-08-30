@@ -42,6 +42,27 @@ If Raymond hands you a filled-in
 that brief is the source of facts. Everything not in it is either derivable from
 the code or must be asked about — not guessed.
 
+## The site is trilingual
+
+`/` English · `/zh/` Simplified · `/zh-Hant/` Traditional (Taiwan).
+
+- **Editing a case study means editing THREE files.** `npm run check` fails if
+  they drift structurally (panel counts, carousel ids, media paths).
+- **Never machine-convert between Simplified and Traditional.** They are written
+  independently and use genuinely different vocabulary. See
+  `project-context/i18n-glossary.md` for the locked terms — that file is what
+  keeps the translation from reading like machine output.
+- **Never compare `relativePath` to `'index.md'`.** Use `isHomePage()` from
+  `theme/routes.js`, or the Chinese home pages will be misidentified.
+- Chinese pages need Noto Sans SC/TC because none of the display fonts have CJK
+  glyphs. Those stylesheets are attached per locale in `config.mjs` — keep them
+  there so English visitors never download them.
+- Judgement calls in the translations are marked `<!-- zh-review: ... -->`.
+- `npm run check:zh` audits Chinese terminology and locale conventions. Run it
+  after touching any Chinese page.
+- **Read `project-context/i18n-state.md` first** for the full current state,
+  the navbar controls, the font setup, and what is still open.
+
 ## Where the knowledge lives
 
 | File | What it holds |

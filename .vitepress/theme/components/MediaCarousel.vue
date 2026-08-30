@@ -26,6 +26,9 @@
  */
 import { ref } from 'vue'
 import { withBase } from 'vitepress'
+import { useI18n } from '../i18n.js'
+
+const { t } = useI18n()
 
 const props = defineProps({
   /** Unique on the page. Becomes the radio group name. */
@@ -36,10 +39,14 @@ const props = defineProps({
    * Paths are authored WITHOUT the site base — see withBase note below.
    */
   slides: { type: Array, required: true },
-  label: { type: String, default: 'Media gallery' }
+  /** Left empty so the locale-aware default in `groupLabel` applies. */
+  label: { type: String, default: '' }
 })
 
 const activeSlide = ref(0)
+
+/** An author-supplied label wins; otherwise fall back to the translated one. */
+const groupLabel = () => props.label || t('Media gallery')
 
 const selectSlide = (index) => {
   const count = props.slides.length
@@ -70,7 +77,7 @@ const posterFor = (s) => {
 </script>
 
 <template>
-  <div class="hx-carousel" :class="`hx-carousel--n${slides.length}`" role="group" :aria-label="label">
+  <div class="hx-carousel" :class="`hx-carousel--n${slides.length}`" role="group" :aria-label="groupLabel()">
     <!-- The radios drive everything via CSS. Visually hidden but focusable, so
          the arrow-key behaviour of a native radio group still applies. -->
     <input
@@ -81,7 +88,7 @@ const posterFor = (s) => {
       :name="id"
       :id="`${id}-${i + 1}`"
       :checked="activeSlide === i"
-      :aria-label="s.caption || `Slide ${i + 1} of ${slides.length}`"
+      :aria-label="s.caption || `${t('Slide')}${i + 1}${t('of')}${slides.length}`"
       @change="activeSlide = i"
     >
 
@@ -122,7 +129,7 @@ const posterFor = (s) => {
         v-if="slides.length > 1"
         class="hx-carousel-arrow hx-carousel-arrow--previous"
         type="button"
-        :aria-label="`Previous media in ${label}`"
+        :aria-label="`${t('Previous media in')}${groupLabel()}`"
         @click="selectPrevious"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24">
@@ -134,7 +141,7 @@ const posterFor = (s) => {
         v-if="slides.length > 1"
         class="hx-carousel-arrow hx-carousel-arrow--next"
         type="button"
-        :aria-label="`Next media in ${label}`"
+        :aria-label="`${t('Next media in')}${groupLabel()}`"
         @click="selectNext"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24">

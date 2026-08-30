@@ -21,6 +21,9 @@
  *     backward when its container accelerates forward.
  */
 import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { useI18n } from '../i18n.js'
+
+const { t } = useI18n()
 
 const props = defineProps({
   // The homepage shows these always; other pages may prefer to reveal on scroll.
@@ -115,11 +118,11 @@ onBeforeUnmount(() => cleanup())
   <div ref="root" class="hx-scroll-controls" :class="{ 'is-visible': visible }">
     <button class="hx-scroll-btn" type="button" data-label="Back to top" @click="toTop">
       <span class="hx-scroll-arrow" aria-hidden="true">↑</span>
-      <span class="hx-sr-only">Back to top</span>
+      <span class="hx-sr-only">{{ t('Back to top') }}</span>
     </button>
     <button class="hx-scroll-btn" type="button" data-label="Jump to end" @click="toBottom">
       <span class="hx-scroll-arrow" aria-hidden="true">↓</span>
-      <span class="hx-sr-only">Jump to end</span>
+      <span class="hx-sr-only">{{ t('Jump to end') }}</span>
     </button>
   </div>
 </template>
