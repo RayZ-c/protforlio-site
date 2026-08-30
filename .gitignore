@@ -50,3 +50,7 @@ public/_compare/
 *.local.md
 *.local.json
 project-context/notify.local.md
+
+# VitePress SSR scratch output. Regenerated on every build; 151 MB of duplicated
+# video/posters got committed once because this rule was missing.
+.vitepress/.temp

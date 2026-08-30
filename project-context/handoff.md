@@ -11,9 +11,11 @@ the code. Dead code and copy-pasted markup count against it.
 
 ## State right now
 
-Last commit is `d306188 "pages optimized"` (the video/performance work).
-**Everything after that is uncommitted and unreviewed.** Raymond commits himself
-— do not commit or push on his behalf.
+Last commit is `4a86827 "Whole Website revamped V1"` — the entire design-system
+pass plus the Codex continuation is committed AND pushed. The working tree is
+clean apart from the `.temp` cleanup described below.
+
+Raymond owns commits. Do not commit or push without him asking.
 
 Uncommitted work = a site-wide design system pass:
 
@@ -213,7 +215,17 @@ above describes something that has since changed.
 
 ### Current working-tree reminder
 
-Nothing in this continuation was committed or pushed. Raymond still owns all
-commits. `PageTransition.vue` and `THIRD_PARTY_NOTICES.md` are intentional new
-source files. `.vitepress/.temp/` is generated VitePress scratch output, not a
-design asset.
+Superseded: this work IS now committed and pushed as `4a86827`.
+`PageTransition.vue` and `THIRD_PARTY_NOTICES.md` are intentional new source
+files.
+
+**`.vitepress/.temp/` was committed by mistake in `4a86827`** — 151 MB across
+116 files, containing a second full copy of every video and poster. It is
+generated SSR scratch, regenerated on every build. `.gitignore` now excludes it
+and it has been untracked, so it will not recur.
+
+The 151 MB remains in git history: `.git` is ~1.1 GB, past GitHub's 1 GB
+recommended repository size. It does NOT affect the published site (`.temp`
+never reaches `dist`), but every CI deploy clones it. Reclaiming it would need a
+history rewrite (git-filter-repo or BFG) plus a force push — Raymond's call,
+not something to do unprompted.
