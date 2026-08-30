@@ -5,7 +5,7 @@ description: Production-ready FPS framework with modular systems for weapon/ammo
 ---
 
 
-<a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
+<a href="../projects/" class="back-projects-button"> ❮❮ All Projects </a>
 
 <div class="project-info-row">
   <div class="project-info-left">
@@ -45,7 +45,7 @@ description: Production-ready FPS framework with modular systems for weapon/ammo
 
 ## Quick Overview {.outline-only}
 
-<ProjectPanel icon="🎯" title="Quick Summary for Recruiters">
+<ProjectPanel icon="target" title="Quick Summary for Recruiters">
 
   <div class="project-text">
     <ul>
@@ -64,7 +64,7 @@ description: Production-ready FPS framework with modular systems for weapon/ammo
 
 ## Core Philosophy {.outline-only}
 
-<ProjectPanel icon="💡" title="Core Philosophy">
+<ProjectPanel icon="lightbulb" title="Core Philosophy">
 
 <div class="project-text">
 
@@ -91,7 +91,7 @@ Every system is built to answer: *"How do we make systems that multiple people c
 
 ## 1. Weapon & Ammo System {.outline-only}
 
-<ProjectPanel icon="🏗️" title="Data-Driven Weapon Framework">
+<ProjectPanel icon="blocks" title="Data-Driven Weapon Framework">
 
 
 
@@ -101,7 +101,7 @@ Every system is built to answer: *"How do we make systems that multiple people c
 
 **The Solution:** All weapon properties live in configurable data assets:
 
-<ProjectPanel variant="mini" title="UWeaponDataAsset (example)">
+<ProjectPanel icon="file-code" variant="mini" title="UWeaponDataAsset (example)">
 
 <div class="mini-panel-body">
 
@@ -134,7 +134,7 @@ public:
 **Result:** Designers modify weapon properties in Unreal Editor—no code recompile needed. Add new weapons in minutes (duplicate asset, tweak values, done). Multiple weapons coexist without conflicts.
 
 
-<ProjectPanel variant="mini" title="Ammo Management &amp; Auto-Reload">
+<ProjectPanel icon="refresh-cw" variant="mini" title="Ammo Management &amp; Auto-Reload">
 
 <div class="mini-panel-body">
 
@@ -187,7 +187,7 @@ void UWeaponComponent::Reload()
 
 ## 2. Checkpoint & Persistence {.outline-only}
 
-<ProjectPanel icon="💾" title="Checkpoint Respawn &amp; Game State">
+<ProjectPanel icon="save" title="Checkpoint Respawn &amp; Game State">
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
 <MediaCarousel data-hx-reveal id="fm-checkpoint-media" :slides="[
@@ -205,7 +205,7 @@ void UWeaponComponent::Reload()
 **Result:** Clean, reusable respawn pattern. Multiple checkpoints supported (last touched is "current").
 
 
-<ProjectPanel variant="mini" title="Checkpoint Actor Implementation">
+<ProjectPanel icon="flag" variant="mini" title="Checkpoint Actor Implementation">
 
   <div class="mini-panel-body">
 
@@ -236,7 +236,7 @@ void UWeaponComponent::Reload()
 
 </ProjectPanel>
 
-<ProjectPanel variant="mini" title="Death &amp; Respawn Flow">
+<ProjectPanel icon="rotate-ccw" variant="mini" title="Death &amp; Respawn Flow">
 
 <div class="mini-panel-body">
 
@@ -278,7 +278,7 @@ void APlayerController::OnRespawnClicked()
 
 ## 3. Turret AI & Performance {.outline-only}
 
-<ProjectPanel icon="🎮" title="Enemy AI &amp; Projectile Pooling">
+<ProjectPanel icon="cpu" title="Enemy AI &amp; Projectile Pooling">
 
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
@@ -294,7 +294,7 @@ void APlayerController::OnRespawnClicked()
 **Projectile Pooling:** Pre-allocate pool → recycle objects instead of spawn/destroy every frame. Result: 50+ enemies firing simultaneously without frame rate dips.
 
 
-<ProjectPanel variant="mini" title="Turret AI Behavior">
+<ProjectPanel icon="cpu" variant="mini" title="Turret AI Behavior">
 
 <div class="mini-panel-body">
 
@@ -328,7 +328,7 @@ void AEnemyTurret::Tick(float DeltaTime)
 
 </ProjectPanel>
 
-<ProjectPanel variant="mini" title="Object Pool Pattern">
+<ProjectPanel icon="boxes" variant="mini" title="Object Pool Pattern">
 
 <div class="mini-panel-body">
 
@@ -371,7 +371,7 @@ AProjectileBase* AProjectilePool::GetProjectile()
 
 ## 4. Score & Persistence {.outline-only}
 
-<ProjectPanel icon="💾" title="Score Tracking &amp; High Score Persistence">
+<ProjectPanel icon="database" title="Score Tracking &amp; High Score Persistence">
 
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
@@ -390,7 +390,7 @@ AProjectileBase* AProjectilePool::GetProjectile()
 **High Score Persistence:** Serialized to disk using UE5 SaveGame API. Score persists across play sessions—players are motivated to beat their high score.
 
 
-<ProjectPanel variant="mini" title="Score System Implementation">
+<ProjectPanel icon="trophy" variant="mini" title="Score System Implementation">
 
 <div class="mini-panel-body">
 
@@ -437,7 +437,7 @@ void AGameManager::AddScore(int32 Amount)
 
 ## 5. Pickup & Buff System {.outline-only}
 
-<ProjectPanel icon="🎮" title="Pickup &amp; Buff System">
+<ProjectPanel icon="sparkles" title="Pickup &amp; Buff System">
 
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
@@ -453,7 +453,7 @@ Uses the same **PickupComponent + BuffBaseComponent** pattern, adding new pickup
 
 **Data-driven pickups with configurable buffs:**
 
-<ProjectPanel variant="mini" title="UPickupDataAsset (example)">
+<ProjectPanel icon="file-code" variant="mini" title="UPickupDataAsset (example)">
 
 <div class="mini-panel-body">
 
@@ -518,7 +518,7 @@ void UPickupComponent::HandlePickup(APickupBase* PickupActor, UPickupDataAsset* 
 
 ## Architecture Overview {.outline-only}
 
-<ProjectPanel icon="🎯" title="Architecture Overview &amp; Design Patterns">
+<ProjectPanel icon="layers" title="Architecture Overview &amp; Design Patterns">
 
 <div class="project-text">
 
@@ -566,7 +566,7 @@ void UPickupComponent::HandlePickup(APickupBase* PickupActor, UPickupDataAsset* 
 - ✅ Change HUD? Update UIToolkit widget, gameplay unaffected
 
 
-<ProjectPanel variant="mini" title="Health Component (Reusable)">
+<ProjectPanel icon="heart-pulse" variant="mini" title="Health Component (Reusable)">
 
 <div class="mini-panel-body">
 
@@ -613,7 +613,7 @@ void UHealthComponent::TakeDamage(float Damage, AActor* DamageInstigator)
 
 </ProjectPanel>
 
-<ProjectPanel variant="mini" title="Design Patterns Used">
+<ProjectPanel icon="puzzle" variant="mini" title="Design Patterns Used">
 
 <div class="mini-panel-body">
 
@@ -639,7 +639,7 @@ Component-based pickup/buff system using data assets
 
 ## Core Competencies {.outline-only}
 
-<ProjectPanel icon="🎯" title="Core Competencies">
+<ProjectPanel icon="award" title="Core Competencies">
 
 <div class="project-text">
 
@@ -668,7 +668,7 @@ Component-based pickup/buff system using data assets
 
 ## Use Cases & Extensibility {.outline-only}
 
-<ProjectPanel icon="🎮" title="Use Cases &amp; Extensibility">
+<ProjectPanel icon="puzzle" title="Use Cases &amp; Extensibility">
 
 <div class="project-text">
 
@@ -691,7 +691,7 @@ Component-based pickup/buff system using data assets
 
 ## Technologies & Stack {.outline-only}
 
-<ProjectPanel icon="⚙️" title="Technologies &amp; Stack">
+<ProjectPanel icon="wrench" title="Technologies &amp; Stack">
 
 <div class="project-text">
 
@@ -718,7 +718,7 @@ Component-based pickup/buff system using data assets
 
 ## Links & Resources {.outline-only}
 
-<ProjectPanel icon="🔗" title="Links &amp; Resources">
+<ProjectPanel icon="link" title="Links &amp; Resources">
 
 <div class="project-text">
 

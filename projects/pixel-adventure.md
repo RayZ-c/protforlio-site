@@ -4,7 +4,7 @@ title: Pixel Adventure
 description: A pixel-art top-down action game with two unique boss encounters and persistent gem-collection progression
 ---
 
-<a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
+<a href="../projects/" class="back-projects-button"> ❮❮ All Projects </a>
 
 
 <div class="project-info-row">
@@ -51,7 +51,7 @@ description: A pixel-art top-down action game with two unique boss encounters an
 ## Quick Summary for Recruiters {.outline-only}
 
 
-<ProjectPanel icon="🎯" title="Quick Summary for Recruiters">
+<ProjectPanel icon="target" title="Quick Summary for Recruiters">
 
   <div class="project-text">
     <ul>
@@ -66,7 +66,7 @@ description: A pixel-art top-down action game with two unique boss encounters an
 
 
 ## Game Overview & Gameplay {.outline-only}
-<ProjectPanel icon="🎯" title="Game Overview &amp; Gameplay">
+<ProjectPanel icon="gamepad-2" title="Game Overview &amp; Gameplay">
 
   <p class="project-text">
     Players follow a mysterious gem into a cave system and must defeat two distinct bosses to collect gems to unlock progression. 
@@ -113,7 +113,7 @@ description: A pixel-art top-down action game with two unique boss encounters an
 
 
 ## Architecture & Design Patterns {.outline-only}
-<ProjectPanel icon="🏗️" title="Architecture &amp; Design Patterns">
+<ProjectPanel icon="layers" title="Architecture &amp; Design Patterns">
 
   <div class="project-text">
     <ul>
@@ -129,7 +129,7 @@ description: A pixel-art top-down action game with two unique boss encounters an
 
 
 ## Systems Implemented {.outline-only}
-<ProjectPanel icon="🏗️" title="Systems Implemented">
+<ProjectPanel icon="layers" title="Systems Implemented">
 
   <div class="project-text">
     <ul>

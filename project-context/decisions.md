@@ -252,3 +252,43 @@ Both Uiverse elements are MIT licensed. Their copyright/source notices and the
 full MIT text are in `/THIRD_PARTY_NOTICES.md`; source comments in
 `PageTransition.vue` point there. Do not delete the notice while the copied
 code remains.
+
+---
+
+# Codex continuation decisions - 30 August 2026
+
+## B-1 - Homepage beams use exact token colours, not HSL variants
+**What changed:** beam gradients alternate exact `#ff8c1a` and `#2e62d9` RGB
+values at `0.14-0.32` opacity. Hue jitter and fixed 68% HSL lightness were
+removed.
+**Why:** the old conversion made orange look tan and blue look powdery across
+large blurred areas; the exact accents fit the near-black navy system.
+**To revert:** "restore the softer HSL beam colours" -> restore hue storage and
+the HSLA gradient in `BeamsBackground.vue`. Expect the tan/washed-blue look.
+
+## B-2 - Former scroll speed is the normal beam speed
+**What changed:** idle beam speed is `5-8px/frame` at 30fps. Scroll input adds a
+velocity-sensitive `1.6x-2.8x` multiplier with a fast ramp and smooth release.
+**Why:** Raymond repeatedly asked for clearly visible movement and explicitly
+approved treating the previous boosted pace as idle.
+**To revert:** "make the beams calm again" -> lower `IDLE_SPEED_MIN/MAX`. Keep
+the scroll multiplier, release easing and listener teardown intact.
+
+## P-1 - Projects title, subtitle and Home action form one header row
+**What changed:** `projects/index.md` uses `.projects-page-heading`; the title
+and subtitle are grouped on the left and the Home button is a flex item on the
+right.
+**Why:** the subtitle had an oversized gap below `PROJECTS`, and the independently
+positioned Home button did not align reliably with the heading.
+**To revert:** "restore the old Projects header" -> restore the Markdown
+`# Projects`, separate `.projects-header-row`, and absolute Home anchor. This also
+restores the old spacing problem.
+
+## P-2 - The flexed Home button must remain positioned
+**What changed:** `.projects-page-heading .back-home2-button` is
+`position: relative`, not `static`.
+**Why:** its orange `::after` sweep is absolute. Without a positioned button it
+attaches to the page and creates a giant animated orange wedge.
+**To revert:** there is no useful visual reason to revert this while the
+`::after` sweep exists. If the sweep is removed entirely, `position: static`
+becomes safe again.

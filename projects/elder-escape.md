@@ -4,7 +4,7 @@ title: Cyborg Monkey Endless Runner
 description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featuring a disabled old man in a wheelchair chased by cyborg monkeys.
 ---
 
-<a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
+<a href="../projects/" class="back-projects-button"> ❮❮ All Projects </a>
 
 <div class="project-info-row">
   <div class="project-info-left">
@@ -47,7 +47,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 
 ## Quick Overview {.outline-only}
-<ProjectPanel icon="🎯" title="Quick Summary for Recruiters">
+<ProjectPanel icon="target" title="Quick Summary for Recruiters">
 
 
   <div class="project-text">
@@ -71,7 +71,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 
 ## Team Structure {.outline-only}
-<ProjectPanel icon="🏗️" title="Team Structure">
+<ProjectPanel icon="users" title="Team Structure">
 
 
   <div class="project-text">
@@ -98,7 +98,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 ## 1. Player Movement & Input {.outline-only}
 
-<ProjectPanel icon="🎮" title="Lane System &amp; Controls">
+<ProjectPanel icon="columns-3" title="Lane System &amp; Controls">
 
 <div class="project-text">
 
@@ -120,7 +120,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 ## 2. Difficulty Progression {.outline-only}
 
-<ProjectPanel icon="📈" title="Progressive Difficulty Curve">
+<ProjectPanel icon="trending-up" title="Progressive Difficulty Curve">
 
 <div class="project-text">
 
@@ -142,7 +142,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 ## 3. Procedural Level Generation {.outline-only}
 
-<ProjectPanel icon="🏗️" title="Infinite Level Architecture">
+<ProjectPanel icon="infinity" title="Infinite Level Architecture">
 
 <div class="project-text">
 
@@ -168,7 +168,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 ## 4. Scoring System {.outline-only}
 
-<ProjectPanel icon="🏗️" title="Score System &amp; Persistence">
+<ProjectPanel icon="trophy" title="Score System &amp; Persistence">
 
 <div class="project-text">
 
@@ -192,7 +192,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 ## 5. Audio & Visual Design {.outline-only}
 
-<ProjectPanel icon="🔊" title="Sound Effects &amp; Chaser AI">
+<ProjectPanel icon="volume-2" title="Sound Effects &amp; Chaser AI">
 
 <div class="project-text">
 
@@ -218,7 +218,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 
 ## Blueprint Design Patterns {.outline-only}
-<ProjectPanel icon="🏗️" title="Blueprint Design Patterns">
+<ProjectPanel icon="puzzle" title="Blueprint Design Patterns">
 
 <div class="project-text">
 
@@ -247,7 +247,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 ## Blueprints Breakdown {.outline-only}
 
-<ProjectPanel icon="🏗️" title="Core Blueprints Breakdown">
+<ProjectPanel icon="workflow" title="Core Blueprints Breakdown">
 
 <div class="project-text">
 
@@ -275,7 +275,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 # Extra Notes {.section-title-center data-hx-reveal="true"}
 
 ## Design Decisions {.outline-only}
-<ProjectPanel icon="💡" title="Why These Design Choices?">
+<ProjectPanel icon="lightbulb" title="Why These Design Choices?">
 
 <div class="project-text">
 
@@ -307,7 +307,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 ## Technologies & Stack {.outline-only}
 
-<ProjectPanel icon="⚙️" title="Tools &amp; Technologies">
+<ProjectPanel icon="wrench" title="Tools &amp; Technologies">
 
 <div class="project-text">
 
@@ -329,7 +329,7 @@ description: A 4‑day Unreal Engine 5 endless runner built in Blueprints, featu
 
 ## Links & Resources {.outline-only}
 
-<ProjectPanel icon="🔗" title="Links &amp; Resources">
+<ProjectPanel icon="link" title="Links &amp; Resources">
 
 <div class="project-text">
 

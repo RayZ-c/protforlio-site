@@ -629,6 +629,21 @@ onBeforeUnmount(() => cleanup())
   text-shadow: none;
 }
 
+/* NOTE: the matching rules for the per-character ghosts are NOT here. This
+   block is `<style scoped>`, which Vue compiles to `[data-v-hash]` selectors,
+   and the character spans are created by text-reveal.js at runtime so they
+   never carry that attribute. They live in home-experiment.css instead. */
+
+/* Once text-reveal.js splits the name, the ghosts move DOWN to the individual
+   characters, which each carry their own `data-t`. Without this the ghost of
+   the whole word would hang in place while the letters flew in around it.
+   The line-level pair is switched off in the same breath — leaving both on
+   would paint the word twice. */
+.sr-name.hx-split .sr-line::before,
+.sr-name.hx-split .sr-line::after {
+  content: none;
+}
+
 .sr-line::before {
   color: #ff8c1a;
   animation: sr-jolt-a 3.6s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
@@ -638,6 +653,44 @@ onBeforeUnmount(() => cleanup())
   color: #5797ff;
   animation: sr-jolt-b 3.6s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
 }
+
+/* --------------------------------------------------------------------------
+   Banner entrance
+   --------------------------------------------------------------------------
+   The name assembles per character (text-reveal.js). Everything else in the
+   banner rises in behind it on one staggered beat, so the section arrives as a
+   single composition rather than a headline plus a static block.
+
+   These elements are deliberately NOT split per character: the role line owns
+   an absolutely-positioned word rotator, the chips run their own attract
+   cycle, and the buttons carry the magnet labels. Splitting any of them would
+   break an effect that already works.
+   -------------------------------------------------------------------------- */
+
+/* Uses the standalone `translate` property, NOT `transform`.
+   `.sr-status` is centred with `transform: translateX(-50%)`, and a keyframe
+   that sets `transform` REPLACES that — the pill sat half its own width
+   off-centre for the whole entrance and then snapped back into place when the
+   animation ended and the base transform returned.
+   `translate` composes with `transform` instead of overwriting it, so the
+   centring survives. Same reason it is used for the other three: none of them
+   needs a base transform today, but one added later would break silently. */
+@keyframes sr-banner-in {
+  from { opacity: 0; translate: 0 14px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+.sr-status,
+.sr-role,
+.sr-engines,
+.sr-actions {
+  animation: sr-banner-in 0.62s cubic-bezier(0.16, 0.84, 0.32, 1) backwards;
+}
+
+.sr-status  { animation-delay: 0.05s; }
+.sr-role    { animation-delay: 0.62s; }
+.sr-engines { animation-delay: 0.76s; }
+.sr-actions { animation-delay: 0.9s; }
 
 @keyframes sr-jolt-a {
   0%, 70%, 100% { transform: translate(-3px, 2px); opacity: 0.6; }
@@ -1067,6 +1120,11 @@ onBeforeUnmount(() => cleanup())
 
   .sr-line::before,
   .sr-line::after { display: none; }
+
+  .sr-status,
+  .sr-role,
+  .sr-engines,
+  .sr-actions { animation: none; }
 
   .sr-chapter,
   .sr-chapter-head,

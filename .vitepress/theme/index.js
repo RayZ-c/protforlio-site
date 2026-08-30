@@ -11,6 +11,7 @@ import './custom.css'
 import './components.css'
 import './doc.css'
 import './effects.css'
+import './icons.css'
 
 // ── EXPERIMENTAL HOMEPAGE ────────────────────────────────────────────────────
 // The block below is the only wiring the homepage redesign needs. Delete these
@@ -27,6 +28,8 @@ import HomeTimelineEntry from './components/HomeTimelineEntry.vue'
 import ShowreelHero from './components/ShowreelHero.vue'
 import HeroNameEnergy from './components/HeroNameEnergy.vue'
 import PageTransition from './components/PageTransition.vue'
+import BackgroundField from './components/BackgroundField.vue'
+import BeamsBackground from './components/BeamsBackground.vue'
 // Alternative hero, kept available: swap <ShowreelHero /> for <PortfolioReveal />
 // in index.md to go back to the cursor-brush reveal banner.
 import PortfolioReveal from './components/PortfolioReveal.vue'
@@ -39,6 +42,9 @@ import { setupLazyVideo } from './lazy-video'
 // Cursor spotlight + scroll reveal, for every page (not just the homepage).
 import { setupInteractions } from './interactions'
 
+// Per-character assemble on the big page titles.
+import { setupTextReveal } from './text-reveal'
+
 /** @type {import('vitepress').Theme} */
 export default {
   extends: DefaultTheme,
@@ -46,12 +52,16 @@ export default {
     return h(DefaultTheme.Layout, null, {
       // Fixed route overlay. It is visually global but remains inside the
       // theme tree so it can chain VitePress's navigation hooks safely.
-      'layout-top': () => h(PageTransition)
+      // Order matters: the field paints behind the page, the transition over it.
+      // Two backgrounds, each of which decides for itself whether this route
+      // is its route: beams on the homepage, the signal field everywhere else.
+      'layout-top': () => [h(BeamsBackground), h(BackgroundField), h(PageTransition)]
     })
   },
   enhanceApp({ app, router, siteData }) {
     setupLazyVideo(router)
     setupInteractions(router)
+    setupTextReveal(router)
 
     app.component('ShowreelHero', ShowreelHero)
     app.component('HeroNameEnergy', HeroNameEnergy)

@@ -4,7 +4,7 @@ title: C# Forgiving Movement Framework
 description: A reusable character movement controller with forgiving input mechanics, coyote time, jump buffering, and gravity handling built for rapid game prototyping.
 ---
 
-<a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
+<a href="../projects/" class="back-projects-button"> ❮❮ All Projects </a>
 
 <div class="project-info-row">
   <div class="project-info-left">
@@ -46,7 +46,7 @@ description: A reusable character movement controller with forgiving input mecha
 
 ## Quick Overview {.outline-only}
 
-<ProjectPanel icon="🎯" title="Quick Summary for Recruiters">
+<ProjectPanel icon="target" title="Quick Summary for Recruiters">
 
   <div class="project-text">
     <ul>
@@ -55,7 +55,7 @@ description: A reusable character movement controller with forgiving input mecha
       <li><strong>Slope handling and ground detection</strong> using reliable raycasting</li>
       <li>Modular architecture with <strong>parameter-driven design</strong> (no magic numbers)</li>
       <li>Drop into any project, configure in inspector, ship in days</li>
-      <li>Used as foundation for <strong2><a href='/protforlio-site/projects/path-to-power' >Path to Power</a></strong2> combat systems</li>
+      <li>Used as foundation for <strong><a href="/protforlio-site/projects/path-to-power">Path to Power</a></strong> combat systems</li>
     </ul>
   </div>
 
@@ -64,7 +64,7 @@ description: A reusable character movement controller with forgiving input mecha
 
 ## Core Philosophy {.outline-only}
 
-<ProjectPanel icon="💡" title="Core Philosophy">
+<ProjectPanel icon="lightbulb" title="Core Philosophy">
 
 <div class="project-text">
 
@@ -85,7 +85,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 ## Technical Highlights {.outline-only}
 
-<ProjectPanel icon="⚙️" title="Technical Highlights">
+<ProjectPanel icon="settings" title="Technical Highlights">
 
 <div class="project-text">
 
@@ -110,7 +110,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 ## 1. Forgiving Input Mechanics {.outline-only}
 
-<ProjectPanel icon="🎮" eyebrow="Input" title="Jump Buffer &amp; Coyote Time">
+<ProjectPanel icon="timer" eyebrow="Input" title="Jump Buffer &amp; Coyote Time">
 
 <!-- MOVEMENT MEDIA CAROUSEL (fm-move-*) -->
 <MediaCarousel data-hx-reveal id="fm-move-media" :slides="[
@@ -122,7 +122,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 **What you're seeing:** A player who *can't* miss a jump due to bad timing—input windows are large enough to be forgiving, small enough to feel responsive.
 
-<ProjectPanel variant="mini" title="Jump Buffer">
+<ProjectPanel icon="arrow-up" variant="mini" title="Jump Buffer">
 
   <div class="mini-panel-body">
 
@@ -134,7 +134,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
   </div>
 </ProjectPanel>
 
-<ProjectPanel variant="mini" title="Coyote Time">
+<ProjectPanel icon="timer" variant="mini" title="Coyote Time">
 
   <div class="mini-panel-body">
 
@@ -152,7 +152,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 - Coyote **alone**: Punishes predictive players (feels cheap)
 - **Together**: Both playstyles work, game feels fair
 
-<ProjectPanel variant="mini" title="Implementation">
+<ProjectPanel icon="code-xml" variant="mini" title="Implementation">
 
   <div class="mini-panel-body">
 
@@ -181,7 +181,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 ## 2. Ground Detection {.outline-only}
 
-<ProjectPanel icon="🎮" eyebrow="Physics" title="Reliable Ground Detection">
+<ProjectPanel icon="radar" eyebrow="Physics" title="Reliable Ground Detection">
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
 <MediaCarousel data-hx-reveal id="fm-ground-media" :slides="[
@@ -194,7 +194,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 **The Solution: Capsule Raycasting**
 
-<ProjectPanel variant="mini" title="Implementation">
+<ProjectPanel icon="code-xml" variant="mini" title="Implementation">
 
   <div class="mini-panel-body">
 
@@ -228,7 +228,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 ## 3. Physics Tuning {.outline-only}
 
-<ProjectPanel icon="🎮" eyebrow="Physics" title="Variable Gravity &amp; Acceleration">
+<ProjectPanel icon="arrow-down-to-line" eyebrow="Physics" title="Variable Gravity &amp; Acceleration">
 
 
 <!-- GROUND MEDIA CAROUSEL (fm-ground-*) -->
@@ -242,7 +242,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 
 
-<ProjectPanel variant="mini" title="Implementation">
+<ProjectPanel icon="code-xml" variant="mini" title="Implementation">
 
   <div class="mini-panel-body">
 
@@ -268,7 +268,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 **Acceleration Curves (Smooth Ramp-Up):**
 
 
-<ProjectPanel variant="mini" title="Implementation">
+<ProjectPanel icon="code-xml" variant="mini" title="Implementation">
 
   <div class="mini-panel-body">
 
@@ -291,7 +291,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 **Parameter-Driven:**
 
 
-<ProjectPanel variant="mini" title="Implementation">
+<ProjectPanel icon="code-xml" variant="mini" title="Implementation">
 
   <div class="mini-panel-body">
 
@@ -324,7 +324,7 @@ Every system is built to answer: *"How do we make movement feel fair?"*
 
 ## Architecture Overview {.outline-only}
 
-<ProjectPanel icon="🎯" title="Architecture Overview - Modular Component System">
+<ProjectPanel icon="layers" title="Architecture Overview - Modular Component System">
 
 <div class="project-text">
 
@@ -374,7 +374,7 @@ Linear, clear, testable.
 
 ## 1. Movement Core {.outline-only}
 
-<ProjectPanel icon="🏗️" title="System 1: Character Movement">
+<ProjectPanel icon="footprints" title="System 1: Character Movement">
 
 <div class="project-text">
 
@@ -444,7 +444,7 @@ Tiny. Effective. Tunable.
 
 ## 2. Ground Detection {.outline-only}
 
-<ProjectPanel icon="🏗️" title="System 2: Ground Detection">
+<ProjectPanel icon="radar" title="System 2: Ground Detection">
 
 <div class="project-text">
 
@@ -500,7 +500,7 @@ Slopes feel natural, don't stick where they shouldn't.
 
 ## 3. Input Handling {.outline-only}
 
-<ProjectPanel icon="🏗️" title="System 3: Side-Scroller Controller">
+<ProjectPanel icon="move-horizontal" title="System 3: Side-Scroller Controller">
 
 <div class="project-text">
 
@@ -548,7 +548,7 @@ if (moveInput != 0)
 
 ## When to Use This Framework {.outline-only}
 
-<ProjectPanel icon="🎮" title="When to Use This Framework">
+<ProjectPanel icon="compass" title="When to Use This Framework">
 
 <div class="project-text">
 
@@ -569,7 +569,7 @@ if (moveInput != 0)
 
 ## Framework Implementation {.outline-only}
 
-<ProjectPanel icon="🏗️" title="Framework vs. Game-Specific Implementation">
+<ProjectPanel icon="git-compare" title="Framework vs. Game-Specific Implementation">
 
 <div class="project-text">
 
@@ -601,7 +601,7 @@ The framework handles the *foundation*. You handle the *flavor*.
 
 ## Technologies & Stack {.outline-only}
 
-<ProjectPanel icon="⚙️" title="Technologies &amp; Stack">
+<ProjectPanel icon="wrench" title="Technologies &amp; Stack">
 
 <div class="project-text">
 
@@ -619,12 +619,12 @@ The framework handles the *foundation*. You handle the *flavor*.
 
 ## Links & Resources {.outline-only}
 
-<ProjectPanel icon="🔗" title="Links &amp; Resources">
+<ProjectPanel icon="link" title="Links &amp; Resources">
 
 <div class="project-text">
 
 - **GitHub:** [Not available yet]
-- **Used In:** <a href='/protforlio-site/projects/path-to-power' >Path to Power</a>
+- **Used In:** [Path to Power](/projects/path-to-power)
 - **Live Demo:** [Not available yet]
 - **Documentation:** Included in codebase
 

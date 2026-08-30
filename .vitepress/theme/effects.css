@@ -87,8 +87,8 @@
 .back-projects-button,
 .projects-toggle-filters,
 .view-all-button {
-  /* NOT `position: relative` — .back-home2-button is absolutely positioned in
-     custom.css, and overriding that dropped it into the flow on top of the
+  /* NOT `position: relative` — both back links are absolutely positioned in
+     custom.css, and overriding that dropped them into the flow on top of the
      page heading. The sweep only needs a positioned ancestor, which absolute
      already provides. */
   overflow: hidden;
@@ -137,13 +137,17 @@
   border-color: var(--hx-orange);
 }
 
-/* Same reason: the doc link underline-sweep must not apply to buttons. */
+/* Same reason, for the resting state: the doc link underline-sweep must not
+   apply to buttons, and `.vp-doc a`'s brand colour must not either — it turned
+   the back link orange on a doc page while the identical button on the
+   projects index (no .vp-doc ancestor) stayed ink. */
 .vp-doc :where(p, li) a.back-home2-button,
 .vp-doc a.back-home2-button,
 .vp-doc a.back-projects-button,
 .vp-doc a.view-all-button {
   background-image: none;
   text-decoration: none;
+  color: var(--hx-ink);
 }
 
 .back-home2-button:hover::after,
@@ -210,15 +214,9 @@
   to   { opacity: 1; transform: none; }
 }
 
-/* The section icon leans in when open or hovered. */
-.hx-panel-icon {
-  transition: transform var(--hx-mid) var(--hx-ease);
-}
-
-.hx-panel[open] .hx-panel-icon,
-.hx-panel-head:hover .hx-panel-icon {
-  transform: scale(1.15);
-}
+/* The section icon's hover/open motion lives in icons.css: it animates a part
+   of each glyph rather than scaling the whole thing, which is what the generic
+   scale() that used to be here did. */
 
 /* --------------------------------------------------------------------------
    7. Filter chips — the hero engine-chip treatment, reused
@@ -434,7 +432,6 @@
   .project-card::before,
   .hx-tag,
   .hx-carousel-tab::after,
-  .hx-panel-icon,
   .projects-tag-button,
   .projects-tag-button::before,
   .projects-tag-button::after,
@@ -463,10 +460,10 @@
 }
 
 /* These two are static in the flow, so they need their own containing block
-   for the sweep pseudo-element. .back-home2-button already has one. */
+   for the sweep pseudo-element. Both back links are absolutely positioned in
+   custom.css, which already provides one. */
 .projects-toggle-filters,
-.view-all-button,
-.back-projects-button {
+.view-all-button {
   position: relative;
   z-index: 0;
 }
@@ -490,3 +487,100 @@
    The cards appear instantly and the hover carries the motion. Filtering is
    the interaction here, and it should feel immediate rather than choreographed.
    -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Signal field background
+   --------------------------------------------------------------------------
+   The canvas is fixed to the viewport and sits behind everything. Two things
+   are needed to make that actually work:
+
+   1. VitePress paints `--vp-c-bg` on its own layout wrapper, which would cover
+      a canvas placed behind it. The wrapper's background is made transparent
+      and the base colour moves to `html`, so there is exactly one opaque
+      surface and the canvas can sit between it and the content.
+   2. `.VPContent` and the nav need a stacking context above the canvas, or
+      the field paints over the page.
+
+   `pointer-events: none` matters more than it looks: without it the canvas
+   would swallow every click and hover on the site.
+   -------------------------------------------------------------------------- */
+
+html {
+  background: var(--hx-bg);
+}
+
+.hx-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* Full-bleed rather than masked to the gutters: the field reads as the
+     page's ground, and cards and panels have their own surfaces, so it shows
+     BETWEEN them, which is where it looks intentional.
+
+     The one place it needs restraint is the top, where it would compete with
+     the fixed navbar. */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 120px);
+          mask-image: linear-gradient(180deg, transparent 0, #000 120px);
+}
+
+/* The layout is transparent so the field shows; the content sits above it. */
+.Layout { background: transparent; }
+
+.VPNav,
+.VPLocalNav,
+.VPContent,
+.VPFooter {
+  position: relative;
+  z-index: 1;
+}
+
+/* NOTE: on the homepage this loses to `:root.hx-home .VPContent` in
+   home-experiment.css (0-2-0 beats 0-1-0 regardless of import order), so the
+   real fix for that page lives there. This rule still matters for every OTHER
+   page, where doc.css's `.VPContent { background: var(--hx-bg); overflow-x:
+   clip }` is the same specificity and would otherwise win on import order. */
+.VPContent {
+  background: transparent;
+}
+
+
+/* --------------------------------------------------------------------------
+   Beams background — homepage
+   --------------------------------------------------------------------------
+   Sits in the same layer as the signal field on interior pages. It needs no
+   scroll handling to stay clear of the showreel: `.sr-hero` is opaque and
+   exactly one viewport tall, so it covers the canvas while it is on screen and
+   uncovers it as it scrolls away.
+   -------------------------------------------------------------------------- */
+
+.hx-beams {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* A little extra softening on top of the low-resolution render. Cheap: it is
+     a single composited filter on one element, not a per-draw canvas filter. */
+  filter: blur(14px);
+  opacity: 1;
+}
+
+/* NOTE: `.hx-root` is made transparent in home-experiment.css, not here.
+   That file is imported AFTER this one, so an override written here would lose
+   the tie on load order. */
+
+/* NOTE: `.hx-section--band` is made translucent in home-experiment.css, not
+   here — same reason as `.hx-root` above. home-experiment.css imports LAST, so
+   an override written here loses the tie every time. This was found by
+   testing, not guessed: the first cut of this rule sat right here and simply
+   never took effect, which is why the beams were invisible behind every
+   section on a first look. */
+
+@media (prefers-reduced-motion: reduce) {
+  /* The single static frame is kept — it is texture, not motion. */
+  .hx-beams { opacity: 0.4; }
+}

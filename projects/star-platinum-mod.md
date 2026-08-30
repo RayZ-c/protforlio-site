@@ -4,7 +4,7 @@ title: Viral Marvel Rivals Mod (Star Platinum)
 description: Marvel Rivals character mod. 10M+ views. Professional audio design with 154 custom sound effects.
 ---
 
-<a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
+<a href="../projects/" class="back-projects-button"> ❮❮ All Projects </a>
 
 <div class="project-info-row">
   <div class="project-info-left">
@@ -43,7 +43,7 @@ description: Marvel Rivals character mod. 10M+ views. Professional audio design 
 ## Quick Summary {.outline-only}
 
 
-<ProjectPanel icon="🎯" title="Quick Summary">
+<ProjectPanel icon="target" title="Quick Summary">
 
 <div class="project-text">
 
@@ -65,7 +65,7 @@ description: Marvel Rivals character mod. 10M+ views. Professional audio design 
 ## Achievements {.outline-only}
 
 
-<ProjectPanel icon="🎯" title="Achievements">
+<ProjectPanel icon="trophy" title="Achievements">
 
 <div class="project-text">
 
@@ -83,7 +83,7 @@ description: Marvel Rivals character mod. 10M+ views. Professional audio design 
 ## Implementation {.outline-only}
 
 
-<ProjectPanel icon="⚙️" title="Implementation &amp; Optimization">
+<ProjectPanel icon="gauge" title="Implementation &amp; Optimization">
 
 <div class="project-text">
 
@@ -115,7 +115,7 @@ Different sound categories require different loudness profiles for immersion:
 
 ## Links & Resources {.outline-only}
 
-<ProjectPanel icon="🔗" title="Links &amp; Resources">
+<ProjectPanel icon="link" title="Links &amp; Resources">
 
 <div class="project-text">
 

@@ -4,7 +4,7 @@ title: Roblox Combat System Framework
 description: Reusable 5-hit combo + blocking framework for Roblox. Sold to multiple clients. Complete with knockback, block-breaking, heavy attacks, and synchronized feedback.
 ---
 
-<a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
+<a href="../projects/" class="back-projects-button"> ❮❮ All Projects </a>
 
 <div class="project-info-row">
   <div class="project-info-left">
@@ -37,7 +37,7 @@ description: Reusable 5-hit combo + blocking framework for Roblox. Sold to multi
 
 ## Overview {.outline-only}
 
-<ProjectPanel icon="🎯" title="Overview">
+<ProjectPanel icon="target" title="Overview">
 
 <div class="project-text">
 
@@ -57,7 +57,7 @@ Production combat framework designed for reusability across multiple Roblox game
 
 ## Implementation {.outline-only}
 
-<ProjectPanel icon="⚙️" title="Technical Implementation">
+<ProjectPanel icon="settings" title="Technical Implementation">
 
 <div class="project-text">
 
@@ -77,7 +77,7 @@ Production combat framework designed for reusability across multiple Roblox game
 
 ## Why It's Reusable {.outline-only}
 
-<ProjectPanel icon="📈" title="Reusability &amp; Result">
+<ProjectPanel icon="recycle" title="Reusability &amp; Result">
 
 <div class="project-text">
 

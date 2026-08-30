@@ -4,7 +4,7 @@ title: Roblox Combat Moveset Commission
 description: Custom 4-ability + transformation system for Roblox client. All visuals, animations, SFX, and scripts created solo.
 ---
 
-<a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
+<a href="../projects/" class="back-projects-button"> ❮❮ All Projects </a>
 
 <div class="project-info-row">
   <div class="project-info-left">
@@ -37,7 +37,7 @@ description: Custom 4-ability + transformation system for Roblox client. All vis
 
 ## Overview {.outline-only}
 
-<ProjectPanel icon="🎯" title="Overview">
+<ProjectPanel icon="target" title="Overview">
 
 <div class="project-text">
 
@@ -57,7 +57,7 @@ description: Custom 4-ability + transformation system for Roblox client. All vis
 
 ## Implementation {.outline-only}
 
-<ProjectPanel icon="⚙️" title="Technical Implementation">
+<ProjectPanel icon="settings" title="Technical Implementation">
 
 <div class="project-text">
 
@@ -76,7 +76,7 @@ description: Custom 4-ability + transformation system for Roblox client. All vis
 
 ## Links & Resources {.outline-only}
 
-<ProjectPanel icon="🔗" title="Links &amp; Resources">
+<ProjectPanel icon="link" title="Links &amp; Resources">
 
 <div class="project-text">
 

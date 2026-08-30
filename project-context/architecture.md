@@ -19,6 +19,7 @@ job:
 | `theme/components.css` | Styles for components whose content arrives through a slot. |
 | `theme/doc.css` | Long-form case-study page styling. |
 | `theme/effects.css` | Site-wide interaction polish: panel/card sweeps, spotlight surfaces, disclosure motion, focus states and section markers. |
+| `theme/icons.css` | The animated line-icon set: ten keyframe families plus the panel icon and chevron styling. |
 | `theme/home-experiment.css` | The homepage design system. Self-contained and removable. |
 
 `theme/interactions.js` is the JS partner to the CSS layers. It owns the
@@ -49,6 +50,74 @@ Registered in `.vitepress/theme/index.js` and usable directly from Markdown.
 | `ScrollControls` | Two separate scroll-button implementations (the projects index used inline `onclick`). |
 | `HomeExperiment`, `ShowreelHero`, `HomeSection`, `HomeProjectCard`, `HomeTimelineEntry`, `HeroNameEnergy` | The homepage. |
 | `PageTransition` | Global route-change overlay mounted in the VitePress `layout-top` slot. Midnight-sky background, short destination label and four-dot loader. |
+| `HxIcon` | The emoji that used to mark each panel section. Imported directly by `ProjectPanel` rather than registered globally, because nothing in Markdown uses it. |
+
+### Canvas background system
+
+Two mutually exclusive fixed canvases are mounted through the custom Layout's
+`layout-top` slot:
+
+- `BeamsBackground.vue` runs only on `index.md`.
+- `BackgroundField.vue` runs on every non-home route.
+
+Both use `theme/canvas-background.js`, which owns backing-store scaling, the
+frame cap, resize handling, visibility pause, reduced-motion behavior and
+listener teardown. The Layout component persists between VitePress routes, so
+setup is driven by a watcher on `[enabled, canvas]`; `onMounted` is insufficient
+because the canvas itself is conditionally created and destroyed by route.
+
+The beams render at 0.45 scale and 30fps. Their current baseline is `5-8` CSS
+pixels per frame, with a scroll multiplier stored inside the component. The
+scroll listener is passive and is removed together with the canvas runtime.
+The homepage hero is opaque, so it naturally covers the fixed beam canvas for
+the first viewport without a scroll visibility listener.
+
+Background stacking depends on transparent homepage content surfaces. In
+particular, `:root.hx-home .VPContent` in `home-experiment.css` has higher
+specificity than a plain `.VPContent` rule. If the beams unexpectedly disappear,
+inspect the compiled `style.*.css` cascade before adding another override.
+
+### Projects index header
+
+The Projects page heading is raw HTML in `projects/index.md`, not the default
+Markdown heading sequence. `.projects-page-heading` is a flex row containing a
+copy block (`h1` plus `.projects-subtitle`) and `.back-home2-button`.
+
+The Home anchor is `position: relative` even though it participates in flex.
+This is required because the shared orange button sweep in `effects.css` is an
+absolutely positioned `::after`; the positioned anchor contains and clips it.
+Making the anchor static causes the pseudo-element to size against the page and
+paint a large animated orange wedge from the left edge.
+
+### Section icons
+
+`ProjectPanel`'s `icon` prop takes a **Lucide icon name**, not an emoji. Emoji
+were replaced because they render in each platform's own house style, sit at a
+different weight and baseline from the text beside them, cannot take the accent
+colour, and cannot animate. One building-site emoji was also carrying 17
+different sections, which is why the set read as filler.
+
+- **Geometry** is inlined in `theme/icons.js` (Lucide, ISC — see
+  `/THIRD_PARTY_NOTICES.md`). Inlined rather than installed so there is no
+  dependency, no extra request, and — the reason that matters — each glyph's
+  child elements stay individually addressable.
+- **Motion** is in `theme/icons.css`. 45 icons share **ten keyframe families**
+  grouped by what kind of object the icon is (`spin`, `rings`, `draw`, `lift`,
+  `drop`, `nudge`, `glow`, `stack`, `tick`, `slide`, `beat`, `split`). An
+  unlisted icon falls back to `nudge`, which suits anything.
+- Each family animates **one part** of the glyph — the cog's ring, the stack's
+  top layer, the far half of a link — via `:nth-child()`. A whole-glyph
+  `scale()` was what the old emoji hover did, and it is what made it look
+  generic.
+- The trigger is `.hx-panel-head:hover` / `.hx-panel[open]`, i.e. the whole
+  summary row, so the motion also confirms the hit target. `[open]` settles
+  into an end state rather than looping: a case study can have a dozen panels
+  open at once.
+- The `▾` chevron is now the Lucide `chevron-down`, so the row is drawn with one
+  pen. It is explicitly excluded from family animations.
+
+To add an icon: fetch it from `lucide-static`, add its inner elements to
+`ICONS`, and give it a family in `ICON_FAMILY`.
 
 ### MediaCarousel interaction model
 
@@ -146,6 +215,9 @@ The transition contains two MIT-licensed Uiverse elements:
   `https://uiverse.io/kiranmayee-abbireddy/average-insect-70`
 - Four-dot loader by Li-Deheng:
   `https://uiverse.io/Li-Deheng/bright-firefox-37`
+
+The icon geometry is Lucide (ISC), inlined in `theme/icons.js`. Six of those
+icons additionally carry Feather's MIT licence.
 
 The required full notices live in `/THIRD_PARTY_NOTICES.md`.
 

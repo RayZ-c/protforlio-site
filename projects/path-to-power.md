@@ -4,7 +4,7 @@ title: Path to Power
 description: A fast-paced Dragon Ball–inspired 2D action platformer built solo in Unity over 4 weeks, focused on forgiving movement mechanics, multi-layer combat feedback, and declarative C# UI systems.
 ---
 
-<a href="../projects/" class="back-home-button"> ❮❮ All Projects </a>
+<a href="../projects/" class="back-projects-button"> ❮❮ All Projects </a>
 
 <div class="project-info-row">
   <div class="project-info-left">
@@ -47,11 +47,11 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
 
 ## Quick Overview {.outline-only}
 
-<ProjectPanel icon="🎯" title="Quick Summary for Recruiters">
+<ProjectPanel icon="target" title="Quick Summary for Recruiters">
 
   <div class="project-text">
     <ul>
-      <li>4-week solo action platformer built on a <a href='/protforlio-site/projects/forgiving-mechanics' ><strong>reusable movement framework</strong></a></li>
+      <li>4-week solo action platformer built on a <a href="/protforlio-site/projects/forgiving-mechanics"><strong>reusable movement framework</strong></a></li>
       <li>Responsive movement with <strong>forgiving mechanics</strong> (jump buffer, coyote time, variable gravity)</li>
       <li><strong>Multi-layer combat feedback</strong> (VFX + SFX + Camera + Physics + Hit-Stop + UI synchronized)</li>
       <li>Pure <strong>C# UIToolkit HUD</strong> (no UXML, declarative, designer-friendly)</li>
@@ -65,7 +65,7 @@ description: A fast-paced Dragon Ball–inspired 2D action platformer built solo
 
 ## Core Philosophy {.outline-only}
 
-<ProjectPanel icon="💡" title="Core Philosophy">
+<ProjectPanel icon="lightbulb" title="Core Philosophy">
 
 <div class="project-text">
 
@@ -86,7 +86,7 @@ This project demonstrates:
 
 ## Technical Highlights {.outline-only}
 
-<ProjectPanel icon="⚙️" title="Technical Highlights𓆪">
+<ProjectPanel icon="settings" title="Technical Highlights">
 
 <div class="project-text">
 
@@ -111,7 +111,7 @@ This project demonstrates:
 
 ## 1. Movement Framework {.outline-only}
 
-<ProjectPanel icon="🎮" eyebrow="Movement" title="Forgiving Mechanics">
+<ProjectPanel icon="footprints" eyebrow="Movement" title="Forgiving Mechanics">
 
 <!-- MOVEMENT MEDIA CAROUSEL (ptp-move-*) -->
 <MediaCarousel data-hx-reveal id="ptp-move-media" :slides="[
@@ -127,7 +127,7 @@ This project demonstrates:
 
 The movement system uses **three simultaneous input buffers** (jump, dash, attack) to prevent the "one-frame miss" frustration that kills game feel. Combined with forgiving physics (jump buffer window, coyote time, variable gravity), this creates a control scheme that's both snappy AND responsive to player intent.
 
-**Built on the** <a href='/protforlio-site/projects/forgiving-mechanics' >**Forgiving Movement Framework**</a> and expanded here with:
+**Built on the** [**Forgiving Movement Framework**](/projects/forgiving-mechanics) and expanded here with:
 - **Attack momentum preservation** (player momentum smoothly tweens to zero during attack, creating "commitment" feel without losing responsive control)
 - **State priority system** (movement locks during attack endlag, but facing direction remains independent for skill expression)
 - **Dash as action override** (dash cancels any action except enemy stuns, raising skill ceiling through deliberate action economy)
@@ -145,7 +145,7 @@ The movement system uses **three simultaneous input buffers** (jump, dash, attac
 
 ## 2. Combat Feel {.outline-only}
 
-<ProjectPanel icon="🎮" eyebrow="Combat" title="Multi-Layer Feedback">
+<ProjectPanel icon="swords" eyebrow="Combat" title="Multi-Layer Feedback">
 
 <!-- COMBAT MEDIA CAROUSEL (ptp-combat-*) -->
 <MediaCarousel data-hx-reveal id="ptp-combat-media" :slides="[
@@ -178,7 +178,7 @@ Also, every feedback layer's intensity scales per combo step, creates a natural 
 
 
 
-<ProjectPanel variant="mini" eyebrow="Ki &amp; Stamina System" title="Resource Design">
+<ProjectPanel icon="zap" variant="mini" eyebrow="Ki &amp; Stamina System" title="Resource Design">
 
   <div class="mini-panel-body">
 
@@ -205,7 +205,7 @@ Also, every feedback layer's intensity scales per combo step, creates a natural 
 - **Quick ability access:** Instant cooldown reset if held long enough (rewards planning)
 
 
-<ProjectPanel variant="mini" title="The Psychological Layer">
+<ProjectPanel icon="brain" variant="mini" title="The Psychological Layer">
 
   <div class="mini-panel-body">
 
@@ -240,7 +240,7 @@ Also, every feedback layer's intensity scales per combo step, creates a natural 
 
 ## 3. UI System (UIToolKit) {.outline-only}
 
-<ProjectPanel icon="🏗️" eyebrow="UI System" title="UIToolkit">
+<ProjectPanel icon="layout-dashboard" eyebrow="UI System" title="UIToolkit">
 
 
 <!-- UI MEDIA CAROUSEL (ptp-ui-*) -->
@@ -254,7 +254,7 @@ UI & HUD built with **Unity's modern UIElements system**, entirely code-driven f
 - **Designer collaboration** (parameter-driven UI: adjust bar colors, animation speeds, positioning)
 - **Reusability** (E.g: ColorBar, Animation & Menu components all decoupled)
 
-<ProjectPanel variant="mini" title="In-Game HUD (always visible)">
+<ProjectPanel icon="gauge" variant="mini" title="In-Game HUD (always visible)">
 
   <div class="mini-panel-body">
   <MediaCarousel data-hx-reveal id="ptp-hud-media" :slides="[
@@ -271,7 +271,7 @@ UI & HUD built with **Unity's modern UIElements system**, entirely code-driven f
   </div>
 </ProjectPanel>
 
-<ProjectPanel variant="mini" title="Menu Systems">
+<ProjectPanel icon="layout-dashboard" variant="mini" title="Menu Systems">
 
   <div class="mini-panel-body">
   <MediaCarousel data-hx-reveal id="ptp-ui-media" :slides="[
@@ -304,7 +304,7 @@ UI & HUD built with **Unity's modern UIElements system**, entirely code-driven f
 
 ## Architecture Overview {.outline-only}
 
-<ProjectPanel icon="🎯" title="Architecture Overview - Modular Manager Pattern">
+<ProjectPanel icon="layers" title="Architecture Overview - Modular Manager Pattern">
 
 <div class="project-text">
 
@@ -352,7 +352,7 @@ UI & HUD built with **Unity's modern UIElements system**, entirely code-driven f
 
 ## 1. Movement {.outline-only}
 
-<ProjectPanel icon="🏗️" title="System 1: Forgiving Movement">
+<ProjectPanel icon="footprints" title="System 1: Forgiving Movement">
 
 <div class="project-text">
 
@@ -404,7 +404,7 @@ rigidbody.velocity = new Vector2(attackAnimationMomentum.x, rigidbody.velocity.y
 
 ## 2. Combat {.outline-only}
 
-<ProjectPanel icon="🏗️" title="System 2: Combat Sequencing">
+<ProjectPanel icon="swords" title="System 2: Combat Sequencing">
 
 <div class="project-text">
 
@@ -454,7 +454,7 @@ public class ComboAttackData
 
 ## 3. Feedback Synchronization {.outline-only}
 
-<ProjectPanel icon="🏗️" title="System 3: Feedback">
+<ProjectPanel icon="waves" title="System 3: Feedback">
 
 <div class="project-text">
 
@@ -512,7 +512,7 @@ public void ApplyExternalHit(float dmg, float knockback, Vector3 attackerPos,
 
 ## 4. UI System (Declarative) {.outline-only}
 
-<ProjectPanel icon="🏗️" title="System 4: UIToolkit">
+<ProjectPanel icon="layout-dashboard" title="System 4: UIToolkit">
 
 <div class="project-text">
 
@@ -570,7 +570,7 @@ public class ColorBar
 # Extra Notes {.section-title-center data-hx-reveal="true"}
 ## Smart Balancing {.outline-only}
 
-<ProjectPanel icon="📈" title="Smart Balancing Under Deadline">
+<ProjectPanel icon="scale" title="Smart Balancing Under Deadline">
 
 <div class="project-text">
 
@@ -624,7 +624,7 @@ Every tunable value defined in structures:
 
 ## Technologies & Stack {.outline-only}
 
-<ProjectPanel icon="⚙️" title="Technologies &amp; Stack">
+<ProjectPanel icon="wrench" title="Technologies &amp; Stack">
 
 <div class="project-text">
 
@@ -646,7 +646,7 @@ Every tunable value defined in structures:
 
 ## Project Scope {.outline-only}
 
-<ProjectPanel icon="📈" title="Project Scope">
+<ProjectPanel icon="map" title="Project Scope">
 
 <div class="project-text">
 
@@ -663,7 +663,7 @@ Every tunable value defined in structures:
 
 ## Links & Resources {.outline-only}
 
-<ProjectPanel icon="🔗" title="Links &amp; Resources">
+<ProjectPanel icon="link" title="Links &amp; Resources">
 
 <div class="project-text">
 

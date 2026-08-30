@@ -20,7 +20,9 @@ export default defineConfig({
     'api-examples.md',      // VitePress starter leftovers
     'markdown-examples.md',
     'test-project/**',      // separate vite sandbox, not part of the site
-    'README.md'
+    'README.md',
+    'CLAUDE.md',            // agent instructions, not site content
+    'AGENTS.md'
   ],
   description: "Game development portfolio and projects",
 

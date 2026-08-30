@@ -54,3 +54,8 @@ project-context/notify.local.md
 # VitePress SSR scratch output. Regenerated on every build; 151 MB of duplicated
 # video/posters got committed once because this rule was missing.
 .vitepress/.temp
+
+# Raw gameplay capture staging. `npm run media -- <slug>` reads from here and
+# writes the encoded result into public/videos + public/posters. The originals
+# are large and are not needed by the site.
+media-src/

@@ -385,19 +385,47 @@
 
 
 
-.projects-header-row {
+.projects-page-heading {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  margin-bottom: -1rem;
+  gap: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.projects-page-heading-copy {
+  min-width: 0;
+}
+
+.projects-page-heading h1 {
+  margin: 0;
+}
+
+/* Keep the return action on the same visual row as the title instead of
+   positioning it independently from the page content. */
+.projects-page-heading .back-home2-button {
+  /* The orange hover sweep is an absolutely positioned ::after. This button
+     must establish its containing block or that sweep attaches to the whole
+     page and appears as a giant orange wedge along the left edge. */
+  position: relative;
+  flex: 0 0 auto;
+  margin-top: 0.55rem;
 }
 
 .projects-subtitle {
-  margin: 0;
+  margin: 0.45rem 0 0;
   font-size: 0.95rem;
   color: #9ca3af;
+}
+
+@media (max-width: 640px) {
+  .projects-page-heading {
+    gap: 1rem;
+  }
+
+  .projects-page-heading .back-home2-button {
+    margin-top: 0.35rem;
+  }
 }
 .projects-toolbar {
   margin-top: 0.75rem;
@@ -678,60 +706,37 @@ h2.outline-only {
 }
 
 
-.back-home-button {
+/* Back links — one component, two anchor points.
+   The case-study link sits above the title on the left; the projects index
+   link sits on the right. Everything visual (transparent face, orange sweep,
+   uppercase label, focus ring) lives in effects.css §3, so only geometry and
+   placement belong here. */
+.back-projects-button,
+.back-home2-button {
   position: absolute;
-  top: -3rem;
-  left: -1rem;
-  padding: 0.15rem 0.65rem;
-  border-radius: 999px;
-  border: 2px solid rgba(148, 163, 184, 0.6);
-  background: rgba(15, 23, 42, 0.119);
-  color: #e5e7eb;
-  font-size: 0.85rem;
-  text-decoration: none;
   z-index: 20;
   display: inline-flex;
   align-items: center;
   gap: 0.15rem;
+  padding: 0.15rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
 }
 
-.back-home-button:hover {
-  background: rgba(15, 23, 42, 0.119);
-  border-color: var(--vp-c-brand-1);
-  color: #020617;
-    text-decoration: underline;
-}
-
-.back-home-button,
-.back-home-button:link,
-.back-home-button:visited {
-  text-decoration: none;
+/* -3rem clears the fixed navbar and lands the button above the page title. */
+.back-projects-button {
+  top: -3rem;
+  left: -1rem;
 }
 
 .back-home2-button {
-  position: absolute;
   top: 2.5rem;
   right: -1rem;
-  padding: 0.15rem 0.65rem;
-  border-radius: 999px;
-  border: 2px solid rgba(148, 163, 184, 0.6);
-  background: rgba(15, 23, 42, 0.119);
-  color: #e5e7eb;
-  font-size: 0.85rem;
-  text-decoration: none;
-  z-index: 20;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.15rem;
 }
 
-.back-home2-button:hover {
-  background: rgba(15, 23, 42, 0.119);
-  border-color: var(--vp-c-brand-1);
-  color: #020617;
-    text-decoration: underline;
-}
-
+.back-projects-button,
+.back-projects-button:link,
+.back-projects-button:visited,
 .back-home2-button,
 .back-home2-button:link,
 .back-home2-button:visited {

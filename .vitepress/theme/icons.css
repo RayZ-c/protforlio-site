@@ -1,0 +1,446 @@
+/* ==========================================================================
+   ANIMATED LINE ICONS
+   ==========================================================================
+   Motion modelled on lucide-animated.com and heroicons-animated.com. Those are
+   React + Motion; this is the same idea as CSS keyframes, because the site adds
+   no dependencies.
+
+   Two rules shape everything below:
+
+   1. **Animate a part, not the glyph.** Scaling a whole icon on hover is the
+      generic effect that made the old emoji look placeheld. These animations
+      move one element inside the SVG — the cog's ring, the stack's top layer,
+      the far half of a link — which is what makes them read as *that object*
+      doing *its* thing. `icons.js` keeps every child element addressable so
+      `:nth-child()` can reach it.
+
+   2. **One vocabulary, ten families.** 46 icons share ten keyframe sets,
+      grouped by what kind of object they are. A bespoke effect per icon would
+      be 46 things to maintain and would read as noise rather than as a system.
+
+   The trigger is the panel, not the icon: hovering anywhere on the summary row
+   plays it, so the motion confirms the whole row is the hit target. `[open]`
+   holds a settled end state rather than looping — a case study can have a dozen
+   panels open at once, and a dozen looping icons is a distraction.
+   ========================================================================== */
+
+.hx-icon {
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+  overflow: visible; /* several families move a part past the 24×24 box */
+  color: var(--hx-ink-3);
+  transition: color var(--hx-mid) var(--hx-ease),
+              transform var(--hx-mid) var(--hx-ease);
+}
+
+/* Colour is the one thing every icon does, so it lives outside the families.
+   The glyph is grey until the row matters, then it picks up the accent. */
+.hx-panel-head:hover .hx-icon,
+.hx-panel-head:focus-visible .hx-icon,
+.hx-panel[open] .hx-icon {
+  color: var(--hx-orange);
+}
+
+/* Children inherit the icon's transition so a family only has to declare the
+   transform it wants, not the timing. */
+.hx-icon > * {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--hx-mid) var(--hx-ease),
+              opacity var(--hx-mid) var(--hx-ease);
+}
+
+/* --------------------------------------------------------------------------
+   1. spin — settings, refresh-cw, rotate-ccw, recycle
+   The mechanism turns. Cog geometry is a toothed ring plus a hub, so the ring
+   rotates and the hub holds still; a single-element icon just rotates.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--spin > :first-child,
+.hx-panel[open] .hx-icon--spin > :first-child {
+  transform: rotate(90deg);
+}
+
+/* --------------------------------------------------------------------------
+   2. rings — target, radar, infinity
+   Concentric geometry, so the rings breathe outward from the centre in a
+   stagger. Reversed order (outer ring last) makes it read as a pulse leaving
+   the middle rather than the whole shape scaling.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--rings > *,
+.hx-panel[open] .hx-icon--rings > * {
+  animation: hx-icon-ping 0.9s var(--hx-ease);
+}
+
+.hx-panel-head:hover .hx-icon--rings > :nth-child(2),
+.hx-panel[open] .hx-icon--rings > :nth-child(2) { animation-delay: 0.08s; }
+
+.hx-panel-head:hover .hx-icon--rings > :nth-child(1),
+.hx-panel[open] .hx-icon--rings > :nth-child(1) { animation-delay: 0.16s; }
+
+@keyframes hx-icon-ping {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.22); }
+  100% { transform: scale(1); }
+}
+
+/* --------------------------------------------------------------------------
+   3. draw — trending-up, workflow, git-compare, map
+   Line work that means "a path was followed", so the stroke draws itself.
+   1000 is comfortably longer than any 24×24 path, so a single dash covers the
+   whole line and the offset can slide it on without measuring each one.
+   -------------------------------------------------------------------------- */
+
+.hx-icon--draw > * {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+}
+
+.hx-panel-head:hover .hx-icon--draw > *,
+.hx-panel[open] .hx-icon--draw > * {
+  animation: hx-icon-draw 1.1s var(--hx-ease);
+}
+
+.hx-panel-head:hover .hx-icon--draw > :nth-child(2),
+.hx-panel[open] .hx-icon--draw > :nth-child(2) { animation-delay: 0.1s; }
+
+.hx-panel-head:hover .hx-icon--draw > :nth-child(3),
+.hx-panel[open] .hx-icon--draw > :nth-child(3) { animation-delay: 0.2s; }
+
+@keyframes hx-icon-draw {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   4. lift — arrow-up, trophy, award
+   Something raised or won: it hops and settles.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--lift,
+.hx-panel[open] .hx-icon--lift {
+  animation: hx-icon-lift 0.6s var(--hx-ease);
+}
+
+@keyframes hx-icon-lift {
+  0%   { transform: translateY(0); }
+  35%  { transform: translateY(-3px); }
+  60%  { transform: translateY(1px); }
+  100% { transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   5. drop — arrow-down-to-line
+   The inverse, for gravity. Ends hard against the line rather than easing, so
+   it lands instead of floating.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--drop > :first-child,
+.hx-panel[open] .hx-icon--drop > :first-child {
+  animation: hx-icon-drop 0.65s cubic-bezier(0.5, 0, 0.75, 0);
+}
+
+@keyframes hx-icon-drop {
+  0%   { transform: translateY(-4px); opacity: 0.4; }
+  70%  { transform: translateY(0); opacity: 1; }
+  85%  { transform: translateY(-1px); }
+  100% { transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   6. nudge — gamepad-2, swords, volume-2, waves, and the fallback
+   A short tilt. Deliberately the default: it suits almost anything and never
+   looks wrong, so an icon added later without a family still behaves.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--nudge,
+.hx-panel[open] .hx-icon--nudge {
+  animation: hx-icon-nudge 0.55s var(--hx-ease);
+}
+
+@keyframes hx-icon-nudge {
+  0%   { transform: rotate(0); }
+  30%  { transform: rotate(-8deg); }
+  65%  { transform: rotate(5deg); }
+  100% { transform: rotate(0); }
+}
+
+/* --------------------------------------------------------------------------
+   7. glow — lightbulb, zap, sparkles, flag
+   Things that emit. Brightness plus a small scale, so it reads as switching on
+   rather than as moving.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--glow,
+.hx-panel[open] .hx-icon--glow {
+  animation: hx-icon-glow 0.85s var(--hx-ease);
+}
+
+@keyframes hx-icon-glow {
+  0%   { filter: none; transform: scale(1); }
+  40%  { filter: drop-shadow(0 0 5px var(--hx-orange)); transform: scale(1.12); }
+  100% { filter: none; transform: scale(1); }
+}
+
+/* --------------------------------------------------------------------------
+   8. stack — layers, boxes, blocks, database, save, columns-3,
+              layout-dashboard
+   Composed of parts, so the parts separate briefly and come back — the visual
+   equivalent of "this is made of modules", which is the point of every section
+   that uses one.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--stack > :nth-child(1),
+.hx-panel[open] .hx-icon--stack > :nth-child(1) {
+  transform: translateY(-2px);
+}
+
+.hx-panel-head:hover .hx-icon--stack > :nth-child(3),
+.hx-panel[open] .hx-icon--stack > :nth-child(3) {
+  transform: translateY(2px);
+}
+
+.hx-panel-head:hover .hx-icon--stack > :nth-child(2),
+.hx-panel[open] .hx-icon--stack > :nth-child(2) {
+  transform: scale(1.06);
+}
+
+/* --------------------------------------------------------------------------
+   9. tick — timer, gauge, scale, compass
+   Instruments. The needle (always the last element in these four) swings and
+   settles; the dial stays put, which is what sells it as a reading.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--tick > :last-child,
+.hx-panel[open] .hx-icon--tick > :last-child {
+  animation: hx-icon-tick 0.75s var(--hx-ease);
+}
+
+@keyframes hx-icon-tick {
+  0%   { transform: rotate(0); }
+  40%  { transform: rotate(22deg); }
+  70%  { transform: rotate(-8deg); }
+  100% { transform: rotate(0); }
+}
+
+/* --------------------------------------------------------------------------
+   10. slide — move-horizontal, footprints, code-xml
+   Lateral pairs. The two sides travel apart and return.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--slide > :first-child,
+.hx-panel[open] .hx-icon--slide > :first-child {
+  transform: translateX(-2px);
+}
+
+.hx-panel-head:hover .hx-icon--slide > :last-child,
+.hx-panel[open] .hx-icon--slide > :last-child {
+  transform: translateX(2px);
+}
+
+/* --------------------------------------------------------------------------
+   11. beat — heart-pulse, brain, cpu, users
+   Alive or thinking. A double beat, because a single scale reads as a button
+   press rather than as a pulse.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--beat,
+.hx-panel[open] .hx-icon--beat {
+  animation: hx-icon-beat 0.8s var(--hx-ease);
+}
+
+@keyframes hx-icon-beat {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.15); }
+  40%  { transform: scale(1); }
+  60%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* --------------------------------------------------------------------------
+   12. split — link, puzzle, wrench, file-code
+   Two halves that join. They pull apart on the diagonal, which suggests the
+   join is a real connection rather than one shape.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-head:hover .hx-icon--split > :first-child,
+.hx-panel[open] .hx-icon--split > :first-child {
+  transform: translate(-1.5px, -1.5px);
+}
+
+.hx-panel-head:hover .hx-icon--split > :last-child,
+.hx-panel[open] .hx-icon--split > :last-child {
+  transform: translate(1.5px, 1.5px);
+}
+
+/* --------------------------------------------------------------------------
+   Mini panels
+   --------------------------------------------------------------------------
+   Sub-sections are meant to be quieter than the panel containing them, so
+   their icons are smaller and stay a step down in contrast even when open.
+   -------------------------------------------------------------------------- */
+
+.hx-icon--mini {
+  width: 1em;
+  height: 1em;
+  stroke-width: 1.9;
+}
+
+.hx-panel--mini[open] .hx-icon--mini {
+  color: var(--hx-ink-2);
+}
+
+.hx-panel--mini .hx-panel-head:hover .hx-icon--mini {
+  color: var(--hx-orange);
+}
+
+/* --------------------------------------------------------------------------
+   Chevron
+   --------------------------------------------------------------------------
+   Was a "▾" text glyph, which rendered at a different weight and baseline from
+   the line icons beside it. Now the same Lucide stroke, so the whole row is
+   drawn with one pen.
+   -------------------------------------------------------------------------- */
+
+.hx-panel-chevron {
+  flex: none;
+  display: inline-flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--hx-ink-3);
+  transition: transform var(--hx-mid) var(--hx-ease),
+              color var(--hx-fast) var(--hx-ease);
+}
+
+.hx-panel-chevron .hx-icon {
+  width: 100%;
+  height: 100%;
+  color: inherit;
+}
+
+/* The chevron must not inherit a family animation — it already has one job,
+   which is to point at the open state. */
+.hx-panel-head:hover .hx-panel-chevron .hx-icon,
+.hx-panel[open] .hx-panel-chevron .hx-icon {
+  color: inherit;
+  animation: none;
+}
+
+.hx-panel-head:hover .hx-panel-chevron { color: var(--hx-ink-2); }
+
+.hx-panel[open] .hx-panel-chevron {
+  transform: rotate(180deg);
+  color: var(--hx-orange);
+}
+
+.hx-panel--mini .hx-panel-chevron {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------------------------
+   Every family's END state is also its resting state, so dropping the motion
+   loses nothing but the movement — the colour change still marks hover and
+   open, which is the part that carries meaning.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .hx-icon,
+  .hx-icon > *,
+  .hx-panel-chevron {
+    transition: none;
+    animation: none !important;
+  }
+
+  .hx-panel-head:hover .hx-icon > *,
+  .hx-panel[open] .hx-icon > * {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   CHROMATIC TITLE ASSEMBLE
+   ==========================================================================
+   Driven by text-reveal.js, which splits a heading into per-word / per-char
+   spans and hands each character an index (`--i`) and a seeded offset
+   (`--dx`, `--dy`). Everything below is pure CSS from there — no per-frame JS.
+
+   Adapted from ThreeUI's intro wordmark (MIT — see /THIRD_PARTY_NOTICES.md);
+   the RGB fringe is re-cut as an orange/blue split to stay on palette.
+   ========================================================================== */
+
+/* Words are the wrap unit, so a title still breaks between words but never
+   inside one — per-character inline spans would otherwise let it break
+   anywhere. */
+.hx-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hx-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* A split heading is HIDDEN until its turn comes.
+   This was the bug: the resting state used to be the finished state, as a
+   fail-safe. The result was that a heading entering from the bottom of the
+   screen sat there fully painted, and then — once it crossed the observer's
+   trigger line further up — snapped back to scattered and animated in, so the
+   text appeared to arrive twice for no reason.
+   Hiding it up front is the fix. It is safe because this class is only ever
+   added BY the script: with no JS, or with reduced motion, no split happens
+   and the heading is an ordinary text node. `text-reveal.js` also carries a
+   timeout that reveals anything still unrevealed, so a heading can never be
+   left invisible by a missed observer callback. */
+.hx-split .hx-char {
+  opacity: 0;
+}
+
+/* Static opacity for the settled state. The animation below uses `backwards`,
+   which holds the FROM state before it starts but does NOT persist the final
+   one — without this rule each character would animate in and then vanish
+   back to the hidden base. */
+.hx-split.hx-split-in .hx-char {
+  opacity: 1;
+  animation: hx-char-in 0.72s cubic-bezier(0.16, 0.84, 0.32, 1) backwards;
+  animation-delay: calc(var(--i) * 26ms);
+}
+
+@keyframes hx-char-in {
+  from {
+    opacity: 0;
+    transform: translate(calc(var(--dx) * 0.5em), calc(var(--dy) * 0.28em)) scale(1.24);
+    /* The colour fringe is widest while the character is furthest from home
+       and collapses to nothing as it lands — the same idea as a lens's
+       chromatic aberration falling off toward the centre. */
+    text-shadow:
+      -0.09em 0 rgba(255, 140, 26, 0.85),
+       0.09em 0 rgba(87, 151, 255, 0.8);
+    filter: blur(3px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0.6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+    text-shadow: none;
+    filter: blur(0);
+  }
+}
+
+/* `backwards` fill holds the from-state during the stagger delay, so a
+   character waiting its turn is invisible rather than briefly solid. It must
+   NOT be `both`: a forwards fill would pin the final transform permanently and
+   beat any hover or aura effect on the same heading — the trap already
+   documented in effects.css. */
+
+@media (prefers-reduced-motion: reduce) {
+  .hx-split.hx-split-in .hx-char { animation: none; }
+}

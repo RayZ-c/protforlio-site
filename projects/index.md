@@ -172,16 +172,16 @@ const replay = (event) => {
 
 
 
-<a href="/protforlio-site/" class="back-home2-button"> ❮❮ Home </a>
-
 <a id="top"></a>
 
-# Projects
-
-<div class="projects-header-row">
-  <p class="projects-subtitle">
+<div class="projects-page-heading">
+  <div class="projects-page-heading-copy">
+    <h1>Projects</h1>
+    <p class="projects-subtitle">
     Browse all projects. Use the search and tags below to filter.
-  </p>
+    </p>
+  </div>
+  <a href="/protforlio-site/" class="back-home2-button"> ❮❮ Home </a>
 </div>
 
 ---

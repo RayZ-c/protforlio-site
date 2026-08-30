@@ -70,24 +70,8 @@
   min-width: 0;
 }
 
-.hx-panel-icon {
-  flex: none;
-  font-size: 1.15em;
-  line-height: 1;
-}
-
-.hx-panel-chevron {
-  flex: none;
-  font-size: 1.6rem;
-  line-height: 1;
-  color: var(--hx-ink-3);
-  transition: transform var(--hx-mid) var(--hx-ease), color var(--hx-fast) var(--hx-ease);
-}
-
-.hx-panel[open] .hx-panel-chevron {
-  transform: rotate(180deg);
-  color: var(--hx-orange);
-}
+/* .hx-panel-icon / .hx-panel-chevron are styled in icons.css, beside the
+   animations that drive them. */
 
 .hx-panel-body {
   padding: 0 var(--hx-4) var(--hx-4);
@@ -115,8 +99,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hx-panel,
-  .hx-panel-head,
-  .hx-panel-chevron { transition: none; }
+  .hx-panel-head { transition: none; }
 }
 
 /* Category label before a panel title (e.g. "Movement" in
@@ -148,8 +131,6 @@
   padding: var(--hx-3);
   font-size: 1.0625rem;
 }
-
-.hx-panel--mini .hx-panel-chevron { font-size: 1.05rem; }
 
 .hx-panel--mini .hx-panel-body {
   padding: var(--hx-3);
