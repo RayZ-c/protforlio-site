@@ -69,7 +69,7 @@ this portfolio.
 
 | English | zh-Hans | zh-Hant (TW) |
 |---|---|---|
-| Gameplay Programmer | 游戏玩法程序员 | 遊戲程式設計師 |
+| Gameplay Programmer | 游戏玩法程序员 | 遊戲玩法工程師 |
 | Game Developer | 游戏开发者 | 遊戲開發者 |
 | Lead Programmer | 主程序 | 主程式 |
 | Freelance / commission work | 外包 / 委托开发 | 接案 / 委託開發 |

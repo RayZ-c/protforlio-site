@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Raymond Cheng — 遊戲程式設計師
+title: Raymond Cheng — 遊戲玩法工程師
 description: 使用 Unity、虛幻引擎 5 與 Roblox 的遊戲程式與系統開發者。戰鬥系統、遊戲手感，以及已完成的專案。
 # markdownStyles:false hands full layout control to the experimental homepage
 # components instead of the default VitePress `.vp-doc` prose styling.
@@ -77,7 +77,7 @@ import { withBase } from 'vitepress'
 <HomeSection
   id="about"
   eyebrow="關於我"
-  title="遊戲程式設計師 · 專精戰鬥系統"
+  title="遊戲玩法工程師 · 專精戰鬥系統"
   band
 >
   <div class="hx-about">
@@ -124,7 +124,7 @@ import { withBase } from 'vitepress'
   <div class="hx-timeline">
     <HomeTimelineEntry
       period="2021 年 12 月 — 至今"
-      role="Roblox 遊戲程式設計師（接案）"
+      role="Roblox 遊戲玩法工程師（接案）"
       org="遠端"
       meta="Roblox 委託專案"
       :tags="['Roblox Studio', 'Lua', '戰鬥系統', '特效/音效']"

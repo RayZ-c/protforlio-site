@@ -620,7 +620,9 @@ character conversion as a translation method.
 - Program, source code, and script are separate concepts:
   `程序 / 代码 / 脚本` (CN), `程式 / 程式碼 / 腳本` (TW).
 - The recruiter-facing role is `游戏玩法程序员` in CN and
-  `遊戲程式設計師` in Taiwan Traditional.
+  `遊戲玩法工程師` in Taiwan Traditional. Raymond chose `工程師` deliberately
+  so the role reads immediately as technical while retaining the gameplay
+  specialization; do not revert it to the broader `遊戲程式設計師`.
 - Keep the searchable English term on first use and add a short explanation:
   `Coyote Time（跳跃宽限／跳躍寬限）` and
   `Hit Stop（命中停顿／命中停頓）`. Later uses may use the Chinese short form.

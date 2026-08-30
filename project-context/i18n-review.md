@@ -64,7 +64,7 @@ translation or editorial method.
 
 | Concept | Simplified | Taiwan Traditional | Reason |
 |---|---|---|---|
-| Gameplay Programmer | 游戏玩法程序员 | 遊戲程式設計師 | Clear to recruiters; both are supported by real industry usage. |
+| Gameplay Programmer | 游戏玩法程序员 | 遊戲玩法工程師 | Keeps the gameplay specialization explicit and makes the technical role immediately unmistakable to Taiwan readers. |
 | program / code / script | 程序 / 代码 / 脚本 | 程式 / 程式碼 / 腳本 | They are different concepts and must not share one glossary row. |
 | coyote time | Coyote Time（跳跃宽限） | Coyote Time（跳躍寬限） | Keeps the searchable term and explains it without the opaque literal “土狼时间.” |
 | hit stop | Hit Stop（命中停顿） | Hit Stop（命中停頓） | `顿帧` can sound like an accidental stutter; the new term states the intent. |
